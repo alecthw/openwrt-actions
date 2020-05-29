@@ -1,0 +1,64 @@
+# Log File
+*.log
+
+
+# Backup
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+
+
+# Jetbrains
+*.iml
+*.ipr
+*.iws
+.idea/
+
+
+# VSCode
+.vscode
+.history/
+*.vsix
+
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*

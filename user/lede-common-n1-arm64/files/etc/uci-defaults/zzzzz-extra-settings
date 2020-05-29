@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# shadowsocksr
+if [ -f "/etc/config/shadowsocksr" ]; then
+    uci set shadowsocksr.@global[0].pdnsd_enable='0'
+    uci delete shadowsocksr.@global[0].tunnel_forward
+    uci commit shadowsocksr
+fi
+
+# mosdns
+if [ -f "/etc/config/mosdns" ]; then
+    uci set mosdns.config.enabled='1'
+    # uci set mosdns.config.redirect='1'
+    uci commit mosdns
+fi
+
+uci commit
+
+exit 0

@@ -1,0 +1,133 @@
+
+config smartdns
+	option server_name 'smartdns'
+	option tcp_server '0'
+	option ipv6_server '0'
+	option dualstack_ip_selection '0'
+	option prefetch_domain '1'
+	option serve_expired '0'
+	option cache_size '5000'
+	option auto_set_dnsmasq '0'
+	option force_aaaa_soa '1'
+	option force_https_soa '1'
+	option rr_ttl_min '10'
+	option rr_ttl_max '600'
+	option seconddns_port '6553'
+	option seconddns_no_speed_check '0'
+	option seconddns_no_rule_addr '0'
+	option seconddns_no_rule_nameserver '0'
+	option seconddns_no_rule_ipset '0'
+	option seconddns_no_rule_soa '0'
+	option seconddns_no_dualstack_selection '0'
+	option seconddns_no_cache '0'
+	option seconddns_force_aaaa_soa '0'
+	option coredump '0'
+	option enable_auto_update '0'
+	option seconddns_tcp_server '0'
+	option speed_check_mode 'ping,tcp:443,tcp:80'
+	option resolve_local_hostnames '0'
+	option enabled '0'
+	option port '6054'
+	option old_port '6054'
+	option old_enabled '1'
+	option old_auto_set_dnsmasq '0'
+
+config domain-rule
+	option no_speed_check '0'
+	option force_aaaa_soa '0'
+
+config server
+	option name 'ali_doh'
+	option ip 'https://223.5.5.5/dns-query'
+	option type 'https'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'ali_dot'
+	option ip '223.5.5.5'
+	option type 'tls'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'dnspod_doh'
+	option ip 'https://doh.pub/dns-query'
+	option type 'https'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'dnspod_dot'
+	option ip 'dot.pub'
+	option type 'tls'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name '360_doh'
+	option ip 'https://doh.360.cn/dns-query'
+	option type 'https'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name '360_dot'
+	option ip 'dot.360.cn'
+	option type 'tls'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'google_doh'
+	option ip 'https://dns.google/dns-query'
+	option type 'https'
+	option server_group 'us'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'google_dot'
+	option ip '8.8.8.8'
+	option type 'tls'
+	option server_group 'us'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'google_dot2'
+	option ip '8.8.4.4'
+	option type 'tls'
+	option server_group 'us'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'Quad9_doh'
+	option ip 'https://dns.quad9.net/dns-query'
+	option type 'https'
+	option server_group 'us'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'Quad9_dot'
+	option ip '9.9.9.9'
+	option type 'tls'
+	option server_group 'us'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'opendns_doh'
+	option ip 'https://doh.opendns.com/dns-query'
+	option type 'https'
+	option server_group 'us'
+	option blacklist_ip '0'
+	option enabled '1'
