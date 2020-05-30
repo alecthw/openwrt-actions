@@ -46,8 +46,8 @@ jobs:
     - name: Replace pkg url
       run: cd openwrt && sed -i "s@src-git lienol https://github.com/Lienol/openwrt-package@src-git lienol https://github.com/alecthw/openwrt-package.git@g" feeds.conf.default
 
-    - name: Add openclash
-      run: cd openwrt && echo "" >> feeds.conf.default && echo "src-git openclash https://github.com/vernesong/OpenClash;master" >> feeds.conf.default
+    # - name: Add openclash
+    #   run: cd openwrt && echo "" >> feeds.conf.default && echo "src-git openclash https://github.com/vernesong/OpenClash;master" >> feeds.conf.default
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -55,19 +55,19 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Install po2lmo
-      run: cd openwrt/feeds/openclash/luci-app-openclash/tools/po2lmo && make && sudo -E make install
+    # - name: Install po2lmo
+    #   run: cd openwrt/feeds/openclash/luci-app-openclash/tools/po2lmo && make && sudo -E make install
 
-    - name: Replace Country.mmdb url
-      run: |
-          cd openwrt
-          sed -i "s@https://geolite.clash.dev/Country.mmdb@http://www.ideame.top/mmdb/Country.mmdb@g" feeds/openclash/luci-app-openclash/files/usr/share/openclash/openclash_ipdb.sh
+    # - name: Replace Country.mmdb url
+    #   run: |
+    #       cd openwrt
+    #       sed -i "s@https://geolite.clash.dev/Country.mmdb@http://www.ideame.top/mmdb/Country.mmdb@g" feeds/openclash/luci-app-openclash/files/usr/share/openclash/openclash_ipdb.sh
 
     - name: Custom configure file
       run: |
           cd openwrt
           rm -f .config
-          cp ../openwrt-config/x64-1907-clash .config
+          cp ../openwrt-config/x64-1907 .config
           
     - name: Make Defconfig
       run: |
