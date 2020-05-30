@@ -20,6 +20,5 @@ Build OpenWRT with github actions!
 ### Include Apps
 
 - passwall
-- openclash
 - udpxy
 - openssl-sftp-server
