@@ -6,10 +6,12 @@ Build OpenWRT with github actions!
 
 ![X64-LEDE](https://github.com/alecthw/openwrt-actions/workflows/X64-LEDE/badge.svg)
 
-### Include Apps
+[code](https://github.com/coolsnowwolf/lede)
 
-- passwall
+### Add additional apps
+
 - openclash
+- passwall
 - udpxy
 - openssl-sftp-server
 
@@ -17,7 +19,11 @@ Build OpenWRT with github actions!
 
 ![X64-1907](https://github.com/alecthw/openwrt-actions/workflows/X64-1907/badge.svg)
 
-### Include Apps
+[code](https://github.com/Lienol/openwrt)
+
+Copy action from [Lienol's Actions](https://github.com/Lienol/openwrt-actions)
+
+### Add additional apps
 
 - passwall
 - udpxy
