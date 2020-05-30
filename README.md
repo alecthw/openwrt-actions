@@ -1,12 +1,12 @@
 # OpenWRT Actions
 
-Build OpenWRT with github actions!
+Build OpenWRT using github actions!
 
 ## LEDE x64
 
 ![X64-LEDE](https://github.com/alecthw/openwrt-actions/workflows/X64-LEDE/badge.svg)
 
-[code](https://github.com/coolsnowwolf/lede)
+Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 ### Add additional apps
 
@@ -19,7 +19,7 @@ Build OpenWRT with github actions!
 
 ![X64-1907](https://github.com/alecthw/openwrt-actions/workflows/X64-1907/badge.svg)
 
-[code](https://github.com/Lienol/openwrt)
+Use Lienol's [code](https://github.com/Lienol/openwrt)
 
 Copy action from [Lienol's Actions](https://github.com/Lienol/openwrt-actions)
 
