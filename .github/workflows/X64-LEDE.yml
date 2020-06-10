@@ -85,7 +85,7 @@ jobs:
       run: |
           cd openwrt
           rm -f .config
-          cp ../openwrt-config/x64-lede .config
+          cp ../openwrt-config/x64-lede-clash .config
           
     - name: Make Defconfig
       run: |

@@ -11,8 +11,8 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 ### Add additional apps
 
 - openclash
-- passwall
 - udpxy
+- luci-ssl-openssl
 - openssl-sftp-server
 
 ## Offical x64
