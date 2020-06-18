@@ -46,11 +46,13 @@ jobs:
     - name: Add lienol and openclash
       run: |
           cd openwrt
+          echo "src-git lienol https://github.com/alecthw/openwrt-package" >> feeds.conf.default
           echo "src-git openclash https://github.com/vernesong/OpenClash;master" >> feeds.conf.default
 
     - name: Update feeds
       run: |
           cd openwrt
+          sed -i "s@#src-git@src-git@g" feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
