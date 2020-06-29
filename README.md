@@ -10,7 +10,6 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 ### Add additional apps
 
-- openclash
 - udpxy
 - luci-ssl-openssl
 - openssl-sftp-server

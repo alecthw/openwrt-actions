@@ -9,7 +9,7 @@ name: X64-LEDE
 
 on:
   schedule:
-    - cron: 0 20 * * *
+    - cron: 1 20 * * *
 #  push:
 #    branches: 
 #      - master
@@ -42,11 +42,6 @@ jobs:
       env:
         REPO_URL: https://github.com/alecthw/openwrt-actions
       run: git clone $REPO_URL openwrt-config
-      
-    - name: Add lienol and openclash
-      run: |
-          cd openwrt
-          echo "src-git openclash https://github.com/vernesong/OpenClash;master" >> feeds.conf.default
 
     - name: Update feeds
       run: |
@@ -64,26 +59,16 @@ jobs:
           git clone $REPO_URL feeds/packages/net/smartdns
           git clone -b $REPO_BRANCH $LUCI_REPO_URL feeds/luci/applications/luci-app-smartdns
 
-    - name: Replace Country.mmdb url
-      run: |
-          cd openwrt
-          sed -i "s@https://geolite.clash.dev/Country.mmdb@http://www.ideame.top/mmdb/Country.mmdb@g" feeds/openclash/luci-app-openclash/files/usr/share/openclash/openclash_ipdb.sh
-
     - name: Install feeds
       run: |
           cd openwrt
           ./scripts/feeds install -a
 
-    - name: Install po2lmo
-      run: |
-          cd openwrt/feeds/openclash/luci-app-openclash/tools/po2lmo
-          make && sudo -E make install
-
     - name: Custom configure file
       run: |
           cd openwrt
           rm -f .config
-          cp ../openwrt-config/x64-lede-clash .config
+          cp ../openwrt-config/x64-lede .config
           
     - name: Make Defconfig
       run: |
@@ -123,6 +108,7 @@ jobs:
           mkdir -p ./artifact/
           find openwrt/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
           find openwrt/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+          find openwrt/bin/targets/ -name "*combined*vmdk" | xargs -i mv -f {} ./artifact/
 
     - name: Upload artifact
       uses: actions/upload-artifact@master
