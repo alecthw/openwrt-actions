@@ -11,8 +11,9 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 ### Add additional apps
 
 - udpxy
-- luci-ssl-openssl
+- snmpd
 - openssl-sftp-server
+- luci-ssl-openssl
 
 ## Offical x64
 
