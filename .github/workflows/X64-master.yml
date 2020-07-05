@@ -5,7 +5,7 @@
 # Author: P3TERX
 # Blog: https://p3terx.com
 #=================================================
-name: X64-1907
+name: X64-master
 
 on:
   schedule:
@@ -16,14 +16,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-          docker rmi `docker images -q`
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
           sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
           sudo -E apt-get -qq update
@@ -35,39 +34,25 @@ jobs:
     - name: Clone source code
       env: 
         REPO_URL: https://github.com/Lienol/openwrt
-        REPO_BRANCH: dev-19.07
+        REPO_BRANCH: dev-master
       run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
       
     - name: Clone Config
       env: 
-        REPO_URL: https://github.com/alecthw/openwrt-actions
+        REPO_URL: https://github.com/Lienol/openwrt-actions
       run: git clone --depth 1 $REPO_URL openwrt-config
       
-#    - name: Replace pkg url
-#      run: cd openwrt && sed -i "s@src-git lienol https://github.com/Lienol/openwrt-package@src-git lienol https://github.com/alecthw/openwrt-package.git@g" feeds.conf.default
-
-    - name: Add openclash
-      run: cd openwrt && echo "" >> feeds.conf.default && echo "src-git openclash https://github.com/vernesong/OpenClash;master" >> feeds.conf.default
-
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
-
-    - name: Install po2lmo
-      run: cd openwrt/feeds/openclash/luci-app-openclash/tools/po2lmo && make && sudo -E make install
-
-    - name: Replace Country.mmdb url
-      run: |
-          cd openwrt
-          sed -i "s@https://geolite.clash.dev/Country.mmdb@http://www.ideame.top/mmdb/Country.mmdb@g" feeds/openclash/luci-app-openclash/files/usr/share/openclash/openclash_ipdb.sh
-
+    
     - name: Custom configure file
       run: |
           cd openwrt
           rm -f .config
-          cp ../openwrt-config/x64-1907 .config
+          cp ../openwrt-config/x64-master .config
           
     - name: Make Defconfig
       run: |
@@ -92,14 +77,6 @@ jobs:
       run: |
           cd openwrt
           make -j1 V=s
-          echo "======================="
-          echo "Space usage:"
-          echo "======================="
-          df -h
-          echo "======================="
-          du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
-          du -h --max-depth=1 ./build_dir
-          du -h --max-depth=1 ./bin
 
     - name: Assemble artifact
       run: |
@@ -107,6 +84,7 @@ jobs:
           mkdir -p ./artifact/
           find openwrt/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
           find openwrt/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+          find openwrt/bin/targets/ -name "*combined*vmdk" | xargs -i mv -f {} ./artifact/
 
     - name: Upload artifact
       uses: actions/upload-artifact@master
