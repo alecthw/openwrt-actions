@@ -25,6 +25,7 @@ Copy action from [Lienol's Actions](https://github.com/Lienol/openwrt-actions)
 
 ### Add additional apps
 
-- passwall
 - udpxy
+- snmpd
 - openssl-sftp-server
+- luci-ssl

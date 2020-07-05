@@ -39,7 +39,7 @@ jobs:
       
     - name: Clone Config
       env: 
-        REPO_URL: https://github.com/Lienol/openwrt-actions
+        REPO_URL: https://github.com/alecthw/openwrt-actions
       run: git clone --depth 1 $REPO_URL openwrt-config
       
     - name: Update feeds
