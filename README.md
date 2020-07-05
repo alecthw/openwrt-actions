@@ -17,7 +17,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 ## Offical x64
 
-![X64-1907](https://github.com/alecthw/openwrt-actions/workflows/X64-1907/badge.svg)
+![X64-master](https://github.com/alecthw/openwrt-actions/workflows/X64-master/badge.svg)
 
 Use Lienol's [code](https://github.com/Lienol/openwrt)
 
