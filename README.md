@@ -12,11 +12,10 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
-
-- udpxy
-- snmpd
-- openssl-sftp-server
 - luci-ssl-openssl
+- udpxy
+- openssl-sftp-server
+- snmpd
 
 ## Offical x64
 
@@ -31,8 +30,6 @@ Copy action from [Lienol's Actions](https://github.com/Lienol/openwrt-actions)
 
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
-
-- udpxy
-- snmpd
-- openssl-sftp-server
 - luci-ssl
+- udpxy
+- openssl-sftp-server
