@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [x64-master, x64-1907, x64-lede]
+        target: [x64-master, x64-lede]
 
     steps:
       - name: Checkout
@@ -88,10 +88,10 @@ jobs:
         run: |
           echo "Apply files..."
           if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
-          cp -r -f user/common/files/* openwrt/package/base-files/files/
+            cp -r -f user/common/files/* openwrt/package/base-files/files/
           fi
           if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
-          cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
+            cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
           fi
 
           echo "Apply custom.sh"
