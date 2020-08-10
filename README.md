@@ -17,14 +17,15 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - openssl-sftp-server
 - snmpd
 
-## Offical x64
+## Lienol x64
 
-Use Lienol's [code](https://github.com/Lienol/openwrt)
+Use Lienol's [code](https://github.com/Lienol/openwrt) dev-master branch
 
 Copy action from [Lienol's Actions](https://github.com/Lienol/openwrt-actions)
 
 ### Add additional apps
 
+- Default_IP 192.168.11.1/24
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - luci-ssl
