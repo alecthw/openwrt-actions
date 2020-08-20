@@ -21,7 +21,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 Use Lienol's [code](https://github.com/Lienol/openwrt) dev-master branch
 
-Copy action from [Lienol's Actions](https://github.com/Lienol/openwrt-actions)
+Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and [Lienol's Actions](https://github.com/Lienol/openwrt-actions)
 
 ### Add additional apps
 
