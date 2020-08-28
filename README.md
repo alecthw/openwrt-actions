@@ -13,7 +13,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - luci-ssl-openssl
-- udpxy
+- luci-app-udpxy
 - openssl-sftp-server
 - snmpd
 
@@ -29,5 +29,5 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - luci-ssl
-- udpxy
+- luci-app-udpxy
 - openssl-sftp-server
