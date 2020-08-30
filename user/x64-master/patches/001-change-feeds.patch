@@ -1,0 +1,7 @@
+--- feeds.conf.default	2020-08-30 02:54:57.322277420 +0000
++++ feeds.conf.default	2020-08-30 03:23:41.350146383 +0000
+@@ -4,3 +4,4 @@
+ src-git luci https://github.com/Lienol/openwrt-luci.git;dev-17.01
+ src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
+ src-git freifunk https://github.com/freifunk/openwrt-packages.git
++src-git n2n https://github.com/alecthw/openwrt-n2n.git

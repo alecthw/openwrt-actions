@@ -31,3 +31,11 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - luci-ssl
 - luci-app-udpxy
 - openssl-sftp-server
+
+## Generate Patch
+
+``` bash
+diff -u file file_new > 001-new.patch
+```
+
+Edit the `001-new.patch` file, change file name in second line.
