@@ -30,7 +30,10 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - ROOTFS_PARTSIZE 760
 - luci-ssl
 - luci-app-udpxy
+- luci-app-n2n_n2
 - openssl-sftp-server
+- ip_full
+- vxlan
 
 ## Generate Patch
 
