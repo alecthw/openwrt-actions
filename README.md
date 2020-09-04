@@ -16,11 +16,12 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - luci-ssl
-- luci-app-udpxy
 - luci-app-n2n_n2
+- luci-app-udpxy
 - openssl-sftp-server
 - ip_full
 - vxlan
+- open-vm-tools
 
 ## LEDE x64
 
@@ -28,12 +29,22 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 ### Additional apps and packages
 
+- GZip images
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - luci-ssl-openssl
+- luci-app-frpc
+- luci-app-frps
+- luci-app-mwan3
+- luci-app-mwan3helper
+- luci-app-n2n_n2
 - luci-app-udpxy
+- ipv6helper
 - openssl-sftp-server
 - snmpd
+- tcpdump
+- vxlan
+- open-vm-tools
 
 ## LEDE wrt1900acs/newifi d2
 
@@ -59,19 +70,21 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-advanced-reboot (only wrt1900acs)
 - luci-app-arpbind
 - luci-app-autoreboot
-- luci-app-cpufreq
+- luci-app-cpufreq (only wrt1900acs)
 - luci-app-ddns
 - luci-app-filetransfer
 - luci-app-firewall
+- luci-app-flowoffload (only newifi d2)
 - luci-app-frpc
 - luci-app-minidlna
+- luci-app-mtwifi (only newifi d2)
 - luci-app-mwan3
 - luci-app-mwan3helper
 - luci-app-n2n_v2
 - luci-app-nlbwmon
 - luci-app-ramfree
 - luci-app-samba
-- luci-app-sfe
+- luci-app-sfe (only wrt1900acs)
 - luci-app-ssr-plus
 - luci-app-udpxy
 - luci-app-upnp
