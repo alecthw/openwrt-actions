@@ -70,7 +70,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-n2n_v2
 - luci-app-nlbwmon
 - luci-app-ramfree
-- luci-app-samba4
+- luci-app-samba
 - luci-app-sfe
 - luci-app-ssr-plus
 - luci-app-udpxy
