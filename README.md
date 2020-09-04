@@ -39,14 +39,20 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
-### All luci apps
+### All luci
+
+#### Collections
 
 - luci-ssl-openssl
+
+#### Themes
 
 - luci-theme-argon
 - luci-theme-freifunk-generic
 - luci-theme-material
 - luci-theme-netgear
+
+#### Apps
 
 - luci-app-accesscontrol
 - luci-app-adbyby-plus
