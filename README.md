@@ -85,6 +85,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-samba
 - luci-app-sfe (only wrt1900acs)
 - luci-app-ssr-plus
+- luci-app-syncdial
 - luci-app-udpxy
 - luci-app-upnp
 - luci-app-vlmcsd
