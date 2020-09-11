@@ -18,9 +18,9 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - luci-ssl
 - luci-app-n2n_n2
 - luci-app-udpxy
+- luci-proto-vxlan
 - ip_full
 - openssl-sftp-server
-- vxlan
 
 ## LEDE x64
 
