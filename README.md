@@ -18,6 +18,7 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - ipv6helper
 - luci-ssl
 - luci-app-n2n_n2
+- luci-app-passwall
 - luci-app-udpxy
 - luci-proto-vxlan
 - ip_full
