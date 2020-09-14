@@ -15,6 +15,7 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - Default_IP 192.168.11.1/24
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
+- ipv6helper
 - luci-ssl
 - luci-app-n2n_n2
 - luci-app-udpxy
@@ -31,14 +32,14 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - GZip images
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
+- ipv6helper
 - luci-ssl-openssl
-- luci-app-frpc
-- luci-app-frps
-- luci-app-mwan3
-- luci-app-mwan3helper
 - luci-app-n2n_n2
 - luci-app-udpxy
-- ipv6helper
+- luci-theme-argon
+- luci-theme-freifunk-generic
+- luci-theme-material
+- luci-theme-netgear
 - openssl-sftp-server
 - snmpd
 - tcpdump
@@ -54,13 +55,6 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 #### Collections
 
 - luci-ssl-openssl
-
-#### Themes
-
-- luci-theme-argon
-- luci-theme-freifunk-generic
-- luci-theme-material
-- luci-theme-netgear
 
 #### Apps
 
@@ -94,6 +88,13 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-wol
 - luci-app-xlnetacc
 - luci-app-zerotier
+
+#### Themes
+
+- luci-theme-argon
+- luci-theme-freifunk-generic
+- luci-theme-material
+- luci-theme-netgear
 
 #### Additional packages
 

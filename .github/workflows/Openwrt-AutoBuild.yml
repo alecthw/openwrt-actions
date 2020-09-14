@@ -144,8 +144,8 @@ jobs:
         run: |
           rm -rf ./Firmware/
           mkdir -p ./Firmware/
-          find openwrt/bin/targets/ -name "*bin*" | xargs -i mv -f {} ./Firmware/
-          find openwrt/bin/targets/ -name "*img*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*vmdk*" | xargs -i mv -f {} ./Firmware/
 
       - name: Upload Packages to release
