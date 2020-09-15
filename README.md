@@ -29,6 +29,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 ### Additional apps and packages
 
+- Default_IP 192.168.11.1/24
 - GZip images
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
