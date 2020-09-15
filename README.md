@@ -18,7 +18,6 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - ipv6helper
 - luci-ssl
 - luci-app-n2n_n2
-- luci-app-passwall
 - luci-app-udpxy
 - luci-proto-vxlan
 - ip_full
@@ -36,6 +35,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - ipv6helper
 - luci-ssl-openssl
 - luci-app-n2n_n2
+- luci-app-passwall
 - luci-app-udpxy
 - luci-theme-argon
 - luci-theme-freifunk-generic
