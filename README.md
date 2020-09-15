@@ -36,6 +36,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-ssl-openssl
 - luci-app-n2n_n2
 - luci-app-passwall
+- luci-app-smartdns
 - luci-app-udpxy
 - luci-theme-argon
 - luci-theme-freifunk-generic
