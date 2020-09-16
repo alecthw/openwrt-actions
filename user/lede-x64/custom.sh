@@ -6,15 +6,10 @@ echo "Test custom.sh"
 git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
 
 # clean default config of https-dns-proxy
-cat > feeds/packages/net/https-dns-proxy/files/https-dns-proxy.config << EOF
+cat > package/feeds/packages/https-dns-proxy/files/https-dns-proxy.config << EOF
 config main 'config'
 	option update_dnsmasq_config ''
 EOF
-
-# add luci https
-sed -i "/	list listen_http	[::]:80/a\	list listen_https	[::]:443"         package/network/services/uhttpd/files/uhttpd.config
-sed -i "/	list listen_http	[::]:80/a\	list listen_https	0.0.0.0:443"      package/network/services/uhttpd/files/uhttpd.config
-sed -i "/	list listen_http	[::]:80/G"                                        package/network/services/uhttpd/files/uhttpd.config
 
 # set default theme
 sed -i "/uci commit luci/i\uci set luci.main.mediaurlbase=/luci-static/material"  package/lean/default-settings/files/zzz-default-settings
