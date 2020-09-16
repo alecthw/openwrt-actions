@@ -104,16 +104,25 @@ jobs:
           if [ -f "user/${{matrix.target}}/custom.sh" ]; then
           (
             cd openwrt
-            /bin/bash ../user/${{matrix.target}}/custom.sh
+            /bin/bash "../user/${{matrix.target}}/custom.sh"
           )
           fi
+
+      - name: Copy config
+        id: package
+        run: |
+          cd openwrt
+          cp ../user/${{matrix.target}}/config.diff .config
+          make defconfig
+          if [ -f ".config.old" ]; then
+          (
+            diff -u .config .config.old
+          )
 
       - name: Download package
         id: package
         run: |
           cd openwrt
-          mv ../user/${{matrix.target}}/config.diff .config
-          make defconfig
           make download -j8
           find dl -size -1024c -exec ls -l {} \;
           find dl -size -1024c -exec rm -f {} \;
