@@ -109,7 +109,7 @@ jobs:
           fi
 
       - name: Copy config
-        id: package
+        id: config
         run: |
           cd openwrt
           cp ../user/${{matrix.target}}/config.diff .config
