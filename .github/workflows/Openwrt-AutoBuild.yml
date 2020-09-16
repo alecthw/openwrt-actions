@@ -100,7 +100,7 @@ jobs:
             cd openwrt
             /bin/bash "../user/common/custom.sh"
           )
-          fi       
+          fi
           if [ -f "user/${{matrix.target}}/custom.sh" ]; then
           (
             cd openwrt
