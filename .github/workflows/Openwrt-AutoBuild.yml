@@ -114,11 +114,6 @@ jobs:
           cd openwrt
           cp ../user/${{matrix.target}}/config.diff .config
           make defconfig
-          if [ -f ".config.old" ]; then
-          (
-            diff -u .config .config.old
-            echo $?
-          )
 
       - name: Download package
         id: package
@@ -154,8 +149,10 @@ jobs:
         run: |
           rm -rf ./Firmware/
           mkdir -p ./Firmware/
+          cp -f openwrt/.config ./Firmware/
           find openwrt/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*factory*img*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*vmdk*" | xargs -i mv -f {} ./Firmware/
 
       - name: Upload Packages to release
