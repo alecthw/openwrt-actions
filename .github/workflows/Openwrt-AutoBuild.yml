@@ -110,6 +110,7 @@ jobs:
 
       - name: Copy config
         id: config
+        continue-on-error: true
         run: |
           cd openwrt
           cp ../user/${{matrix.target}}/config.diff .config
