@@ -110,7 +110,6 @@ jobs:
 
       - name: Copy config
         id: config
-        continue-on-error: true
         run: |
           cd openwrt
           cp ../user/${{matrix.target}}/config.diff .config
@@ -118,6 +117,7 @@ jobs:
           if [ -f ".config.old" ]; then
           (
             diff -u .config .config.old
+            echo $?
           )
 
       - name: Download package
