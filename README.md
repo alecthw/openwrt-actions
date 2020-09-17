@@ -102,6 +102,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 #### Additional packages
 
 - ipv6helper
+- curl
 - openssh-sftp-server
 - tcpdump
 - vxlan
