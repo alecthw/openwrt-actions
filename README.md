@@ -34,9 +34,11 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - ipv6helper
-- luci-ssl-openssl
+- luci-app-jd-dailybonus
 - luci-app-n2n_n2
+- luci-ssl-openssl
 - luci-app-passwall
+- luci-app-serverchan
 - luci-app-smartdns
 - luci-app-udpxy
 - luci-theme-argon
