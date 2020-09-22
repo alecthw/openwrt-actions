@@ -24,6 +24,7 @@ pre_build() {
     git clone ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
 
     # apply patches
+    echo "Info: Apply patches..."
     cd ${CUR_PATH}
     if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
         find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '$code_dir' -p0 --forward"
@@ -38,14 +39,18 @@ pre_build() {
 
     # apply files...
     cd ${CUR_PATH}
-    if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
-        cp -r -f user/common/files/* ${code_dir}/package/base-files/files/
-    fi
-    if [ -n "$(ls -A "user/$target/files" 2>/dev/null)" ]; then
-        cp -r -f user/${target}/files/* ${code_dir}/package/base-files/files/
+    if [ "lede_device" != "${code_dir}" ]; then
+        echo "Info: Apply files..."
+        if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
+            cp -rf user/common/files/* ${code_dir}/package/base-files/files/
+        fi
+        if [ -n "$(ls -A "user/$target/files" 2>/dev/null)" ]; then
+            cp -rf user/${target}/files/* ${code_dir}/package/base-files/files/
+        fi
     fi
 
     # apply custom.sh
+    echo "Info: Apply custom.sh..."
     cd ${CUR_PATH}/${code_dir}
     if [ -f "../user/common/custom.sh" ]; then
         /bin/bash "../user/common/custom.sh"
@@ -56,7 +61,7 @@ pre_build() {
 
     # copy config
     cd ${CUR_PATH}/${code_dir}
-    cp ../user/${target}/config.diff .config
+    cp -rf ../user/${target}/config.diff .config
     make defconfig
 
     # make download
