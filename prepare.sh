@@ -120,7 +120,7 @@ source ${CUR_PATH}/user/${target}/settings.ini
 
 # clone code
 if [ ! -d "$CUR_PATH/$code_dir" ]; then
-    do_build
+    pre_build
 else
-    do_rebuild
+    pre_rebuild
 fi
