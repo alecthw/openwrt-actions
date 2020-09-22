@@ -176,7 +176,7 @@ while [ -n "$*" ]; do
     shift
     case "$arg" in
     --target | -t)
-        [ -n "$1"] || error "Option --target|-t requires an argument" 2
+        [ -n "$1" ] || error "Option --target|-t requires an argument" 2
         target=$1
         shift
         ;;
