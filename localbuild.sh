@@ -20,6 +20,9 @@ error() {
 }
 
 init_code_dir() {
+    # export env
+    source ${CUR_PATH}/user/${target}/settings.ini
+
     case "$target" in
     lienol-master-x64)
         code_dir="openwrt"
@@ -179,9 +182,6 @@ while [ -n "$*" ]; do
         ;;
     esac
 done
-
-# export env
-source ${CUR_PATH}/user/${target}/settings.ini
 
 code_dir=""
 
