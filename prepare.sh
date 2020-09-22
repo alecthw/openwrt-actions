@@ -116,7 +116,7 @@ lede-newifi_d2 | lede-wrt1900acs)
 esac
 
 # export env
-source ${CUR_PATH}/user/${target}/setting.ini
+source ${CUR_PATH}/user/${target}/settings.ini
 
 # clone code
 if [ ! -d "$CUR_PATH/$code_dir" ]; then
