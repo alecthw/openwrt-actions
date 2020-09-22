@@ -4,8 +4,9 @@ CUR_PATH=$(
     cd $(dirname $0)
     pwd
 )
-echo "Info: current path is $CUR_PATH"
+echo "Info: Current path is $CUR_PATH"
 cd ${CUR_PATH}
+git pull
 
 error() {
     local msg=$1
@@ -20,6 +21,7 @@ error() {
 
 pre_build() {
     # clone code
+    echo "Info: Clone code $REPO_URL $REPO_BRANCH..."
     cd ${CUR_PATH}
     git clone ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
 
@@ -34,13 +36,14 @@ pre_build() {
     fi
 
     # feeds
+    echo "Info: Update feeds..."
     cd ${CUR_PATH}/${code_dir}
     ./scripts/feeds update -a && ./scripts/feeds install -a
 
     # apply files...
-    cd ${CUR_PATH}
     if [ "lede_device" != "${code_dir}" ]; then
         echo "Info: Apply files..."
+        cd ${CUR_PATH}
         if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
             cp -rf user/common/files/* ${code_dir}/package/base-files/files/
         fi
@@ -60,6 +63,7 @@ pre_build() {
     fi
 
     # copy config
+    echo "Info: Copy config..."
     cd ${CUR_PATH}/${code_dir}
     cp -rf ../user/${target}/config.diff .config
     make defconfig
@@ -71,25 +75,31 @@ pre_build() {
 
 pre_rebuild() {
     # upate code
+    echo "Info: Update code..."
     cd ${CUR_PATH}/${code_dir}
     git pull
 
     # update custom feeds
     if [ -d "$CUR_PATH/$code_dir/package/luci-app-jd-dailybonus" ]; then
+        echo "Info: Update luci-app-jd-dailybonus..."
         cd ${CUR_PATH}/${code_dir}/package/luci-app-jd-dailybonus && git pull
     fi
     if [ -d "$CUR_PATH/$code_dir/package/luci-app-serverchan" ]; then
+        echo "Info: Update luci-app-serverchan..."
         cd ${CUR_PATH}/${code_dir}/package/luci-app-serverchan && git pull
     fi
     if [ -d "$CUR_PATH/$code_dir/package/luci-app-smartdns" ]; then
+        echo "Info: Update luci-app-smartdns..."
         cd ${CUR_PATH}/${code_dir}/package/luci-app-smartdns && git pull
     fi
 
     # feeds
+    echo "Info: Update feeds..."
     cd ${CUR_PATH}/${code_dir}
     ./scripts/feeds update -a && ./scripts/feeds install -a
 
-    # copy config
+    # def config
+    echo "Info: Defult config..."
     cd ${CUR_PATH}/${code_dir}
     make defconfig
 
