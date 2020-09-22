@@ -17,8 +17,11 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - ROOTFS_PARTSIZE 760
 - ipv6helper
 - luci-ssl
+- luci-app-jd-dailybonus
 - luci-app-n2n_n2
+- luci-app-serverchan
 - luci-app-udpxy
+- luci-theme-material
 - luci-proto-vxlan
 - ip_full
 - openssl-sftp-server
