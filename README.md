@@ -116,3 +116,18 @@ diff -u file file_new > 001-new.patch
 ```
 
 Edit the `001-new.patch` file, change file name in second line.
+
+## Script for local build
+
+Init init environment, install dependencies
+
+``` bash
+bash localbuild.sh e
+```
+
+Compile
+
+``` bash
+bash localbuild.sh p -t lienol-master-x64   # Clone/Update code, Update feeds, apply custom settings, make defconfig
+bash localbuild.sh c -t lienol-master-x64   # make download, make
+```

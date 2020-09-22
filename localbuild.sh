@@ -19,6 +19,26 @@ error() {
     fi
 }
 
+init_code_dir() {
+    case "$target" in
+    lienol-master-x64)
+        code_dir="openwrt"
+        ;;
+    lienol-1907-x64)
+        code_dir="openwrt_1907"
+        ;;
+    lede-x64)
+        code_dir="lede"
+        ;;
+    lede-newifi_d2 | lede-wrt1900acs)
+        code_dir="lede_device"
+        ;;
+    *)
+        error "Unknow $target!" 2
+        ;;
+    esac
+}
+
 pre_build() {
     # clone code
     echo "Info: Clone code $REPO_URL $REPO_BRANCH..."
@@ -67,10 +87,6 @@ pre_build() {
     cd ${CUR_PATH}/${code_dir}
     cp -rf ../user/${target}/config.diff .config
     make defconfig
-
-    # make download
-    cd ${CUR_PATH}/${code_dir}
-    make -j$(($(nproc) + 1)) download
 }
 
 pre_rebuild() {
@@ -102,40 +118,89 @@ pre_rebuild() {
     echo "Info: Defult config..."
     cd ${CUR_PATH}/${code_dir}
     make defconfig
+}
 
+do_prepare() {
+    if [ ! -d "$CUR_PATH/$code_dir" ]; then
+        pre_build
+    else
+        pre_rebuild
+    fi
+}
+
+do_compile() {
     # make download
     cd ${CUR_PATH}/${code_dir}
     make -j$(($(nproc) + 1)) download
+
+    # make
+    cd ${CUR_PATH}/${code_dir}
+    make -j$(($(nproc) + 1))
 }
 
-target=$1
+do_env() {
+    sudo apt install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
+}
 
-code_dir=""
+do_help() {
+    cat <<EOF
+Usage: bash $0 <command> [options]...
 
-case "$target" in
-lienol-master-x64)
-    code_dir="openwrt"
-    ;;
-lienol-1907-x64)
-    code_dir="openwrt_1907"
-    ;;
-lede-x64)
-    code_dir="lede"
-    ;;
-lede-newifi_d2 | lede-wrt1900acs)
-    code_dir="lede_device"
-    ;;
-*)
-    error "Unknow $target!" 2
-    ;;
-esac
+commands:
+    help, h                display this help text
+    env, e                 init environment, sudo apt install xxx
+    prepare, p             update feeds and apply custom setings
+    compile, c             make download and make
+
+options:
+    --target, -t           target to execute, it's a sub dir name in user
+
+examples:
+    bash localbuild.sh p -t lienol-master-x64
+    bash localbuild.sh c -t lienol-master-x64
+EOF
+}
+
+# return code
+RET_VAL=0
+
+mode=$1
+shift
+
+target=""
+while [ -n "$*" ]; do
+    arg=$1
+    shift
+    case "$arg" in
+    --target | -t)
+        [ -n "$1"] || error "Option --target|-t requires an argument" 2
+        target=$1
+        shift
+        ;;
+    esac
+done
 
 # export env
 source ${CUR_PATH}/user/${target}/settings.ini
 
-# clone code
-if [ ! -d "$CUR_PATH/$code_dir" ]; then
-    pre_build
-else
-    pre_rebuild
-fi
+code_dir=""
+
+case "$mode" in
+help | h)
+    do_help
+    ;;
+env | e)
+    do_env
+    ;;
+prepare | p)
+    init_code_dir
+    do_prepare
+    ;;
+compile | c)
+    init_code_dir
+    do_compile
+    ;;
+*)
+    error "Unknow or unspecified command $mode!"
+    ;;
+esac
