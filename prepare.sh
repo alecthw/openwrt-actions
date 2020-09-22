@@ -47,10 +47,10 @@ pre_build() {
 
     # apply custom.sh
     cd ${CUR_PATH}/${code_dir}
-    if [ -f "user/common/custom.sh" ]; then
+    if [ -f "../user/common/custom.sh" ]; then
         /bin/bash "../user/common/custom.sh"
     fi
-    if [ -f "user/$target/custom.sh" ]; then
+    if [ -f "../user/$target/custom.sh" ]; then
         /bin/bash "../user/$target/custom.sh"
     fi
 
@@ -70,13 +70,13 @@ pre_rebuild() {
     git pull
 
     # update custom feeds
-    if [ ! -d "$CUR_PATH/$code_dir/package/luci-app-jd-dailybonus" ]; then
+    if [ -d "$CUR_PATH/$code_dir/package/luci-app-jd-dailybonus" ]; then
         cd ${CUR_PATH}/${code_dir}/package/luci-app-jd-dailybonus && git pull
     fi
-    if [ ! -d "$CUR_PATH/$code_dir/package/luci-app-serverchan" ]; then
+    if [ -d "$CUR_PATH/$code_dir/package/luci-app-serverchan" ]; then
         cd ${CUR_PATH}/${code_dir}/package/luci-app-serverchan && git pull
     fi
-    if [ ! -d "$CUR_PATH/$code_dir/package/luci-app-smartdns" ]; then
+    if [ -d "$CUR_PATH/$code_dir/package/luci-app-smartdns" ]; then
         cd ${CUR_PATH}/${code_dir}/package/luci-app-smartdns && git pull
     fi
 
