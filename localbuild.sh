@@ -33,6 +33,9 @@ init_code_dir() {
     lede-x64)
         code_dir="lede"
         ;;
+    official-master-x64)
+        code_dir="official"
+        ;;
     lede-newifi_d2 | lede-wrt1900acs)
         code_dir="lede_device"
         ;;
