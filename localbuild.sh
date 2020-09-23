@@ -20,6 +20,10 @@ error() {
 }
 
 init_code_dir() {
+    if [ ! -n "$target" ]; then
+        error "Option --target argument is reuqired!"
+    fi
+
     # export env
     source ${CUR_PATH}/user/${target}/settings.ini
 
@@ -201,6 +205,11 @@ prepare | p)
     ;;
 compile | c)
     init_code_dir
+    do_compile
+    ;;
+all | a)
+    init_code_dir
+    do_prepare
     do_compile
     ;;
 *)
