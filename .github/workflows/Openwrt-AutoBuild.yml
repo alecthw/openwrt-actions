@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [lienol-master-x64, lede-x64, lede-wrt1900acs, lede-newifi_d2]
+        target: [lienol-master-x64, lede-x64, lede-wrt1900acs, lede-newifi_d2, official-master-x64]
 
     steps:
       - name: Checkout

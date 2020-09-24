@@ -134,3 +134,37 @@ Compile
 bash localbuild.sh p -t lienol-master-x64   # Clone/Update code, Update feeds, apply custom settings, make defconfig
 bash localbuild.sh c -t lienol-master-x64   # make download, make
 ```
+
+## Official x64
+
+Use the [code](https://github.com/alecthw/openwrt) which fork from [official's code](https://github.com/openwrt/openwrt)
+
+It's a very lite img. It's suitable for bypass router using.
+
+### Apps and packages
+
+- Default_IP 192.168.11.1/24
+- VMware img
+- KERNEL_PARTSIZE 32
+- ROOTFS_PARTSIZE 760
+- dnsmasq-full
+- ipv6helper
+- kmod-vmxnet3
+- luci-ssl-nginx
+- luci-compat
+- luci-app-adbyby-plus
+- luci-app-n2n_n2
+- luci-app-openclash
+- luci-app-passwall
+- luci-app-smartdns
+- luci-app-ssr-plus
+- luci-app-tcpdump
+- luci-app-udpxy
+- luci-app-vlmcsd
+- luci-theme-material
+- luci-proto-bonding
+- luci-lib-ipkg
+- default-settings
+- wget
+- openssl-sftp-server
+- snmpd
