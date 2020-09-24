@@ -14,3 +14,9 @@ mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
 mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns
 cp -f ../user/official-master-x64/defconfig/etc/config/smartdns         package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
 cp -f ../user/official-master-x64/defconfig/etc/smartdns/custom.conf    package/feeds/luci/luci-app-smartdns/root/etc/smartdns/custom.conf 
+
+# clean default config of https-dns-proxy
+cat > package/feeds/packages/https-dns-proxy/files/https-dns-proxy.config << EOF
+config main 'config'
+	option update_dnsmasq_config ''
+EOF
