@@ -112,29 +112,6 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - tcpdump
 - vxlan
 
-## Generate Patch
-
-``` bash
-diff -u file file_new > 001-new.patch
-```
-
-Edit the `001-new.patch` file, change file name in second line.
-
-## Script for local build
-
-Init init environment, install dependencies
-
-``` bash
-bash localbuild.sh e
-```
-
-Compile
-
-``` bash
-bash localbuild.sh p -t lienol-master-x64   # Clone/Update code, Update feeds, apply custom settings, make defconfig
-bash localbuild.sh c -t lienol-master-x64   # make download, make
-```
-
 ## Official x64
 
 Use the [code](https://github.com/alecthw/openwrt) which fork from [official's code](https://github.com/openwrt/openwrt)
@@ -168,3 +145,26 @@ It's a very lite img. It's suitable for bypass router using.
 - wget
 - openssl-sftp-server
 - snmpd
+
+## Generate Patch
+
+``` bash
+diff -u file file_new > 001-new.patch
+```
+
+Edit the `001-new.patch` file, change file name in second line.
+
+## Script for local build
+
+Init init environment, install dependencies
+
+``` bash
+bash localbuild.sh e
+```
+
+Compile
+
+``` bash
+bash localbuild.sh p -t lienol-master-x64   # Clone/Update code, Update feeds, apply custom settings, make defconfig
+bash localbuild.sh c -t lienol-master-x64   # make download, make
+```

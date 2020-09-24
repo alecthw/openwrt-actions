@@ -24,6 +24,8 @@ init_code_dir() {
         error "Option --target argument is reuqired!"
     fi
 
+    echo "Info: Current target is $target"
+
     # export env
     source ${CUR_PATH}/user/${target}/settings.ini
 
@@ -47,6 +49,8 @@ init_code_dir() {
         error "Unknow $target!" 2
         ;;
     esac
+
+    echo "Info: Current code_dir is $code_dir"
 }
 
 pre_build() {
