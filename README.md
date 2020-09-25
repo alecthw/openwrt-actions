@@ -127,7 +127,8 @@ It's a very lite img. It's suitable for bypass router using.
 - dnsmasq-full
 - ipv6helper
 - kmod-vmxnet3
-- luci-ssl-nginx
+- luci
+- luci-ssl
 - luci-compat
 - luci-app-adbyby-plus
 - luci-app-n2n_n2
