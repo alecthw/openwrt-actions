@@ -16,13 +16,12 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - ipv6helper
-- luci-ssl
+- luci-ssl-openssl
 - luci-app-jd-dailybonus
 - luci-app-n2n_n2
 - luci-app-serverchan
 - luci-app-udpxy
 - luci-theme-material
-- ip_full
 - openssl-sftp-server
 
 ## LEDE x64
@@ -36,9 +35,9 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - ipv6helper
+- luci-ssl-openssl
 - luci-app-jd-dailybonus
 - luci-app-n2n_n2
-- luci-ssl-openssl
 - luci-app-passwall
 - luci-app-serverchan
 - luci-app-smartdns
@@ -107,7 +106,8 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - ipv6helper
 - curl
 - openssh-sftp-server
-- tcpdump
+- snmpd
+- tcpdump-mini
 
 ## Official x64
 
@@ -125,7 +125,7 @@ It's a very lite img. It's suitable for bypass router using.
 - ipv6helper
 - kmod-vmxnet3
 - luci
-- luci-ssl
+- luci-ssl-openssl
 - luci-compat
 - luci-app-adbyby-plus
 - luci-app-n2n_n2
@@ -138,6 +138,7 @@ It's a very lite img. It's suitable for bypass router using.
 - luci-app-vlmcsd
 - luci-theme-material
 - luci-proto-bonding
+- luci-proto-vxlan
 - luci-lib-ipkg
 - default-settings
 - wget
