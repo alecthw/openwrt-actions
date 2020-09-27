@@ -22,7 +22,6 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - luci-app-serverchan
 - luci-app-udpxy
 - luci-theme-material
-- luci-proto-vxlan
 - ip_full
 - openssl-sftp-server
 
@@ -51,7 +50,6 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - openssl-sftp-server
 - snmpd
 - tcpdump
-- vxlan
 - open-vm-tools
 
 ## LEDE wrt1900acs/newifi d2
@@ -110,7 +108,6 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - curl
 - openssh-sftp-server
 - tcpdump
-- vxlan
 
 ## Official x64
 
