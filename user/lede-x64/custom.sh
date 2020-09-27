@@ -22,4 +22,8 @@ sed -i "/uci commit fstab/a\uci set network.lan.netmask='255.255.255.0'"        
 sed -i "/uci commit fstab/a\uci set network.lan.ipaddr='192.168.11.1'"            package/lean/default-settings/files/zzz-default-settings
 sed -i "/uci commit fstab/G"                                                      package/lean/default-settings/files/zzz-default-settings
 
+# remove feeds repository
+sed -i "/ustclug/i\sed -i '/helloworld/d' /etc/opkg/distfeeds.conf"               package/lean/default-settings/files/zzz-default-settings
+sed -i "/ustclug/i\sed -i '/diy1/d' /etc/opkg/distfeeds.conf"                     package/lean/default-settings/files/zzz-default-settings
+
 cat package/lean/default-settings/files/zzz-default-settings

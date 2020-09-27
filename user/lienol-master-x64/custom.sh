@@ -11,4 +11,7 @@ sed -i "/^#uci set network.lan.ipaddr/cuci set network.lan.ipaddr='192.168.11.1'
 sed -i "/^#uci set network.lan.netmask/cuci set network.lan.netmask='255.255.255.0'" package/default-settings/files/zzz-default-settings
 sed -i "/^#uci commit network/cuci commit network"                                   package/default-settings/files/zzz-default-settings
 
+# remove feeds repository
+sed -i "/diy1/a\sed -i '/n2n/d' /etc/opkg/distfeeds.conf"                            package/default-settings/files/zzz-default-settings
+
 cat package/default-settings/files/zzz-default-settings
