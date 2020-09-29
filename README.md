@@ -104,6 +104,8 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 #### Additional packages
 
 - ipv6helper
+- automount
+- autosamba
 - curl
 - openssh-sftp-server
 - snmpd
