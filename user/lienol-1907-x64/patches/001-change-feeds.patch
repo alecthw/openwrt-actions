@@ -1,10 +1,7 @@
---- feeds.conf.default	2020-09-27 11:26:34.216943943 +0800
-+++ feeds.conf.default1	2020-09-27 11:32:41.747193316 +0800
-@@ -2,4 +2,5 @@
- src-git routing https://git.openwrt.org/feed/routing.git;openwrt-19.07
+--- feeds.conf.default	2020-10-13 09:41:45.342012855 +0800
++++ feeds.conf.default	2020-10-13 09:43:48.958090188 +0800
+@@ -3,3 +3,4 @@
  src-git telephony https://git.openwrt.org/feed/telephony.git;openwrt-19.07
- src-git luci https://github.com/Lienol/openwrt-luci.git;dev-17.01
--src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
-\ No newline at end of file
-+src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
+ src-git luci https://github.com/Lienol/openwrt-luci.git;17.01
+ src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
 +src-git n2n https://github.com/alecthw/openwrt-n2n.git
