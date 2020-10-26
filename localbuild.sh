@@ -122,6 +122,10 @@ pre_rebuild() {
         echo "Info: Update luci-app-smartdns..."
         cd ${CUR_PATH}/${code_dir}/package/luci-app-smartdns && git pull
     fi
+    if [ -d "$CUR_PATH/$code_dir/package/n2n" ]; then
+        echo "Info: Update n2n..."
+        cd ${CUR_PATH}/${code_dir}/package/n2n && git pull
+    fi
 
     # feeds
     echo "Info: Update feeds..."
