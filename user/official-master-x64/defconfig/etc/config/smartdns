@@ -23,8 +23,8 @@ config smartdns
 	option force_aaaa_soa '0'
 	option cache_size '5000'
 	option enabled '1'
-	option redirect 'none'
-	list old_redirect 'none'
+	option redirect 'dnsmasq-upstream'
+	list old_redirect 'dnsmasq-upstream'
 	list old_port '6054'
 	list old_enabled '1'
 
