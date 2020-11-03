@@ -120,6 +120,7 @@ It's a very lite img. It's suitable for bypass router using.
 ### Apps and packages
 
 - Default_IP 192.168.11.1/24
+- Disable ext4 img
 - VMware img
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
@@ -130,11 +131,12 @@ It's a very lite img. It's suitable for bypass router using.
 - luci-ssl-openssl
 - luci-compat
 - luci-app-adbyby-plus
+- luci-app-filetransfer
 - luci-app-n2n_n2
-- luci-app-openclash
+<!-- - luci-app-openclash -->
 - luci-app-passwall
 - luci-app-smartdns
-- luci-app-ssr-plus
+<!-- - luci-app-ssr-plus -->
 - luci-app-tcpdump
 - luci-app-udpxy
 - luci-app-vlmcsd
