@@ -116,7 +116,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 Use the [code](https://github.com/alecthw/openwrt) which fork from [official's code](https://github.com/openwrt/openwrt)
 
-It's a very lite img. It's suitable for bypass router using.
+It's a very lite img include passwall. It's suitable for bypass router using.
 
 ### Apps and packages
 
@@ -134,10 +134,8 @@ It's a very lite img. It's suitable for bypass router using.
 - luci-app-adbyby-plus
 - luci-app-filetransfer
 - luci-app-n2n_n2
-<!-- - luci-app-openclash -->
 - luci-app-passwall
 - luci-app-smartdns
-<!-- - luci-app-ssr-plus -->
 - luci-app-tcpdump
 - luci-app-udpxy
 - luci-app-vlmcsd
