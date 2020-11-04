@@ -2,6 +2,9 @@
 
 echo "Test custom.sh"
 
+# update upstream code
+git pull https://github.com/openwrt/openwrt.git
+
 # copy default config
 if [ -d "package/lean/luci-app-adbyby-plus" ]; then
     cp -f ../user/official-master-x64/defconfig/etc/config/adbyby           package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
