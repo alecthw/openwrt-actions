@@ -3,7 +3,7 @@
 echo "Test custom.sh"
 
 # update upstream code
-git pull https://github.com/openwrt/openwrt.git
+git pull https://github.com/openwrt/openwrt.git --log --no-commit
 
 # copy default config
 if [ -d "package/lean/luci-app-adbyby-plus" ]; then
