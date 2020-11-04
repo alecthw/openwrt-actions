@@ -23,6 +23,7 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - luci-app-udpxy
 - luci-theme-material
 - openssl-sftp-server
+- open-vm-tools
 
 ## LEDE x64
 
@@ -148,6 +149,7 @@ It's a very lite img. It's suitable for bypass router using.
 - wget
 - openssl-sftp-server
 - snmpd
+- open-vm-tools
 
 ## Generate Patch
 
