@@ -19,6 +19,11 @@ error() {
     fi
 }
 
+force_pull() {
+    git fetch --all
+    git reset --hard origin/master
+}
+
 init_code_dir() {
     if [ ! -n "$target" ]; then
         error "Option --target argument is reuqired!"
@@ -107,7 +112,13 @@ pre_rebuild() {
     # upate code
     echo "Info: Update code..."
     cd ${CUR_PATH}/${code_dir}
-    git pull
+    force_pull
+
+    # update official upstream code
+    if [ "official-master-x64" == "${code_dir}" ]; then
+        echo "Info: Update official upstream code..."
+        git pull https://github.com/openwrt/openwrt.git --log --no-commit
+    fi
 
     # update custom feeds
     if [ -d "$CUR_PATH/$code_dir/package/luci-app-jd-dailybonus" ]; then
