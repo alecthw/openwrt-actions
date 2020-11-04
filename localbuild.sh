@@ -115,7 +115,7 @@ pre_rebuild() {
     force_pull
 
     # update official upstream code
-    if [ "official-master-x64" == "${code_dir}" ]; then
+    if [ "official" == "${code_dir}" ]; then
         echo "Info: Update official upstream code..."
         git pull https://github.com/openwrt/openwrt.git --log --no-commit
     fi
