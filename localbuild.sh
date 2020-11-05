@@ -61,11 +61,29 @@ init_code_dir() {
     echo "Info: Current code_dir is $code_dir"
 }
 
-pre_build() {
-    # clone code
-    echo "Info: Clone code $REPO_URL $REPO_BRANCH..."
+do_prepare() {
+    # clone/update code
     cd ${CUR_PATH}
-    git clone ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
+
+    if [ ! -d "$CUR_PATH/$code_dir" ]; then
+        echo "Info: Clone code $REPO_URL $REPO_BRANCH..."
+        git clone ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
+    else
+        cd ${CUR_PATH}/${code_dir}
+
+        echo "Info: Update code..."
+        force_pull
+
+        echo "Info: Clean feeds..."
+        ./scripts/feeds clean -a
+
+        echo "Info: Clean custom package..."
+        git clean -fd
+        rm -rf package/luci-app-jd-dailybonus
+        rm -rf package/luci-app-serverchan
+        rm -rf package/luci-app-smartdns
+        rm -rf package/n2n
+    fi
 
     # apply patches
     echo "Info: Apply patches..."
@@ -105,59 +123,13 @@ pre_build() {
     fi
 
     # copy config
-    echo "Info: Copy config..."
     cd ${CUR_PATH}/${code_dir}
-    cp -rf ../user/${target}/config.diff .config
+    if [ ! -f ".config" ]; then
+        echo "Info: Copy config..."
+        cp -rf ../user/${target}/config.diff .config
+    fi
+    echo "Info: Make defconfig..."
     make defconfig
-}
-
-pre_rebuild() {
-    # upate code
-    echo "Info: Update code..."
-    cd ${CUR_PATH}/${code_dir}
-    force_pull
-
-    # update official upstream code
-    if [ "official" == "${code_dir}" ]; then
-        echo "Info: Update official upstream code..."
-        git pull https://github.com/openwrt/openwrt.git --log --no-commit
-    fi
-
-    # update custom feeds
-    if [ -d "$CUR_PATH/$code_dir/package/luci-app-jd-dailybonus" ]; then
-        echo "Info: Update luci-app-jd-dailybonus..."
-        cd ${CUR_PATH}/${code_dir}/package/luci-app-jd-dailybonus && git pull
-    fi
-    if [ -d "$CUR_PATH/$code_dir/package/luci-app-serverchan" ]; then
-        echo "Info: Update luci-app-serverchan..."
-        cd ${CUR_PATH}/${code_dir}/package/luci-app-serverchan && git pull
-    fi
-    if [ -d "$CUR_PATH/$code_dir/package/luci-app-smartdns" ]; then
-        echo "Info: Update luci-app-smartdns..."
-        cd ${CUR_PATH}/${code_dir}/package/luci-app-smartdns && git pull
-    fi
-    if [ -d "$CUR_PATH/$code_dir/package/n2n" ]; then
-        echo "Info: Update n2n..."
-        cd ${CUR_PATH}/${code_dir}/package/n2n && git pull
-    fi
-
-    # feeds
-    echo "Info: Update feeds..."
-    cd ${CUR_PATH}/${code_dir}
-    ./scripts/feeds update -a && ./scripts/feeds install -a
-
-    # def config
-    echo "Info: Defult config..."
-    cd ${CUR_PATH}/${code_dir}
-    make defconfig
-}
-
-do_prepare() {
-    if [ ! -d "$CUR_PATH/$code_dir" ]; then
-        pre_build
-    else
-        pre_rebuild
-    fi
 }
 
 do_compile() {
