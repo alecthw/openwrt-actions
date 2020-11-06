@@ -133,7 +133,6 @@ It's a very lite img include passwall. It's suitable for bypass router using.
 - luci-ssl-openssl
 - luci-compat
 - luci-app-adbyby-plus
-- luci-app-filetransfer
 - luci-app-n2n_n2
 - luci-app-passwall
 - luci-app-smartdns
