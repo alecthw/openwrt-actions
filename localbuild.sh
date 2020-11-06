@@ -78,9 +78,6 @@ do_prepare() {
     else
         cd ${CUR_PATH}/${code_dir}
 
-        echo "Info: Update code..."
-        force_pull
-
         echo "Info: Clean feeds..."
         ./scripts/feeds clean -a
 
@@ -90,6 +87,9 @@ do_prepare() {
         rm -rf package/luci-app-serverchan
         rm -rf package/luci-app-smartdns
         rm -rf package/n2n
+
+        echo "Info: Update code..."
+        force_pull
     fi
 
     # apply patches
