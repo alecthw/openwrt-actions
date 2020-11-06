@@ -146,6 +146,92 @@ do_env() {
     sudo apt install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
 }
 
+do_personal_config() {
+    # get config dir
+    CONFIG_PATH=""
+    if [ -d "$CUR_PATH/defconfig" ]; then
+        CONFIG_PATH=$CUR_PATH/defconfig
+    elif [ -d "$CUR_PATH/../archive/home/defconfig" ]; then
+        CONFIG_PATH=$CUR_PATH/../archive/home/defconfig
+    else
+        echo "Warn: No default config exist"
+        return
+    fi
+    echo "Info: Config path is $CONFIG_PATH..."
+
+    # work dir
+    cd ${CUR_PATH}/${code_dir}
+
+    # network
+    if [ -f "package/default-settings/files/zzz-default-settings" ]; then
+        echo "Info: Custom config network"
+        bash $CONFIG_PATH/network.sh           package/default-settings/files/zzz-default-settings
+    fi
+    if [ -f "package/lean/default-settings/files/zzz-default-settings" ]; then
+        echo "Info: Custom config network lean"
+        bash $CONFIG_PATH/network.sh           package/lean/default-settings/files/zzz-default-settings
+    fi
+
+    # hosts
+    cp -f $CONFIG_PATH/etc/hosts    package/base-files/files/etc/hosts
+
+    # firewall
+    sed -i "/'lan'/a\	list   network		'n2n0'"              package/network/config/firewall/files/firewall.config
+    sed -i "/'wan6'/a\	list   network		'iptv'"              package/network/config/firewall/files/firewall.config
+    sed -i "/input		REJECT/c\	option input		ACCEPT"  package/network/config/firewall/files/firewall.config
+    cp -f $CONFIG_PATH/etc/firewall.user                         package/network/config/firewall/files/firewall.user
+
+    # adbyby
+    if [ -d "package/lean/luci-app-adbyby-plus" ]; then
+        echo "Info: Custom config adbyby"
+        cp -f $CONFIG_PATH/etc/config/adbyby           package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
+    fi
+
+    # n2n_v2
+    if [ -d "package/feeds/n2n/n2n_v2" ]; then
+        echo "Info: Custom config openclash"
+        cp -f $CONFIG_PATH/etc/config/n2n_v2        package/feeds/n2n/n2n_v2/files/n2n_v2.config
+    fi
+    if [ -d "package/n2n/n2n_v2" ]; then
+        echo "Info: Custom config openclash"
+        cp -f $CONFIG_PATH/etc/config/n2n_v2        package/n2n/n2n_v2/files/n2n_v2.config
+    fi
+
+    # passwall
+    if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
+        echo "Info: Custom config passwall"
+        cp -f $CONFIG_PATH/etc/config/passwall         package/feeds/diy1/luci-app-passwall/root/etc/config/passwall
+        cp -f $CONFIG_PATH/usr/share/passwall/rules/*  package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/rules/
+    fi
+
+    # smartdns
+    if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
+        echo "Info: Custom config smartdns"
+        mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
+        mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns
+        cp -f $CONFIG_PATH/etc/config/smartdns         package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
+        cp -f $CONFIG_PATH/etc/smartdns/custom.conf    package/feeds/luci/luci-app-smartdns/root/etc/smartdns/custom.conf 
+    fi
+
+    # udpxy
+    if [ -d "package/feeds/packages/udpxy" ]; then
+        echo "Info: Custom config udpxy"
+        cp -f $CONFIG_PATH/etc/config/udpxy            package/feeds/packages/udpxy/files/udpxy.conf
+    fi
+
+    # vlmcsd
+    if [ -d "package/lean/luci-app-vlmcsd" ]; then
+        echo "Info: Custom config vlmcsd"
+        cp -f $CONFIG_PATH/etc/config/vlmcsd           package/lean/luci-app-vlmcsd/root/etc/config/vlmcsd
+    fi
+
+    # openclash
+    if [ -d "package/feeds/openclash/luci-app-openclash" ]; then
+        echo "Info: Custom config openclash"
+        cp -f $CONFIG_PATH/etc/config/openclash        package/feeds/openclash/luci-app-openclash/root/etc/config/openclash
+    fi
+}
+
 do_help() {
     cat <<EOF
 Usage: bash $0 <command> [options]...
@@ -205,6 +291,10 @@ all | a)
     init_code_dir
     do_prepare
     do_compile
+    ;;
+def | d)
+    init_code_dir
+    do_personal_config
     ;;
 *)
     error "Unknow or unspecified command $mode!"
