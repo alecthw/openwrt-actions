@@ -128,6 +128,7 @@ It's a very lite img include passwall. It's suitable for bypass router using.
 - dnsmasq-full
 - ipv6helper
 - kmod-vmxnet3
+- default-settings
 - luci
 - luci-ssl-openssl
 - luci-compat
@@ -141,9 +142,7 @@ It's a very lite img include passwall. It's suitable for bypass router using.
 - luci-app-vlmcsd
 - luci-theme-material
 - luci-proto-bonding
-- luci-proto-vxlan
 - luci-lib-ipkg
-- default-settings
 - wget
 - openssl-sftp-server
 - snmpd
