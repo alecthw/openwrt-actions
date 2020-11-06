@@ -20,7 +20,7 @@ error() {
 }
 
 force_pull() {
-    branch=`git branch | grep "*"`
+    branch=$(git branch | grep "*")
     currBranch=${branch:2}
     echo "Info: Current branch is $currBranch"
     git fetch --all
@@ -131,10 +131,10 @@ do_prepare() {
 
     # copy config
     cd ${CUR_PATH}/${code_dir}
-    if [ ! -f ".config" ]; then
-        echo "Info: Copy config..."
-        cp -rf ../user/${target}/config.diff .config
-    fi
+    # if [ ! -f ".config" ]; then
+    echo "Info: Copy config..."
+    cp -f ../user/${target}/config.diff .config
+    # fi
     echo "Info: Make defconfig..."
     make defconfig
 }
@@ -176,50 +176,50 @@ do_personal_config() {
     if [ -f "package/default-settings/files/zzz-default-settings" ]; then
         echo "Info: Custom config network"
         clean_package package/default-settings
-        bash $CONFIG_PATH/network.sh           package/default-settings/files/zzz-default-settings
+        bash $CONFIG_PATH/network.sh package/default-settings/files/zzz-default-settings
     fi
     if [ -f "package/lean/default-settings/files/zzz-default-settings" ]; then
         echo "Info: Custom config network lean"
         clean_package package/lean/default-settings
-        bash $CONFIG_PATH/network.sh           package/lean/default-settings/files/zzz-default-settings
+        bash $CONFIG_PATH/network.sh package/lean/default-settings/files/zzz-default-settings
     fi
 
     # hosts
     clean_package package/base-files
-    cp -f $CONFIG_PATH/etc/hosts    package/base-files/files/etc/hosts
+    cp -f $CONFIG_PATH/etc/hosts package/base-files/files/etc/hosts
 
     # firewall
     clean_package package/network/config/firewall
-    sed -i "/'lan'/a\	list   network		'n2n0'"              package/network/config/firewall/files/firewall.config
-    sed -i "/'wan6'/a\	list   network		'iptv'"              package/network/config/firewall/files/firewall.config
-    sed -i "/input		REJECT/c\	option input		ACCEPT"  package/network/config/firewall/files/firewall.config
-    cp -f $CONFIG_PATH/etc/firewall.user                         package/network/config/firewall/files/firewall.user
+    sed -i "/'lan'/a\	list   network		'n2n0'" package/network/config/firewall/files/firewall.config
+    sed -i "/'wan6'/a\	list   network		'iptv'" package/network/config/firewall/files/firewall.config
+    sed -i "/input		REJECT/c\	option input		ACCEPT" package/network/config/firewall/files/firewall.config
+    cp -f $CONFIG_PATH/etc/firewall.user package/network/config/firewall/files/firewall.user
 
     # adbyby
     if [ -d "package/lean/luci-app-adbyby-plus" ]; then
         echo "Info: Custom config adbyby"
         clean_package package/lean/luci-app-adbyby-plus
-        cp -f $CONFIG_PATH/etc/config/adbyby           package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
+        cp -f $CONFIG_PATH/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
     fi
 
     # n2n_v2
     if [ -d "package/feeds/n2n/n2n_v2" ]; then
         echo "Info: Custom config n2n_v2"
         clean_package package/feeds/n2n/n2n_v2
-        cp -f $CONFIG_PATH/etc/config/n2n_v2        package/feeds/n2n/n2n_v2/files/n2n_v2.config
+        cp -f $CONFIG_PATH/etc/config/n2n_v2 package/feeds/n2n/n2n_v2/files/n2n_v2.config
     fi
     if [ -d "package/n2n/n2n_v2" ]; then
         echo "Info: Custom config n2n_v2"
         clean_package package/n2n/n2n_v2
-        cp -f $CONFIG_PATH/etc/config/n2n_v2        package/n2n/n2n_v2/files/n2n_v2.config
+        cp -f $CONFIG_PATH/etc/config/n2n_v2 package/n2n/n2n_v2/files/n2n_v2.config
     fi
 
     # passwall
     if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
         echo "Info: Custom config passwall"
         clean_package package/feeds/diy1/luci-app-passwall
-        cp -f $CONFIG_PATH/etc/config/passwall         package/feeds/diy1/luci-app-passwall/root/etc/config/passwall
-        cp -f $CONFIG_PATH/usr/share/passwall/rules/*  package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/rules/
+        cp -f $CONFIG_PATH/etc/config/passwall package/feeds/diy1/luci-app-passwall/root/etc/config/passwall
+        cp -f $CONFIG_PATH/usr/share/passwall/rules/* package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/rules/
     fi
 
     # smartdns
@@ -228,29 +228,29 @@ do_personal_config() {
         clean_package package/feeds/luci/luci-app-smartdns
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns
-        cp -f $CONFIG_PATH/etc/config/smartdns         package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
-        cp -f $CONFIG_PATH/etc/smartdns/*              package/feeds/luci/luci-app-smartdns/root/etc/smartdns/
+        cp -f $CONFIG_PATH/etc/config/smartdns package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
+        cp -f $CONFIG_PATH/etc/smartdns/* package/feeds/luci/luci-app-smartdns/root/etc/smartdns/
     fi
 
     # udpxy
     if [ -d "package/feeds/packages/udpxy" ]; then
         echo "Info: Custom config udpxy"
         clean_package package/feeds/packages/udpxy
-        cp -f $CONFIG_PATH/etc/config/udpxy            package/feeds/packages/udpxy/files/udpxy.conf
+        cp -f $CONFIG_PATH/etc/config/udpxy package/feeds/packages/udpxy/files/udpxy.conf
     fi
 
     # vlmcsd
     if [ -d "package/lean/luci-app-vlmcsd" ]; then
         echo "Info: Custom config vlmcsd"
         clean_package package/lean/luci-app-vlmcsd
-        cp -f $CONFIG_PATH/etc/config/vlmcsd           package/lean/luci-app-vlmcsd/root/etc/config/vlmcsd
+        cp -f $CONFIG_PATH/etc/config/vlmcsd package/lean/luci-app-vlmcsd/root/etc/config/vlmcsd
     fi
 
     # openclash
     if [ -d "package/feeds/openclash/luci-app-openclash" ]; then
         echo "Info: Custom config openclash"
         clean_package package/feeds/openclash
-        cp -f $CONFIG_PATH/etc/config/openclash        package/feeds/openclash/luci-app-openclash/root/etc/config/openclash
+        cp -f $CONFIG_PATH/etc/config/openclash package/feeds/openclash/luci-app-openclash/root/etc/config/openclash
     fi
 }
 
