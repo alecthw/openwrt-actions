@@ -189,11 +189,11 @@ do_personal_config() {
 
     # n2n_v2
     if [ -d "package/feeds/n2n/n2n_v2" ]; then
-        echo "Info: Custom config openclash"
+        echo "Info: Custom config n2n_v2"
         cp -f $CONFIG_PATH/etc/config/n2n_v2        package/feeds/n2n/n2n_v2/files/n2n_v2.config
     fi
     if [ -d "package/n2n/n2n_v2" ]; then
-        echo "Info: Custom config openclash"
+        echo "Info: Custom config n2n_v2"
         cp -f $CONFIG_PATH/etc/config/n2n_v2        package/n2n/n2n_v2/files/n2n_v2.config
     fi
 
@@ -210,7 +210,7 @@ do_personal_config() {
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns
         cp -f $CONFIG_PATH/etc/config/smartdns         package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
-        cp -f $CONFIG_PATH/etc/smartdns/custom.conf    package/feeds/luci/luci-app-smartdns/root/etc/smartdns/custom.conf 
+        cp -f $CONFIG_PATH/etc/smartdns/*              package/feeds/luci/luci-app-smartdns/root/etc/smartdns/
     fi
 
     # udpxy
