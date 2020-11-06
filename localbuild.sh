@@ -153,6 +153,9 @@ do_personal_config() {
         CONFIG_PATH=$CUR_PATH/defconfig
     elif [ -d "$CUR_PATH/../archive/home/defconfig" ]; then
         CONFIG_PATH=$CUR_PATH/../archive/home/defconfig
+        if [ -d "$CUR_PATH/../archive/.git" ]; then
+            cd $CUR_PATH/../archive && git pull
+        fi
     else
         echo "Warn: No default config exist"
         return
