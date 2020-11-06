@@ -117,7 +117,11 @@ jobs:
         id: config
         run: |
           cd openwrt
-          cp ../user/${{matrix.target}}/config.diff .config
+          if [ -f "../user/${{matrix.target}}/config_mini.diff" ]; then
+            cp ../user/${{matrix.target}}/config_mini.diff .config
+          else
+            cp ../user/${{matrix.target}}/config.diff .config
+          fi
           make defconfig
 
       - name: Download package

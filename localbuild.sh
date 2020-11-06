@@ -131,10 +131,13 @@ do_prepare() {
 
     # copy config
     cd ${CUR_PATH}/${code_dir}
-    # if [ ! -f ".config" ]; then
-    echo "Info: Copy config..."
-    cp -f ../user/${target}/config.diff .config
-    # fi
+    if [ -f "../user/${target}/config_mini.diff" ]; then
+        echo "Info: Copy config mini..."
+        cp ../user/${target}/config_mini.diff .config
+    else
+        echo "Info: Copy config..."
+        cp -f ../user/${target}/config.diff .config
+    fi
     echo "Info: Make defconfig..."
     make defconfig
 }
