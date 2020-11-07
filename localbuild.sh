@@ -41,7 +41,7 @@ init_code_dir() {
     lienol-main-x64 | lienol-main-x64-mini)
         code_dir="openwrt"
         ;;
-    lienol-1907-x64)
+    lienol-1907-x64 | lienol-1907-x64-mini)
         code_dir="openwrt_1907"
         ;;
     lede-x64)

@@ -1,0 +1,7 @@
+--- feeds.conf.default	2020-10-13 09:41:45.342012855 +0800
++++ feeds.conf.default	2020-10-13 09:43:48.958090188 +0800
+@@ -3,3 +3,4 @@
+ src-git telephony https://git.openwrt.org/feed/telephony.git;openwrt-19.07
+ src-git luci https://github.com/Lienol/openwrt-luci.git;17.01
+ src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
++src-git n2n https://github.com/alecthw/openwrt-n2n.git
