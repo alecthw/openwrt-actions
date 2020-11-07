@@ -112,9 +112,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - snmpd
 - tcpdump-mini
 
-## Official x64
-
-Use the [code](https://github.com/alecthw/openwrt) which fork from [official's code](https://github.com/openwrt/openwrt)
+## Mini Version
 
 It's a very lite img include passwall. It's suitable for bypass router using.
 
