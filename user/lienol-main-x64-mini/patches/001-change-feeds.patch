@@ -1,0 +1,10 @@
+--- feeds.conf.default	2020-10-13 09:22:10.496144022 +0800
++++ feeds.conf.default	2020-10-13 09:28:56.327063311 +0800
+@@ -8,4 +8,5 @@
+ #src-git management https://github.com/openwrt-management/packages.git
+ #src-git oldpackages http://git.openwrt.org/packages.git
+ #src-link custom /usr/src/openwrt/custom-feed
+-src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
+\ No newline at end of file
++src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
++src-git n2n https://github.com/alecthw/openwrt-n2n.git

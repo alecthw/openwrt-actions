@@ -38,7 +38,7 @@ init_code_dir() {
     source ${CUR_PATH}/user/${target}/settings.ini
 
     case "$target" in
-    lienol-main-x64)
+    lienol-main-x64 | lienol-main-x64-mini)
         code_dir="openwrt"
         ;;
     lienol-1907-x64)

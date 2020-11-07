@@ -2,19 +2,24 @@
 
 echo "Test custom.sh"
 
-# update upstream code
-git pull https://github.com/openwrt/openwrt.git --log --no-commit
-
 # add custom packages
-git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git package/luci-app-jd-dailybonus
+git clone https://github.com/tty228/luci-app-serverchan.git       package/luci-app-serverchan
+
+# set default theme
+sed -i "/luci.main.mediaurlbase/c\uci set luci.main.mediaurlbase=/luci-static/material" package/default-settings/files/zzz-default-settings
+
+# set lan ip
+sed -i "/^#uci set network.lan.ipaddr/c\uci set network.lan.ipaddr='192.168.11.1'"      package/default-settings/files/zzz-default-settings
+sed -i "/^#uci set network.lan.netmask/c\uci set network.lan.netmask='255.255.255.0'"   package/default-settings/files/zzz-default-settings
+sed -i "/^#uci commit network/c\uci commit network"                                     package/default-settings/files/zzz-default-settings
+
+# remove feeds repository
+sed -i "/diy1/a\sed -i '/n2n/d' /etc/opkg/distfeeds.conf"                               package/default-settings/files/zzz-default-settings
 
 # copy default config
 if [ -d "package/lean/luci-app-adbyby-plus" ]; then
     cp -f ../user/official-master-x64/defconfig/etc/config/adbyby           package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
-fi
-
-if [ -d "package/feeds/openclash/luci-app-openclash" ]; then
-    cp -f ../user/official-master-x64/defconfig/etc/config/openclash        package/feeds/openclash/luci-app-openclash/root/etc/config/openclash
 fi
 
 if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
@@ -29,8 +34,4 @@ if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
     cp -f ../user/official-master-x64/defconfig/etc/smartdns/custom.conf    package/feeds/luci/luci-app-smartdns/root/etc/smartdns/custom.conf 
 fi
 
-# clean default config of https-dns-proxy
-cat > package/feeds/packages/https-dns-proxy/files/https-dns-proxy.config << EOF
-config main 'config'
-	option update_dnsmasq_config ''
-EOF
+cat package/default-settings/files/zzz-default-settings
