@@ -5,6 +5,9 @@ echo "Test custom.sh"
 # update upstream code
 git pull https://github.com/openwrt/openwrt.git --log --no-commit
 
+# add custom packages
+git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+
 # copy default config
 if [ -d "package/lean/luci-app-adbyby-plus" ]; then
     cp -f ../user/official-master-x64/defconfig/etc/config/adbyby           package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
