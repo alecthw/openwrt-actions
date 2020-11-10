@@ -44,7 +44,7 @@ init_code_dir() {
     lienol-1907-x64 | lienol-1907-x64-mini)
         code_dir="openwrt_1907"
         ;;
-    lede-x64)
+    lede-x64 | lede-x64-mini)
         code_dir="lede"
         ;;
     official-master-x64)
@@ -153,13 +153,13 @@ do_env() {
 do_personal_config() {
     # get config dir
     CONFIG_PATH=""
-    if [ -d "$CUR_PATH/defconfig" ]; then
-        CONFIG_PATH=$CUR_PATH/defconfig
-    elif [ -d "$CUR_PATH/../archive/home/defconfig" ]; then
+    if [ -d "$CUR_PATH/../archive/home/defconfig" ]; then
         CONFIG_PATH=$CUR_PATH/../archive/home/defconfig
         if [ -d "$CUR_PATH/../archive/.git" ]; then
             cd $CUR_PATH/../archive && git pull
         fi
+    elif [ -d "$CUR_PATH/defconfig" ]; then
+        CONFIG_PATH=$CUR_PATH/defconfig
     else
         echo "Warn: No default config exist"
         return
