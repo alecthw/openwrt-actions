@@ -29,9 +29,3 @@ rm -rf package/lean/trojan
 #rm -rf package/lean/v2ray
 #rm -rf package/lean/v2ray-plugin
 #rm -rf package/lean/verysync
-
-# luci-app-tcpdump
-curl https://codeload.github.com/Lienol/openwrt/zip/19.07 -o lienol.zip
-unzip -q lienol.zip -d lienol
-cp -rf lienol/openwrt-19.07/package/diy/luci-app-tcpdump package/
-rm -rf lienol*
