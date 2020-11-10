@@ -21,6 +21,7 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 - luci-app-n2n_n2
 - luci-app-serverchan
 - luci-app-udpxy
+- luci-theme-argon-jerrykuku
 - luci-theme-material
 - openssl-sftp-server
 - open-vm-tools
@@ -42,8 +43,9 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-passwall
 - luci-app-serverchan
 - luci-app-smartdns
+- luci-app-tcpdump
 - luci-app-udpxy
-- luci-theme-argon
+- luci-theme-argon-jerrykuku
 - luci-theme-freifunk-generic
 - luci-theme-material
 - luci-theme-netgear
@@ -97,10 +99,8 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 #### Themes
 
-- luci-theme-argon
-- luci-theme-freifunk-generic
+- luci-theme-argon-jerrykuku
 - luci-theme-material
-- luci-theme-netgear
 
 #### Additional packages
 
@@ -137,6 +137,7 @@ It's a very lite img include passwall. It's suitable for bypass router using.
 - luci-app-tcpdump
 - luci-app-udpxy
 - luci-app-vlmcsd
+- luci-theme-argon-jerrykuku
 - luci-theme-material
 - luci-proto-bonding
 - luci-lib-ipkg
