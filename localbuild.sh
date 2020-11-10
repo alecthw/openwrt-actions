@@ -86,7 +86,7 @@ do_prepare() {
         rm -rf package/luci-app-jd-dailybonus
         rm -rf package/luci-app-serverchan
         rm -rf package/luci-app-smartdns
-        rm -rf package/n2n
+        rm -rf package/luci-app-tcpdump
 
         echo "Info: Update code..."
         force_pull
@@ -100,6 +100,13 @@ do_prepare() {
     fi
     if [ -n "$(ls -A "user/${target}/patches" 2>/dev/null)" ]; then
         find "user/${target}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '$code_dir' -p0 --forward"
+    fi
+
+    # apply patch.sh
+    cd ${CUR_PATH}/${code_dir}
+    if [ -f "../user/$target/patch.sh" ]; then
+        echo "Info: Apply patch.sh..."
+        /bin/bash "../user/$target/patch.sh"
     fi
 
     # feeds

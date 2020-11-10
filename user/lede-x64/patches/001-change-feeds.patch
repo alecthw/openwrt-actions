@@ -1,9 +1,10 @@
---- feeds.conf.default	2020-09-14 20:13:12.929790921 +0800
-+++ feeds.conf.default	2020-09-14 20:12:59.837791419 +0800
-@@ -8,4 +8,5 @@
+--- feeds.conf.default	2020-11-10 16:44:28.132725157 +0800
++++ feeds.conf.default	2020-11-10 16:48:44.847789272 +0800
+@@ -8,4 +8,6 @@
  #src-git management https://github.com/openwrt-management/packages.git
  #src-git oldpackages http://git.openwrt.org/packages.git
  #src-link custom /usr/src/openwrt/custom-feed
 -#src-git helloworld https://github.com/fw876/helloworld
 +src-git helloworld https://github.com/fw876/helloworld
 +src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
++src-git n2n https://github.com/alecthw/openwrt-n2n.git

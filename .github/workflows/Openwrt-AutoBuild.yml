@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-      - 'start'
+      - "start"
   schedule:
     - cron: 0 22 * * *
   watch:
@@ -25,7 +25,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [lienol-main-x64, lienol-1907-x64, lede-x64, lienol-main-x64-mini, lienol-1907-x64-mini, lede-x64-mini, lede-wrt1900acs, lede-newifi_d2]
+        target:
+          [
+            lienol-main-x64,
+            lienol-1907-x64,
+            lede-x64,
+            lienol-main-x64-mini,
+            lienol-1907-x64-mini,
+            lede-x64-mini,
+            lede-wrt1900acs,
+            lede-newifi_d2,
+          ]
 
     steps:
       - name: Checkout
@@ -47,7 +57,7 @@ jobs:
           sudo -E apt-get -qq clean
 
       - name: Set git identity
-        run : |
+        run: |
           git config --global user.email "22856212+alecthw@users.noreply.github.com"
           git config --global user.name "alecthw"
 
@@ -73,15 +83,16 @@ jobs:
         run: |
           echo "Apply patches"
           if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
-          (
             find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
-          )
           fi
 
           if [ -n "$(ls -A "user/${{matrix.target}}/patches" 2>/dev/null)" ]; then
-          (
             find "user/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
-          )
+          fi
+
+          if [ -f "user/${{matrix.target}}/patch.sh" ]; then
+            cd openwrt
+            /bin/bash "../user/${{matrix.target}}/patch.sh"
           fi
 
       - name: Update feeds
@@ -102,16 +113,12 @@ jobs:
 
           echo "Apply custom.sh"
           if [ -f "user/common/custom.sh" ]; then
-          (
             cd openwrt
             /bin/bash "../user/common/custom.sh"
-          )
           fi
           if [ -f "user/${{matrix.target}}/custom.sh" ]; then
-          (
             cd openwrt
             /bin/bash "../user/${{matrix.target}}/custom.sh"
-          )
           fi
 
       - name: Copy config
@@ -141,14 +148,14 @@ jobs:
         if: steps.compile.outputs.status == 'success'
         run: |
           cd openwrt/bin/packages/
-          tar -cvf  ${{matrix.target}}_packages.tar ./
+          tar -cvf ${{matrix.target}}_packages.tar ./
           mv *.tar ..
 
       - name: Pack targets_dir
         if: steps.compile.outputs.status == 'success'
         run: |
           cd openwrt/bin/targets/
-          tar -cvf  ${{matrix.target}}_targets.tar ./
+          tar -cvf ${{matrix.target}}_targets.tar ./
           mv *.tar ..
 
       - name: Assemble Firmware
@@ -187,13 +194,13 @@ jobs:
         if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&  steps.compile.outputs.status == 'success'
         run: |
           curl -fsSL git.io/file-transfer | sh
-           ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_packages.tar
+          ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_packages.tar
 
       - name: Upload Targetss to CowTransfer
         if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&　 steps.compile.outputs.status == 'success'
         run: |
           curl -fsSL git.io/file-transfer | sh
-           ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_targets.tar
+          ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_targets.tar
 
       - name: Upload packages directory
         if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　&& steps.compile.outputs.status == 'success'
