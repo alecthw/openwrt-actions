@@ -2,17 +2,25 @@
 
 Build OpenWRT using github actions!
 
-![X64-LEDE](https://github.com/alecthw/openwrt-actions/workflows/Openwrt-AutoBuild/badge.svg)
+![Badge](https://github.com/alecthw/openwrt-actions/workflows/Openwrt-AutoBuild/badge.svg)
+
+Default IP: `192.168.11.1/24`, no password.
+
+## Img Config
+
+- Disable ext4 img
+- GZip images
+- VMWare images
 
 ## Lienol x64
 
 Use Lienol's [code](https://github.com/Lienol/openwrt) dev-master branch
 
-Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and [Lienol's Actions](https://github.com/Lienol/openwrt-actions)
+Copy config from [hyird's Actions (Branch 1907)](https://github.com/hyird/openwrt-actions) and [Lienol's Actions (Branch main)](https://github.com/Lienol/openwrt-actions).
+Compared with the config, the changes are as follows.
 
-### Additional apps and packages
+### Additional packages
 
-- Default_IP 192.168.11.1/24
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - ipv6helper
@@ -30,10 +38,10 @@ Copy action from [hyird's Actions](https://github.com/hyird/openwrt-actions) and
 
 Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
-### Additional apps and packages
+Compared with the lean's default config, the changes are as follows.
 
-- Default_IP 192.168.11.1/24
-- GZip images
+### Additional packages
+
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - ipv6helper
@@ -58,15 +66,11 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
-### All luci
-
-- Default_IP 192.168.11.1/24
-
-#### Collections
+### Collections
 
 - luci-ssl-openssl
 
-#### Apps
+### Apps
 
 - luci-app-accesscontrol
 - luci-app-adbyby-plus
@@ -99,12 +103,12 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-xlnetacc
 - luci-app-zerotier
 
-#### Themes
+### Themes
 
 - luci-theme-argon-jerrykuku
 - luci-theme-material
 
-#### Additional packages
+### Other packages
 
 - ipv6helper
 - automount
@@ -120,9 +124,6 @@ It's a very lite img include passwall. It's suitable for bypass router using.
 
 ### Apps and packages
 
-- Default_IP 192.168.11.1/24
-- Disable ext4 img
-- VMware img
 - KERNEL_PARTSIZE 32
 - ROOTFS_PARTSIZE 760
 - dnsmasq-full

@@ -469,6 +469,7 @@ CONFIG_FEED_telephony=y
 CONFIG_FEED_freifunk=y
 CONFIG_FEED_helloworld=y
 CONFIG_FEED_diy1=y
+CONFIG_FEED_n2n=y
 
 #
 # Base system
@@ -4504,6 +4505,7 @@ CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
 # CONFIG_PACKAGE_luci-app-statistics is not set
 # CONFIG_PACKAGE_luci-app-syncdial is not set
 # CONFIG_PACKAGE_luci-app-syncthing is not set
+CONFIG_PACKAGE_luci-app-tcpdump=y
 # CONFIG_PACKAGE_luci-app-timecontrol is not set
 # CONFIG_PACKAGE_luci-app-tinyproxy is not set
 # CONFIG_PACKAGE_luci-app-transmission is not set
@@ -4537,7 +4539,8 @@ CONFIG_PACKAGE_luci-app-zerotier=y
 #
 # 4. Themes
 #
-CONFIG_PACKAGE_luci-theme-argon=y
+# CONFIG_PACKAGE_luci-theme-argon is not set
+CONFIG_PACKAGE_luci-theme-argon-jerrykuku=y
 CONFIG_PACKAGE_luci-theme-bootstrap=y
 CONFIG_PACKAGE_luci-theme-freifunk-generic=y
 CONFIG_PACKAGE_luci-theme-material=y
@@ -4711,6 +4714,7 @@ CONFIG_PACKAGE_luci-i18n-sfe-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-smartdns-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-ssr-plus-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-ssr-plus-zh_Hans is not set
+CONFIG_PACKAGE_luci-i18n-tcpdump-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-unblockmusic-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-upnp-ca is not set
 # CONFIG_PACKAGE_luci-i18n-upnp-cs is not set
