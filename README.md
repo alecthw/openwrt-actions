@@ -60,6 +60,8 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
 ### All luci
 
+- Default_IP 192.168.11.1/24
+
 #### Collections
 
 - luci-ssl-openssl
