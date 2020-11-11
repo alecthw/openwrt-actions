@@ -51,6 +51,9 @@ do_lienol_common() {
 }
 
 do_lede_common() {
+    # delete default password
+    sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
+
     # set default theme
     sed -i "/uci commit luci/i\uci set luci.main.mediaurlbase=/luci-static/material" package/lean/default-settings/files/zzz-default-settings
 

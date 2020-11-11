@@ -83,6 +83,7 @@ do_prepare() {
 
         echo "Info: Clean custom package..."
         git clean -fd
+        rm -rf package/luci-theme-argon-jerrykuku
         rm -rf package/luci-app-jd-dailybonus
         rm -rf package/luci-app-serverchan
         rm -rf package/luci-app-smartdns
@@ -103,12 +104,12 @@ do_prepare() {
     fi
 
     # apply patch.sh
+    echo "Info: Apply patch.sh..."
     cd ${CUR_PATH}/${code_dir}
     if [ -f "../user/common/patch.sh" ]; then
         /bin/bash "../user/common/patch.sh" ${target}
     fi
     if [ -f "../user/${target}/patch.sh" ]; then
-        echo "Info: Apply patch.sh..."
         /bin/bash "../user/${target}/patch.sh"
     fi
 
