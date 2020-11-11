@@ -77,22 +77,34 @@ jobs:
 
       - name: Clone source code
         run: |
-          git clone ${{ env.REPO_URL }} -b ${{ env.REPO_BRANCH }} openwrt
+          git clone ${{env.REPO_URL}} -b ${{env.REPO_BRANCH}} openwrt
 
       - name: Apply Patches
         run: |
           echo "Apply patches"
           if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
+          (
             find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
+          )
           fi
-
           if [ -n "$(ls -A "user/${{matrix.target}}/patches" 2>/dev/null)" ]; then
+          (
             find "user/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
+          )
           fi
 
+          echo "Apply patch.sh"
+          if [ -f "user/common/patch.sh" ]; then
+          (
+            cd openwrt
+            /bin/bash "../user/common/patch.sh" ${{matrix.target}}
+          )
+          fi
           if [ -f "user/${{matrix.target}}/patch.sh" ]; then
+          (
             cd openwrt
             /bin/bash "../user/${{matrix.target}}/patch.sh"
+          )
           fi
 
       - name: Update feeds
@@ -105,27 +117,35 @@ jobs:
         run: |
           echo "Apply files..."
           if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
+          (
             cp -rf user/common/files/* openwrt/package/base-files/files/
+          )
           fi
           if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
+          (
             cp -rf user/${{matrix.target}}/files/* openwrt/package/base-files/files/
+          )
           fi
 
           echo "Apply custom.sh"
           if [ -f "user/common/custom.sh" ]; then
+          (
             cd openwrt
-            /bin/bash "../user/common/custom.sh"
+            /bin/bash "../user/common/custom.sh" ${{matrix.target}}
+          )
           fi
           if [ -f "user/${{matrix.target}}/custom.sh" ]; then
+          (
             cd openwrt
             /bin/bash "../user/${{matrix.target}}/custom.sh"
+          )
           fi
 
       - name: Copy config
         id: config
         run: |
           cd openwrt
-          cp ../user/${{matrix.target}}/${{ env.CONFIG_FILE }} .config
+          cp ../user/${{matrix.target}}/${{env.CONFIG_FILE}} .config
           make defconfig
 
       - name: Download package
@@ -172,10 +192,10 @@ jobs:
         if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_REALEASE == 'true' && !cancelled() &&  steps.compile.outputs.status == 'success'
         uses: svenstaro/upload-release-action@v1-release
         with:
-          repo_token: ${{ secrets.SUPER_TOKEN }}
+          repo_token: ${{secrets.SUPER_TOKEN}}
           file: openwrt/bin/${{matrix.target}}_packages.tar
           asset_name: ${{matrix.target}}_packages.tar
-          tag: ${{ env.DATE }}
+          tag: ${{env.DATE}}
           overwrite: true
           file_glob: true
 
@@ -183,10 +203,10 @@ jobs:
         if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_REALEASE == 'true' && !cancelled() &&  steps.compile.outputs.status == 'success'
         uses: svenstaro/upload-release-action@v1-release
         with:
-          repo_token: ${{ secrets.SUPER_TOKEN }}
+          repo_token: ${{secrets.SUPER_TOKEN}}
           file: openwrt/bin/${{matrix.target}}_targets.tar
           asset_name: ${{matrix.target}}_targets.tar
-          tag: ${{ env.DATE }}
+          tag: ${{env.DATE}}
           overwrite: true
           file_glob: true
 
@@ -225,4 +245,4 @@ jobs:
 
       - name: WeChat notification
         if: env.WECHAT_NOTIFICATION == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
-        run: curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=${{matrix.target}}编译完成
+        run: curl https://sc.ftqq.com/${{secrets.SCKEY}}.send?text=${{matrix.target}}编译完成

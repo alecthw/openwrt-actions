@@ -4,7 +4,7 @@ CUR_PATH=$(
     cd $(dirname $0)
     pwd
 )
-echo "Info: Current path is $CUR_PATH"
+echo "Info: Current path is ${CUR_PATH}"
 cd ${CUR_PATH}
 git pull
 
@@ -12,9 +12,9 @@ error() {
     local msg=$1
     local exit_code=$2
 
-    echo "Error: $msg" >&2
+    echo "Error: ${msg}" >&2
 
-    if [ -n "$exit_code" ]; then
+    if [ -n "${exit_code}" ]; then
         exit ${exit_code}
     fi
 }
@@ -22,22 +22,22 @@ error() {
 force_pull() {
     branch=$(git branch | grep "*")
     currBranch=${branch:2}
-    echo "Info: Current branch is $currBranch"
+    echo "Info: Current branch is ${currBranch}"
     git fetch --all
     git reset --hard origin/${currBranch}
 }
 
 init_code_dir() {
-    if [ ! -n "$target" ]; then
+    if [ ! -n "${target}" ]; then
         error "Option --target argument is reuqired!"
     fi
 
-    echo "Info: Current target is $target"
+    echo "Info: Current target is ${target}"
 
     # export env
     source ${CUR_PATH}/user/${target}/settings.ini
 
-    case "$target" in
+    case "${target}" in
     lienol-main-x64 | lienol-main-x64-mini)
         code_dir="openwrt"
         ;;
@@ -54,11 +54,11 @@ init_code_dir() {
         code_dir="lede_device"
         ;;
     *)
-        error "Unknow $target!" 2
+        error "Unknow ${target}!" 2
         ;;
     esac
 
-    echo "Info: Current code_dir is $code_dir"
+    echo "Info: Current code_dir is ${code_dir}"
 }
 
 clean_package() {
@@ -72,8 +72,8 @@ do_prepare() {
     # clone/update code
     cd ${CUR_PATH}
 
-    if [ ! -d "$CUR_PATH/$code_dir" ]; then
-        echo "Info: Clone code $REPO_URL $REPO_BRANCH..."
+    if [ ! -d "${CUR_PATH}/${code_dir}" ]; then
+        echo "Info: Clone code ${REPO_URL} ${REPO_BRANCH}..."
         git clone ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
     else
         cd ${CUR_PATH}/${code_dir}
@@ -96,17 +96,20 @@ do_prepare() {
     echo "Info: Apply patches..."
     cd ${CUR_PATH}
     if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
-        find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '$code_dir' -p0 --forward"
+        find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '${code_dir}' -p0 --forward"
     fi
     if [ -n "$(ls -A "user/${target}/patches" 2>/dev/null)" ]; then
-        find "user/${target}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '$code_dir' -p0 --forward"
+        find "user/${target}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '${code_dir}' -p0 --forward"
     fi
 
     # apply patch.sh
     cd ${CUR_PATH}/${code_dir}
-    if [ -f "../user/$target/patch.sh" ]; then
+    if [ -f "../user/common/patch.sh" ]; then
+        /bin/bash "../user/common/patch.sh" ${target}
+    fi
+    if [ -f "../user/${target}/patch.sh" ]; then
         echo "Info: Apply patch.sh..."
-        /bin/bash "../user/$target/patch.sh"
+        /bin/bash "../user/${target}/patch.sh"
     fi
 
     # feeds
@@ -121,7 +124,7 @@ do_prepare() {
         if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
             cp -rf user/common/files/* ${code_dir}/package/base-files/files/
         fi
-        if [ -n "$(ls -A "user/$target/files" 2>/dev/null)" ]; then
+        if [ -n "$(ls -A "user/${target}/files" 2>/dev/null)" ]; then
             cp -rf user/${target}/files/* ${code_dir}/package/base-files/files/
         fi
     fi
@@ -130,10 +133,10 @@ do_prepare() {
     echo "Info: Apply custom.sh..."
     cd ${CUR_PATH}/${code_dir}
     if [ -f "../user/common/custom.sh" ]; then
-        /bin/bash "../user/common/custom.sh"
+        /bin/bash "../user/common/custom.sh" ${target}
     fi
-    if [ -f "../user/$target/custom.sh" ]; then
-        /bin/bash "../user/$target/custom.sh"
+    if [ -f "../user/${target}/custom.sh" ]; then
+        /bin/bash "../user/${target}/custom.sh"
     fi
 
     # copy config
@@ -160,18 +163,18 @@ do_env() {
 do_personal_config() {
     # get config dir
     CONFIG_PATH=""
-    if [ -d "$CUR_PATH/../archive/home/defconfig" ]; then
-        CONFIG_PATH=$CUR_PATH/../archive/home/defconfig
-        if [ -d "$CUR_PATH/../archive/.git" ]; then
-            cd $CUR_PATH/../archive && git pull
+    if [ -d "${CUR_PATH}/../archive/home/defconfig" ]; then
+        CONFIG_PATH=${CUR_PATH}/../archive/home/defconfig
+        if [ -d "${CUR_PATH}/../archive/.git" ]; then
+            cd ${CUR_PATH}/../archive && git pull
         fi
-    elif [ -d "$CUR_PATH/defconfig" ]; then
-        CONFIG_PATH=$CUR_PATH/defconfig
+    elif [ -d "${CUR_PATH}/defconfig" ]; then
+        CONFIG_PATH=${CUR_PATH}/defconfig
     else
         echo "Warn: No default config exist"
         return
     fi
-    echo "Info: Config path is $CONFIG_PATH..."
+    echo "Info: Config path is ${CONFIG_PATH}..."
 
     # work dir
     cd ${CUR_PATH}/${code_dir}
@@ -180,50 +183,50 @@ do_personal_config() {
     if [ -f "package/default-settings/files/zzz-default-settings" ]; then
         echo "Info: Custom config network"
         clean_package package/default-settings
-        bash $CONFIG_PATH/network.sh package/default-settings/files/zzz-default-settings
+        bash ${CONFIG_PATH}/network.sh package/default-settings/files/zzz-default-settings
     fi
     if [ -f "package/lean/default-settings/files/zzz-default-settings" ]; then
         echo "Info: Custom config network lean"
         clean_package package/lean/default-settings
-        bash $CONFIG_PATH/network.sh package/lean/default-settings/files/zzz-default-settings
+        bash ${CONFIG_PATH}/network.sh package/lean/default-settings/files/zzz-default-settings
     fi
 
     # hosts
     clean_package package/base-files
-    cp -f $CONFIG_PATH/etc/hosts package/base-files/files/etc/hosts
+    cp -f ${CONFIG_PATH}/etc/hosts package/base-files/files/etc/hosts
 
     # firewall
     clean_package package/network/config/firewall
     sed -i "/'lan'/a\	list   network		'n2n0'" package/network/config/firewall/files/firewall.config
     sed -i "/'wan6'/a\	list   network		'iptv'" package/network/config/firewall/files/firewall.config
     sed -i "/input		REJECT/c\	option input		ACCEPT" package/network/config/firewall/files/firewall.config
-    cp -f $CONFIG_PATH/etc/firewall.user package/network/config/firewall/files/firewall.user
+    cp -f ${CONFIG_PATH}/etc/firewall.user package/network/config/firewall/files/firewall.user
 
     # adbyby
     if [ -d "package/lean/luci-app-adbyby-plus" ]; then
         echo "Info: Custom config adbyby"
         clean_package package/lean/luci-app-adbyby-plus
-        cp -f $CONFIG_PATH/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
+        cp -f ${CONFIG_PATH}/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
     fi
 
     # n2n_v2
     if [ -d "package/feeds/n2n/n2n_v2" ]; then
         echo "Info: Custom config n2n_v2"
         clean_package package/feeds/n2n/n2n_v2
-        cp -f $CONFIG_PATH/etc/config/n2n_v2 package/feeds/n2n/n2n_v2/files/n2n_v2.config
+        cp -f ${CONFIG_PATH}/etc/config/n2n_v2 package/feeds/n2n/n2n_v2/files/n2n_v2.config
     fi
     if [ -d "package/n2n/n2n_v2" ]; then
         echo "Info: Custom config n2n_v2"
         clean_package package/n2n/n2n_v2
-        cp -f $CONFIG_PATH/etc/config/n2n_v2 package/n2n/n2n_v2/files/n2n_v2.config
+        cp -f ${CONFIG_PATH}/etc/config/n2n_v2 package/n2n/n2n_v2/files/n2n_v2.config
     fi
 
     # passwall
     if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
         echo "Info: Custom config passwall"
         clean_package package/feeds/diy1/luci-app-passwall
-        cp -f $CONFIG_PATH/etc/config/passwall package/feeds/diy1/luci-app-passwall/root/etc/config/passwall
-        cp -f $CONFIG_PATH/usr/share/passwall/rules/* package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/rules/
+        cp -f ${CONFIG_PATH}/etc/config/passwall package/feeds/diy1/luci-app-passwall/root/etc/config/passwall
+        cp -f ${CONFIG_PATH}/usr/share/passwall/rules/* package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/rules/
     fi
 
     # smartdns
@@ -232,29 +235,29 @@ do_personal_config() {
         clean_package package/feeds/luci/luci-app-smartdns
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns
-        cp -f $CONFIG_PATH/etc/config/smartdns package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
-        cp -f $CONFIG_PATH/etc/smartdns/* package/feeds/luci/luci-app-smartdns/root/etc/smartdns/
+        cp -f ${CONFIG_PATH}/etc/config/smartdns package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
+        cp -f ${CONFIG_PATH}/etc/smartdns/* package/feeds/luci/luci-app-smartdns/root/etc/smartdns/
     fi
 
     # udpxy
     if [ -d "package/feeds/packages/udpxy" ]; then
         echo "Info: Custom config udpxy"
         clean_package package/feeds/packages/udpxy
-        cp -f $CONFIG_PATH/etc/config/udpxy package/feeds/packages/udpxy/files/udpxy.conf
+        cp -f ${CONFIG_PATH}/etc/config/udpxy package/feeds/packages/udpxy/files/udpxy.conf
     fi
 
     # vlmcsd
     if [ -d "package/lean/luci-app-vlmcsd" ]; then
         echo "Info: Custom config vlmcsd"
         clean_package package/lean/luci-app-vlmcsd
-        cp -f $CONFIG_PATH/etc/config/vlmcsd package/lean/luci-app-vlmcsd/root/etc/config/vlmcsd
+        cp -f ${CONFIG_PATH}/etc/config/vlmcsd package/lean/luci-app-vlmcsd/root/etc/config/vlmcsd
     fi
 
     # openclash
     if [ -d "package/feeds/openclash/luci-app-openclash" ]; then
         echo "Info: Custom config openclash"
         clean_package package/feeds/openclash
-        cp -f $CONFIG_PATH/etc/config/openclash package/feeds/openclash/luci-app-openclash/root/etc/config/openclash
+        cp -f ${CONFIG_PATH}/etc/config/openclash package/feeds/openclash/luci-app-openclash/root/etc/config/openclash
     fi
 }
 
@@ -287,7 +290,7 @@ target=""
 while [ -n "$*" ]; do
     arg=$1
     shift
-    case "$arg" in
+    case "${arg}" in
     --target | -t)
         [ -n "$1" ] || error "Option --target|-t requires an argument" 2
         target=$1
@@ -298,7 +301,7 @@ done
 
 code_dir=""
 
-case "$mode" in
+case "${mode}" in
 help | h)
     do_help
     ;;
@@ -323,6 +326,6 @@ def | d)
     do_personal_config
     ;;
 *)
-    error "Unknow or unspecified command $mode!"
+    error "Unknow or unspecified command ${mode}!"
     ;;
 esac
