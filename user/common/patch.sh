@@ -7,9 +7,13 @@ array=(${target//-/ })
 source=${array[0]}
 echo "Source: ${source}"
 
-do_common() {}
+do_common() {
+    echo ""
+}
 
-do_lienol_common() {}
+do_lienol_common() {
+    echo ""
+}
 
 do_lede_common() {
     rm -rf package/lean/luci-app-n2n_v2
