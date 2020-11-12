@@ -262,6 +262,37 @@ do_personal_config() {
     fi
 }
 
+do_rm_mini_no_required_pkgs() {
+    cd ${CUR_PATH}/${code_dir}/package/feeds/luci
+    rm -rf luci-app-ddns
+    rm -rf luci-app-nlbwmon
+    rm -rf luci-app-wol
+    rm -rf luci-app-upnp
+
+    cd ${CUR_PATH}/${code_dir}/package/lean
+    rm -rf autocore
+    rm -rf automount
+    rm -rf autosamba
+    rm -rf luci-app-accesscontrol
+    rm -rf luci-app-arpbind
+    rm -rf luci-app-autoreboot
+    rm -rf ddns-scripts_*
+    rm -rf luci-app-ipsec-vpnd
+    rm -rf luci-app-unblockmusic
+    rm -rf luci-app-vsftpd
+    rm -rf luci-app-webadmin
+    rm -rf luci-app-wrtbwmon
+    rm -rf luci-app-xlnetacc
+    rm -rf luci-app-zerotier
+
+    # for 1907
+    cd ${CUR_PATH}/${code_dir}/package/feeds/diy1
+    rm -rf luci-app-control-timewol
+    rm -rf luci-app-control-webrestriction
+    rm -rf luci-app-control-weburl
+    rm -rf luci-app-timecontrol
+}
+
 do_help() {
     cat <<EOF
 Usage: bash $0 <command> [options]...
@@ -271,6 +302,7 @@ commands:
     env, e                 init environment, sudo apt install xxx
     prepare, p             update feeds and apply custom setings
     compile, c             make download and make
+    all, a                 do prepare and compile
 
 options:
     --target, -t           target to execute, it's a sub dir name in user
@@ -325,6 +357,10 @@ all | a)
 def | d)
     init_code_dir
     do_personal_config
+    ;;
+remove | r)
+    init_code_dir
+    do_rm_mini_no_required_pkgs
     ;;
 *)
     error "Unknow or unspecified command ${mode}!"
