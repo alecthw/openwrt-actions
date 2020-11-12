@@ -136,6 +136,7 @@ It's a very lite img include passwall. It's suitable for bypass router using.
 - luci-app-adbyby-plus
 - luci-app-n2n_n2
 - luci-app-passwall
+- luci-app-sfe
 - luci-app-smartdns
 - luci-app-tcpdump
 - luci-app-udpxy
