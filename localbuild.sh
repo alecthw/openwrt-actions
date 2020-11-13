@@ -263,34 +263,49 @@ do_personal_config() {
 }
 
 do_rm_mini_no_required_pkgs() {
-    cd ${CUR_PATH}/${code_dir}/package/feeds/luci
-    rm -rf luci-app-ddns
-    rm -rf luci-app-nlbwmon
-    rm -rf luci-app-wol
-    rm -rf luci-app-upnp
+    if [ "lede_device" == "${code_dir}" ]; then
+        cd ${CUR_PATH}/${code_dir}/package/feeds/luci
+        rm -rf luci-app-nlbwmon
 
-    cd ${CUR_PATH}/${code_dir}/package/lean
-    rm -rf autocore
-    rm -rf automount
-    rm -rf autosamba
-    rm -rf luci-app-accesscontrol
-    rm -rf luci-app-arpbind
-    rm -rf luci-app-autoreboot
-    rm -rf ddns-scripts_*
-    rm -rf luci-app-ipsec-vpnd
-    rm -rf luci-app-unblockmusic
-    rm -rf luci-app-vsftpd
-    rm -rf luci-app-webadmin
-    rm -rf luci-app-wrtbwmon
-    rm -rf luci-app-xlnetacc
-    rm -rf luci-app-zerotier
+        cd ${CUR_PATH}/${code_dir}/package/lean
+        rm -rf luci-app-accesscontrol
+        rm -rf luci-app-arpbind
+        rm -rf luci-app-unblockmusic
+        rm -rf luci-app-webadmin
+        rm -rf luci-app-wrtbwmon
+        rm -rf luci-app-zerotier
+    else
+        cd ${CUR_PATH}/${code_dir}/package/feeds/luci
+        rm -rf luci-app-ddns
+        rm -rf luci-app-nlbwmon
+        rm -rf luci-app-wol
+        rm -rf luci-app-upnp
 
-    # for 1907
-    cd ${CUR_PATH}/${code_dir}/package/feeds/diy1
-    rm -rf luci-app-control-timewol
-    rm -rf luci-app-control-webrestriction
-    rm -rf luci-app-control-weburl
-    rm -rf luci-app-timecontrol
+        cd ${CUR_PATH}/${code_dir}/package/lean
+        rm -rf autocore
+        rm -rf automount
+        rm -rf autosamba
+        rm -rf luci-app-accesscontrol
+        rm -rf luci-app-arpbind
+        rm -rf luci-app-autoreboot
+        rm -rf ddns-scripts_*
+        rm -rf luci-app-ipsec-vpnd
+        rm -rf luci-app-unblockmusic
+        rm -rf luci-app-vsftpd
+        rm -rf luci-app-webadmin
+        rm -rf luci-app-wrtbwmon
+        rm -rf luci-app-xlnetacc
+        rm -rf luci-app-zerotier
+
+        if [[ ${code_dir} =~ "1907" ]]; then
+            # for 1907
+            cd ${CUR_PATH}/${code_dir}/package/feeds/diy1
+            rm -rf luci-app-control-timewol
+            rm -rf luci-app-control-webrestriction
+            rm -rf luci-app-control-weburl
+            rm -rf luci-app-timecontrol
+        fi
+    fi
 }
 
 do_help() {

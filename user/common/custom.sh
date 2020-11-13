@@ -51,6 +51,9 @@ do_lienol_common() {
 }
 
 do_lede_common() {
+    # add custom packages
+    svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-tcpdump package/luci-app-tcpdump
+
     # delete default password
     sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
 

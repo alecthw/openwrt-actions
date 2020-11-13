@@ -92,7 +92,6 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-mwan3
 - luci-app-mwan3helper
 - luci-app-n2n_v2
-- luci-app-nlbwmon
 - luci-app-ramfree
 - luci-app-samba
 - luci-app-sfe (only wrt1900acs)
