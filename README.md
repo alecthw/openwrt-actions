@@ -97,6 +97,7 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-sfe (only wrt1900acs)
 - luci-app-ssr-plus (V2ray_plugin, V2ray, Trojan, Redsocks2, ShadowsocksR_Server)
 - luci-app-syncdial
+- luci-app-tcpdump
 - luci-app-udpxy
 - luci-app-upnp
 - luci-app-vlmcsd
@@ -118,7 +119,6 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - curl
 - openssh-sftp-server
 - snmpd
-- tcpdump-mini
 
 ## Mini Version
 
