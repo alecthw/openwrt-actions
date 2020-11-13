@@ -66,16 +66,20 @@ Compared with the lean's default config, the changes are as follows.
 
 Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
+### Extra packages
+
+- ipv6helper
+- automount
+- autosamba
+
 ### Collections
 
 - luci-ssl-openssl
 
 ### Apps
 
-- luci-app-accesscontrol
 - luci-app-adbyby-plus
 - luci-app-advanced-reboot (only wrt1900acs)
-- luci-app-arpbind
 - luci-app-autoreboot
 - luci-app-cpufreq (only wrt1900acs)
 - luci-app-ddns
@@ -92,27 +96,26 @@ Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 - luci-app-ramfree
 - luci-app-samba
 - luci-app-sfe (only wrt1900acs)
-- luci-app-ssr-plus
+- luci-app-ssr-plus (V2ray_plugin, V2ray, Trojan, Redsocks2, ShadowsocksR_Server)
 - luci-app-syncdial
 - luci-app-udpxy
 - luci-app-upnp
 - luci-app-vlmcsd
 - luci-app-vsftpd
-- luci-app-webadmin
 - luci-app-wol
 - luci-app-xlnetacc
-- luci-app-zerotier
 
 ### Themes
 
 - luci-theme-argon-jerrykuku
 - luci-theme-material
 
+### Protocols
+
+- luci-proto-bonding
+
 ### Other packages
 
-- ipv6helper
-- automount
-- autosamba
 - curl
 - openssh-sftp-server
 - snmpd
