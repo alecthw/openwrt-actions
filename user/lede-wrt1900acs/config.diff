@@ -76,6 +76,7 @@ CONFIG_TARGET_ARCH_PACKAGES="arm_cortex-a9_vfpv3-d16"
 CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -pipe"
 CONFIG_CPU_TYPE="cortex-a9+vfpv3-d16"
 CONFIG_LINUX_5_4=y
+CONFIG_DEFAULT_autocore-arm=y
 CONFIG_DEFAULT_base-files=y
 CONFIG_DEFAULT_block-mount=y
 CONFIG_DEFAULT_busybox=y
@@ -1677,6 +1678,7 @@ CONFIG_ZABBIX_POSTGRESQL=y
 #
 # Extra packages
 #
+CONFIG_PACKAGE_autocore-arm=y
 CONFIG_PACKAGE_automount=y
 CONFIG_PACKAGE_autosamba=y
 CONFIG_PACKAGE_ipv6helper=y

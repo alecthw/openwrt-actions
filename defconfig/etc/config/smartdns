@@ -21,9 +21,9 @@ config smartdns
 	option tcp_server '0'
 	option serve_expired '0'
 	option force_aaaa_soa '0'
-	option cache_size '5000'
-	option enabled '1'
 	option redirect 'dnsmasq-upstream'
+	option enabled '1'
+	option cache_size '50000'
 	list old_redirect 'dnsmasq-upstream'
 	list old_port '6054'
 	list old_enabled '1'
@@ -37,7 +37,7 @@ config server
 	option enabled '0'
 
 config server
-	option name 'telecomjs'
+	option name 'chinanet_js'
 	option ip '218.2.2.2'
 	option type 'udp'
 	option server_group 'china'
@@ -53,6 +53,38 @@ config server
 	option enabled '1'
 
 config server
+	option name 'unicom'
+	option ip '123.123.123.123'
+	option type 'udp'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'chinanet'
+	option ip '219.141.136.10'
+	option type 'udp'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'cmcc'
+	option ip '221.179.155.161'
+	option type 'udp'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'baidu'
+	option ip '114.114.114.114'
+	option type 'udp'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
 	option name 'dnspod'
 	option ip '223.5.5.5'
 	option type 'udp'
@@ -61,17 +93,25 @@ config server
 	option enabled '1'
 
 config server
-	option name 'cnc'
-	option ip '123.123.123.123'
-	option type 'udp'
+	option name 'rubyfish'
+	option ip 'rubyfish.cn'
+	option type 'tls'
 	option server_group 'china'
 	option blacklist_ip '0'
 	option enabled '1'
 
 config server
-	option name '114'
-	option ip '114.114.114.114'
-	option type 'udp'
+	option name '360'
+	option ip 'dot.360.cn'
+	option type 'tls'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'ali'
+	option ip 'https://223.5.5.5/dns-query'
+	option type 'https'
 	option server_group 'china'
 	option blacklist_ip '0'
 	option enabled '1'
@@ -171,28 +211,3 @@ config server
 	option server_group 'us'
 	option blacklist_ip '0'
 	option enabled '0'
-
-config server
-	option name 'rubyfish'
-	option ip 'rubyfish.cn'
-	option type 'tls'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name '360'
-	option ip 'dot.360.cn'
-	option type 'tls'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name 'ali'
-	option ip 'https://223.5.5.5/dns-query'
-	option type 'https'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
