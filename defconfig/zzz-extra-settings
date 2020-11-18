@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# set default theme
+uci set luci.main.mediaurlbase=/luci-static/argon
+uci commit luci
+
+# set lan ip
+uci set network.lan.ipaddr='192.168.11.1'
+uci set network.lan.netmask='255.255.255.0'
+uci commit network
+
+# remove feeds repository
+sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
+sed -i '/diy1/d' /etc/opkg/distfeeds.conf
+sed -i '/n2n/d' /etc/opkg/distfeeds.conf
+
+# firewall.user
+sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
+echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
+echo "iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
+
+exit 0

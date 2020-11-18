@@ -38,13 +38,13 @@ init_code_dir() {
     source ${CUR_PATH}/user/${target}/settings.ini
 
     case "${target}" in
-    lienol-main-x64 | lienol-main-x64-mini)
+    lienol-main-x64)
         code_dir="openwrt"
         ;;
-    lienol-1907-x64 | lienol-1907-x64-mini)
+    lienol-1907-x64)
         code_dir="openwrt_1907"
         ;;
-    lede-x64 | lede-x64-mini)
+    lede-x64)
         code_dir="lede"
         ;;
     official-master-x64)
@@ -88,6 +88,28 @@ do_prepare() {
         rm -rf package/luci-app-serverchan
         rm -rf package/luci-app-smartdns
         rm -rf package/luci-app-tcpdump
+
+        echo "Info: Clean build has custom config..."
+        clean_package package/base-files
+
+        if [ -d "package/lean/luci-app-adbyby-plus" ]; then
+            clean_package package/lean/luci-app-adbyby-plus
+        fi
+
+        if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
+            clean_package package/feeds/diy1/luci-app-passwall
+        fi
+
+        if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
+            clean_package package/feeds/luci/luci-app-smartdns
+        fi
+        if [ -d "package/luci-app-smartdns" ]; then
+            clean_package package/luci-app-smartdns
+        fi
+
+        if [ -d "package/feeds/openclash/luci-app-openclash" ]; then
+            clean_package package/feeds/openclash
+        fi
 
         echo "Info: Update code..."
         force_pull
@@ -159,107 +181,6 @@ do_compile() {
 
 do_env() {
     sudo apt install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf
-}
-
-do_personal_config() {
-    # get config dir
-    CONFIG_PATH=""
-    if [ -d "${CUR_PATH}/../archive/home/defconfig" ]; then
-        CONFIG_PATH=${CUR_PATH}/../archive/home/defconfig
-        if [ -d "${CUR_PATH}/../archive/.git" ]; then
-            cd ${CUR_PATH}/../archive && git pull
-        fi
-    elif [ -d "${CUR_PATH}/defconfig" ]; then
-        CONFIG_PATH=${CUR_PATH}/defconfig
-    else
-        echo "Warn: No default config exist"
-        return
-    fi
-    echo "Info: Config path is ${CONFIG_PATH}..."
-
-    # work dir
-    cd ${CUR_PATH}/${code_dir}
-
-    # network
-    if [ -f "package/default-settings/files/zzz-default-settings" ]; then
-        echo "Info: Custom config network"
-        clean_package package/default-settings
-        bash ${CONFIG_PATH}/network.sh package/default-settings/files/zzz-default-settings
-    fi
-    if [ -f "package/lean/default-settings/files/zzz-default-settings" ]; then
-        echo "Info: Custom config network lean"
-        clean_package package/lean/default-settings
-        bash ${CONFIG_PATH}/network.sh package/lean/default-settings/files/zzz-default-settings
-    fi
-
-    # hosts
-    clean_package package/base-files
-    cp -f ${CONFIG_PATH}/etc/hosts package/base-files/files/etc/hosts
-
-    # firewall
-    clean_package package/network/config/firewall
-    sed -i "/'lan'/a\	list   network		'n2n0'" package/network/config/firewall/files/firewall.config
-    sed -i "/'wan6'/a\	list   network		'iptv'" package/network/config/firewall/files/firewall.config
-    sed -i "/input		REJECT/c\	option input		ACCEPT" package/network/config/firewall/files/firewall.config
-    cp -f ${CONFIG_PATH}/etc/firewall.user package/network/config/firewall/files/firewall.user
-
-    # adbyby
-    if [ -d "package/lean/luci-app-adbyby-plus" ]; then
-        echo "Info: Custom config adbyby"
-        clean_package package/lean/luci-app-adbyby-plus
-        cp -f ${CONFIG_PATH}/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
-    fi
-
-    # n2n_v2
-    if [ -d "package/feeds/n2n/n2n_v2" ]; then
-        echo "Info: Custom config n2n_v2"
-        clean_package package/feeds/n2n/n2n_v2
-        cp -f ${CONFIG_PATH}/etc/config/n2n_v2 package/feeds/n2n/n2n_v2/files/n2n_v2.config
-    fi
-    if [ -d "package/n2n/n2n_v2" ]; then
-        echo "Info: Custom config n2n_v2"
-        clean_package package/n2n/n2n_v2
-        cp -f ${CONFIG_PATH}/etc/config/n2n_v2 package/n2n/n2n_v2/files/n2n_v2.config
-    fi
-
-    # passwall
-    if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
-        echo "Info: Custom config passwall"
-        clean_package package/feeds/diy1/luci-app-passwall
-        cp -f ${CONFIG_PATH}/etc/config/passwall package/feeds/diy1/luci-app-passwall/root/etc/config/passwall
-        cp -f ${CONFIG_PATH}/usr/share/passwall/rules/* package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/rules/
-    fi
-
-    # smartdns
-    if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
-        echo "Info: Custom config smartdns"
-        clean_package package/feeds/luci/luci-app-smartdns
-        mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
-        mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns
-        cp -f ${CONFIG_PATH}/etc/config/smartdns package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
-        cp -f ${CONFIG_PATH}/etc/smartdns/* package/feeds/luci/luci-app-smartdns/root/etc/smartdns/
-    fi
-
-    # udpxy
-    if [ -d "package/feeds/packages/udpxy" ]; then
-        echo "Info: Custom config udpxy"
-        clean_package package/feeds/packages/udpxy
-        cp -f ${CONFIG_PATH}/etc/config/udpxy package/feeds/packages/udpxy/files/udpxy.conf
-    fi
-
-    # vlmcsd
-    if [ -d "package/lean/luci-app-vlmcsd" ]; then
-        echo "Info: Custom config vlmcsd"
-        clean_package package/lean/luci-app-vlmcsd
-        cp -f ${CONFIG_PATH}/etc/config/vlmcsd package/lean/luci-app-vlmcsd/root/etc/config/vlmcsd
-    fi
-
-    # openclash
-    if [ -d "package/feeds/openclash/luci-app-openclash" ]; then
-        echo "Info: Custom config openclash"
-        clean_package package/feeds/openclash
-        cp -f ${CONFIG_PATH}/etc/config/openclash package/feeds/openclash/luci-app-openclash/root/etc/config/openclash
-    fi
 }
 
 do_rm_mini_no_required_pkgs() {
@@ -368,10 +289,6 @@ all | a)
     init_code_dir
     do_prepare
     do_compile
-    ;;
-def | d)
-    init_code_dir
-    do_personal_config
     ;;
 remove | r)
     init_code_dir

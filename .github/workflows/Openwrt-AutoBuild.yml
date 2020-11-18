@@ -30,9 +30,6 @@ jobs:
             lienol-main-x64,
             lienol-1907-x64,
             lede-x64,
-            lienol-main-x64-mini,
-            lienol-1907-x64-mini,
-            lede-x64-mini,
             lede-wrt1900acs,
             lede-newifi_d2,
           ]
