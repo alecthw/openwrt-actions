@@ -8,8 +8,6 @@ source=${array[0]}
 echo "source=${source}"
 
 do_common() {
-    git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
-
     # copy default config
     cp -f ../defconfig/zzz-extra-settings package/base-files/files/etc/uci-defaults/99-extra-settings
 
@@ -41,15 +39,10 @@ do_common() {
 }
 
 do_lienol_common() {
-    # add custom packages
-    git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git package/luci-app-jd-dailybonus
-    git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
+    echo ""
 }
 
 do_lede_common() {
-    # add custom packages
-    svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-tcpdump package/luci-app-tcpdump
-
     # delete default password
     sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
 }

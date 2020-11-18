@@ -2,8 +2,7 @@
 
 echo "Execute custom custom.sh"
 
-# add custom packages
-git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+# change packages
 rm -rf feeds/packages/net/smartdns
 svn co https://github.com/Lienol/openwrt-packages/trunk/net/smartdns feeds/packages/net/smartdns
 
