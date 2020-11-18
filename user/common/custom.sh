@@ -13,6 +13,8 @@ do_common() {
     git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
 
     # copy default config
+    cp -f ../defconfig/zzz-user-settings package/base-files/files/etc/uci-defaults/
+
     if [ -d "package/lean/luci-app-adbyby-plus" ]; then
         cp -f ../defconfig/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
     fi
@@ -38,16 +40,7 @@ do_common() {
 }
 
 do_lienol_common() {
-    # set default theme
-    sed -i "/luci.main.mediaurlbase/c\uci set luci.main.mediaurlbase=/luci-static/material" package/default-settings/files/zzz-default-settings
-
-    # set lan ip
-    sed -i "/^#uci set network.lan.ipaddr/c\uci set network.lan.ipaddr='192.168.11.1'" package/default-settings/files/zzz-default-settings
-    sed -i "/^#uci set network.lan.netmask/c\uci set network.lan.netmask='255.255.255.0'" package/default-settings/files/zzz-default-settings
-    sed -i "/^#uci commit network/c\uci commit network" package/default-settings/files/zzz-default-settings
-
-    # remove feeds repository
-    sed -i "/diy1/a\sed -i '/n2n/d' /etc/opkg/distfeeds.conf" package/default-settings/files/zzz-default-settings
+    echo ""
 }
 
 do_lede_common() {
@@ -56,25 +49,6 @@ do_lede_common() {
 
     # delete default password
     sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
-
-    # set default theme
-    sed -i "/uci commit luci/i\uci set luci.main.mediaurlbase=/luci-static/material" package/lean/default-settings/files/zzz-default-settings
-
-    # set lan ip
-    sed -i "/uci commit fstab/a\uci commit network" package/lean/default-settings/files/zzz-default-settings
-    sed -i "/uci commit fstab/a\uci set network.lan.netmask='255.255.255.0'" package/lean/default-settings/files/zzz-default-settings
-    sed -i "/uci commit fstab/a\uci set network.lan.ipaddr='192.168.11.1'" package/lean/default-settings/files/zzz-default-settings
-    sed -i "/uci commit fstab/G" package/lean/default-settings/files/zzz-default-settings
-
-    # remove feeds repository
-    sed -i "/openwrt_luci/i\sed -i '/helloworld/d' /etc/opkg/distfeeds.conf" package/lean/default-settings/files/zzz-default-settings
-    sed -i "/openwrt_luci/i\sed -i '/diy1/d' /etc/opkg/distfeeds.conf" package/lean/default-settings/files/zzz-default-settings
-    sed -i "/openwrt_luci/i\sed -i '/n2n/d' /etc/opkg/distfeeds.conf" package/lean/default-settings/files/zzz-default-settings
-}
-
-do_add_firewall_zone() {
-    sed -i "/'lan'/a\	list   network		'n2n0'" package/network/config/firewall/files/firewall.config
-    sed -i "/'wan6'/a\	list   network		'iptv'" package/network/config/firewall/files/firewall.config
 }
 
 # excute begin
