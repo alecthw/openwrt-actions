@@ -9,7 +9,7 @@ echo "source=${source}"
 
 do_common() {
     # copy default config
-    cp -f ../defconfig/zzz-extra-settings package/base-files/files/etc/uci-defaults/99-extra-settings
+    cp -f ../defconfig/zzz-extra-settings package/base-files/files/etc/uci-defaults/zzz-extra-settings
 
     if [ -d "package/lean/luci-app-adbyby-plus" ]; then
         cp -f ../defconfig/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
