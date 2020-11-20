@@ -20,8 +20,8 @@ error() {
 }
 
 force_pull() {
-    branch=$(git branch | grep "*")
-    currBranch=${branch:2}
+    local branch=$(git branch | grep "*")
+    local currBranch=${branch:2}
     echo "Info: Current branch is ${currBranch}"
     git fetch --all
     git reset --hard origin/${currBranch}
