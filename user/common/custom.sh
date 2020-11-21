@@ -17,7 +17,7 @@ do_common() {
 
     if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
         cp -f ../defconfig/etc/config/passwall package/feeds/diy1/luci-app-passwall/root/etc/config/passwall
-        cp -f ../defconfig/usr/share/passwall/rules/* package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/rules/
+        cp -rf ../defconfig/usr/share/passwall/* package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/
         chmod 755 package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/curl_ping.sh
         chmod 755 package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/test_node.sh
     fi
@@ -32,7 +32,7 @@ do_common() {
         mkdir -p package/luci-app-smartdns/root/etc/config
         mkdir -p package/luci-app-smartdns/root/etc/smartdns
         cp -f ../defconfig/etc/config/smartdns package/luci-app-smartdns/root/etc/config/smartdns
-        cp -f ../defconfig/etc/smartdns/* package/luci-app-smartdns/root/etc/smartdns/
+        cp -rf ../defconfig/etc/smartdns/* package/luci-app-smartdns/root/etc/smartdns/
     fi
 
     if [ -d "package/feeds/openclash/luci-app-openclash" ]; then
