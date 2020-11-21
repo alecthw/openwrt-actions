@@ -18,8 +18,8 @@ do_common() {
     if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
         cp -f ../defconfig/etc/config/passwall package/feeds/diy1/luci-app-passwall/root/etc/config/passwall
         cp -rf ../defconfig/usr/share/passwall/* package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/
-        chmod 755 package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/curl_ping.sh
-        chmod 755 package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/test_node.sh
+        chmod 775 package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/curl_ping.sh
+        chmod 775 package/feeds/diy1/luci-app-passwall/root/usr/share/passwall/test_node.sh
     fi
 
     if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
