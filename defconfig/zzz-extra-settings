@@ -32,6 +32,11 @@ sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
 echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
 echo "iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
 
+# anti-ad for smartdns
+if [ -f "/etc/smartdns/anti-ad.sh" ]; then
+    echo "0 4 * * * /etc/smartdns/anti-ad.sh > /dev/null 2>&1 &" >>/etc/crontabs/root
+fi
+
 # passwall tool
 ln -s /usr/share/passwall/curl_ping.sh /usr/bin/curl_ping
 
