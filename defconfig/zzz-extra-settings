@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# enable ntp server
+uci delete system.ntp.server
+uci add_list system.ntp.server='ntp1.aliyun.com'
+uci add_list system.ntp.server='time1.cloud.tencent.com'
+uci add_list system.ntp.server='time.ustc.edu.cn'
+uci add_list system.ntp.server='cn.pool.ntp.org'
+#uci set system.ntp.enable_server='1'
+uci commit system
+
 # set default theme
 uci set luci.main.mediaurlbase=/luci-static/argon
 uci commit luci
@@ -15,6 +24,10 @@ sed -i '/diy1/d' /etc/opkg/distfeeds.conf
 sed -i '/n2n/d' /etc/opkg/distfeeds.conf
 
 # firewall.user
+# NTP
+#sed -i '/REDIRECT --to-ports 123/d' /etc/firewall.user
+#echo "iptables -t nat -A PREROUTING -p udp --dport 123 -j REDIRECT --to-ports 123" >>/etc/firewall.user
+# DNS
 sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
 echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
 echo "iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
