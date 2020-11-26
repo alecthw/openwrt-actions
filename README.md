@@ -6,6 +6,39 @@ Build OpenWRT using github actions!
 
 Default IP: `192.168.11.1/24`, no password.
 
+## Add two tools for passwall
+
+1. /usr/share/passwall/curl_ping.sh
+    Using curl to test https delay. A soft link has been created for this shell script.
+
+    ```bash
+    root@OpenWrt:~# curl_ping www.google.com
+    Times       status       connect       starttransfer       total
+    1           200          4.651         178.532             181.278
+    2           200          2.860         177.044             180.054
+    3           200          2.784         176.976             181.326
+    4           200          3.152         182.934             187.729
+    5           200          2.937         171.059             175.626
+    6           200          4.042         182.357             185.145
+    7           200          3.187         189.514             194.292
+    8           200          2.773         179.611             184.059
+    9           200          3.328         184.851             187.892
+    10          200          2.823         173.144             177.637
+    Average                  3.254         179.602             183.504
+    ```
+
+2. /usr/share/passwall/test_node.sh
+    Using curl to test each node delay for passwall. It takes backup for `/etc/config/passwall` first. After test, your config will be resumed.
+    You can Use `--filter | -f` option to filter nodes whose url include this param.
+
+    ```bash
+    root@OpenWrt:~# /usr/share/passwall/test_node.sh -f hk
+    测试前请先手动更新订阅，测试过程根据节点数量和延迟大小持续数秒至数分钟不等
+    Node                                Google       Github       Pornhub
+    台湾1                                232.009      338.637      846.771
+    台湾2                                267.508      323.721      1809.887
+    ```
+
 ## Img Config
 
 - Disable ext4 img
