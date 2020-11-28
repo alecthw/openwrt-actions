@@ -1,7 +1,7 @@
---- feeds.conf.default	2020-11-15 13:56:45.298151411 +0000
-+++ feeds.conf.default	2020-11-15 13:57:41.878150977 +0000
-@@ -4,3 +4,4 @@
- src-git luci https://github.com/Lienol/openwrt-luci.git;17.01
- src-git diy1 https://github.com/xiaorouji/openwrt-package.git;master
+--- feeds.conf.default	2020-11-28 09:32:08.320439103 +0800
++++ feeds.conf.default	2020-11-28 09:37:11.062127343 +0800
+@@ -5,3 +5,4 @@
+ src-git lienol https://github.com/Lienol/openwrt-package.git;main
+ src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main
  src-git freifunk https://github.com/freifunk/openwrt-packages.git;openwrt-19.07
 +src-git n2n https://github.com/alecthw/openwrt-n2n.git
