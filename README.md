@@ -60,6 +60,7 @@ Compared with the config, the changes are as follows.
 - luci-ssl-openssl
 - luci-app-jd-dailybonus
 - luci-app-n2n_n2
+- luci-app-passwall
 - luci-app-serverchan
 - luci-app-udpxy
 - luci-theme-argon-jerrykuku
@@ -84,15 +85,14 @@ Compared with the lean's default config, the changes are as follows.
 - luci-app-passwall
 - luci-app-serverchan
 - luci-app-smartdns
+- luci-app-ssr-plus
 - luci-app-tcpdump
 - luci-app-udpxy
 - luci-theme-argon-jerrykuku
-- luci-theme-freifunk-generic
 - luci-theme-material
 - luci-theme-netgear
 - openssl-sftp-server
 - snmpd
-- tcpdump
 - open-vm-tools
 
 ## LEDE wrt1900acs/newifi d2
