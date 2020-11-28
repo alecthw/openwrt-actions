@@ -18,6 +18,10 @@ uci set network.lan.ipaddr='192.168.11.1'
 uci set network.lan.netmask='255.255.255.0'
 uci commit network
 
+# disable redirect https 
+uci set uhttpd.main.redirect_https='0'
+uci commit uhttpd
+
 # remove feeds repository
 sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
 sed -i '/diy1/d' /etc/opkg/distfeeds.conf
@@ -38,6 +42,8 @@ if [ -f "/etc/smartdns/anti-ad.sh" ]; then
 fi
 
 # passwall tool
-ln -s /usr/share/passwall/curl_ping.sh /usr/bin/curl_ping
+if [ -f "/usr/share/passwall/curl_ping.sh" ]; then
+    ln -s /usr/share/passwall/curl_ping.sh /usr/bin/curl_ping
+fi
 
 exit 0
