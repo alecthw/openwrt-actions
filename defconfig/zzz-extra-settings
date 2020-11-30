@@ -22,6 +22,10 @@ uci commit network
 uci set uhttpd.main.redirect_https='0'
 uci commit uhttpd
 
+# disable dnsmasq dns cache
+uci set dhcp.@dnsmasq[0].cachesize='0'
+uci commit dhcp
+
 # remove feeds repository
 sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
 sed -i '/diy1/d' /etc/opkg/distfeeds.conf
