@@ -10,7 +10,8 @@ uci add_list system.ntp.server='cn.pool.ntp.org'
 uci commit system
 
 # set default theme
-uci set luci.main.mediaurlbase=/luci-static/argon
+#uci set luci.main.mediaurlbase=/luci-static/argon
+uci set luci.main.mediaurlbase=/luci-static/material
 uci commit luci
 
 # set lan ip
