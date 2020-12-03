@@ -34,7 +34,7 @@ Default IP: `192.168.11.1/24`, no password.
     ```bash
     root@OpenWrt:~# /usr/share/passwall/test_node.sh -f hk
     测试前请先手动更新订阅，测试过程根据节点数量和延迟大小持续数秒至数分钟不等
-    Node                                Google       Github       Pornhub
+    Node                                Google       Github       Netflix
     台湾1                                232.009      338.637      846.771
     台湾2                                267.508      323.721      1809.887
     ```

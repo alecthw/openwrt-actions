@@ -1,12 +1,25 @@
 #!/bin/sh
 
+echo "测试前请先手动更新订阅，设置UDP节点为与TCP相同，并将dnsmasq和smartdns缓存设置成0"
+echo "测试所需时间，根据节点数量和延迟大小持续数秒至数分钟不等"
+echo "可以使用 --filter | -f 参数按地址中的关键字过滤测试节点，注意是address不是remarks"
+echo "例如：/usr/share/passwall/test_node.sh -f hk"
+
+read -r -p "Are You Sure Begin Test? [Y/n] " input
+case $input in
+[yY][eE][sS] | [yY])
+    echo "----------------------------------------------------------------------"
+    ;;
+*)
+    exit 1
+    ;;
+esac
+
 CONFIG=passwall
 FORMAT="%-35s %-12s %-12s %-12s\n"
 
 # Title
-echo "测试前请先手动更新订阅，并将dnsmasq和smartdns缓存设置成0"
-echo "测试过程根据节点数量和延迟大小持续数秒至数分钟不等"
-printf "${FORMAT}" Node Google Github Pornhub
+printf "${FORMAT}" Node Google Github Netflix
 
 lanip=$(uci get network.lan.ipaddr)
 
@@ -102,9 +115,9 @@ do_passwall() {
 
         local delay_google=$(test_delay www.google.com)
         local delay_github=$(test_delay github.com)
-        local delay_pornhub=$(test_delay www.pornhub.com)
+        local delay_netflix=$(test_delay www.netflix.com/)
 
-        printf "${FORMAT}" "${name}" ${delay_google} ${delay_github} ${delay_pornhub}
+        printf "${FORMAT}" "${name}" ${delay_google} ${delay_github} ${delay_netflix}
     done
 
     # resume
