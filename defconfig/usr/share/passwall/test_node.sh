@@ -4,7 +4,8 @@ CONFIG=passwall
 FORMAT="%-35s %-12s %-12s %-12s\n"
 
 # Title
-echo "测试前请先手动更新订阅，测试过程根据节点数量和延迟大小持续数秒至数分钟不等"
+echo "测试前请先手动更新订阅，并将dnsmasq和smartdns缓存设置成0"
+echo "测试过程根据节点数量和延迟大小持续数秒至数分钟不等"
 printf "${FORMAT}" Node Google Github Pornhub
 
 lanip=$(uci get network.lan.ipaddr)
