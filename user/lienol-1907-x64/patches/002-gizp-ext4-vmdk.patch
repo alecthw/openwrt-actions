@@ -1,0 +1,10 @@
+--- target/linux/x86/image/Makefile	2020-12-13 02:42:13.429104388 +0000
++++ target/linux/x86/image/Makefile	2020-12-13 02:43:02.192232797 +0000
+@@ -242,6 +242,7 @@
+ ifneq ($(CONFIG_TARGET_IMAGES_GZIP),)
+   define Image/Build/gzip/ext4
+ 	$(call Image/Build/gzip,ext4)
++	$(if $(CONFIG_VMDK_IMAGES),gzip -f9n $(BIN_DIR)/$(IMG_PREFIX)-combined-ext4.vmdk)
+   endef
+   define Image/Build/gzip/squashfs
+ 	$(call Image/Build/gzip,squashfs)
