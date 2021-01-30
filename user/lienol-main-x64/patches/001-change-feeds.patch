@@ -1,10 +1,8 @@
---- feeds.conf.default	2020-11-28 09:28:23.181981413 +0800
-+++ feeds.conf.default	2020-11-28 09:39:08.667478357 +0800
-@@ -9,4 +9,5 @@
+--- feeds.conf.default	2021-01-30 17:00:02.383211649 +0800
++++ feeds.conf.default1	2021-01-30 17:13:22.371297086 +0800
+@@ -9,3 +9,5 @@
  #src-git oldpackages http://git.openwrt.org/packages.git
  #src-link custom /usr/src/openwrt/custom-feed
  src-git lienol https://github.com/Lienol/openwrt-package.git;main
--src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main
-\ No newline at end of file
 +src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main
-+src-git n2n https://github.com/alecthw/openwrt-n2n.git
++src-git n2n https://github.com/alecthw/openwrt-n2n.git;master
