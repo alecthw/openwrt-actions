@@ -49,7 +49,7 @@ Default IP: `192.168.11.1/24`, no password.
 
 Use Lienol's [code](https://github.com/Lienol/openwrt) dev-master branch
 
-Copy config from [hyird's Actions (Branch 1907)](https://github.com/hyird/openwrt-actions) and [Lienol's Actions (Branch main)](https://github.com/Lienol/openwrt-actions).
+Copy config from [hyird's Actions](https://github.com/hyird/openwrt-actions) and [Lienol's Actions](https://github.com/Lienol/openwrt-actions).
 Compared with the config, the changes are as follows.
 
 ### Additional packages
