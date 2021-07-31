@@ -1,7 +1,7 @@
 
 config smartdns
 	option dualstack_ip_selection '0'
-	option rr_ttl_min '3000'
+	option rr_ttl_min '600'
 	option seconddns_no_speed_check '0'
 	option seconddns_no_rule_addr '0'
 	option seconddns_no_rule_ipset '0'
@@ -9,7 +9,7 @@ config smartdns
 	option seconddns_no_dualstack_selection '0'
 	option coredump '0'
 	option seconddns_no_rule_nameserver '0'
-	option rr_ttl_max '36000'
+	option rr_ttl_max '3600'
 	option prefetch_domain '1'
 	option seconddns_port '7913'
 	option seconddns_server_group 'us'
@@ -21,10 +21,10 @@ config smartdns
 	option tcp_server '0'
 	option serve_expired '0'
 	option force_aaaa_soa '0'
-	option redirect 'dnsmasq-upstream'
+	option redirect 'none'
 	option enabled '1'
 	option cache_size '50000'
-	list old_redirect 'dnsmasq-upstream'
+	list old_redirect 'none'
 	list old_port '6054'
 	list old_enabled '1'
 
