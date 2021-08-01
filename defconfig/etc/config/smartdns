@@ -23,7 +23,7 @@ config smartdns
 	option force_aaaa_soa '0'
 	option redirect 'none'
 	option enabled '1'
-	option cache_size '50000'
+	option cache_size '5000'
 	list old_redirect 'none'
 	list old_port '6054'
 	list old_enabled '1'
@@ -211,3 +211,4 @@ config server
 	option server_group 'us'
 	option blacklist_ip '0'
 	option enabled '0'
+
