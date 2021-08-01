@@ -111,7 +111,7 @@ config shunt_rules 'direct'
 geosite:category-games@cn
 geosite:icloud@cn
 geosite:apple-cn
-geosite:google-cn
+geosite:microsoft@cn
 geosite:huawei
 geosite:speedtest
 geosite:category-pt'
