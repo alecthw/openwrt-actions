@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Execute before update feeds
+
 target=$1
 echo "Execute common patch.sh ${target}"
 

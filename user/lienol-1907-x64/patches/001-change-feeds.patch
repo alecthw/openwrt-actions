@@ -7,5 +7,5 @@
 -src-git freifunk https://github.com/freifunk/openwrt-packages.git;openwrt-19.07
 \ No newline at end of file
 +src-git freifunk https://github.com/freifunk/openwrt-packages.git;openwrt-19.07
-+src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main
++src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main
 +src-git n2n https://github.com/alecthw/openwrt-n2n.git;master

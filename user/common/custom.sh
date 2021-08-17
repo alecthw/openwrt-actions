@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Execute after install feeds
+
 target=$1
 echo "Execute common custom.sh ${target}"
 
