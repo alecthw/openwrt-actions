@@ -74,7 +74,7 @@ do_prepare() {
 
     if [ ! -d "${CUR_PATH}/${code_dir}" ]; then
         echo "Info: Clone code ${REPO_URL} ${REPO_BRANCH}..."
-        git clone ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
+        git clone --depth=1 ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
     else
         cd ${CUR_PATH}/${code_dir}
 
@@ -110,6 +110,7 @@ do_prepare() {
         git clean -fd
         rm -rf package/luci-theme-argon-jerrykuku
         rm -rf package/luci-app-jd-dailybonus
+        rm -rf package/luci-app-ramfree
         rm -rf package/luci-app-serverchan
         rm -rf package/luci-app-smartdns
         rm -rf package/luci-app-tcpdump
