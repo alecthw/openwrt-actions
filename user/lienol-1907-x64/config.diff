@@ -72,20 +72,15 @@ CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_Plus=y
 CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray=y
 CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin=y
 CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
-CONFIG_PACKAGE_luci-app-pppoe-relay=y
-CONFIG_PACKAGE_luci-app-pppoe-server=y
 CONFIG_PACKAGE_luci-app-serverchan=y
 CONFIG_PACKAGE_luci-app-smartdns=y
-CONFIG_PACKAGE_luci-app-softethervpn=y
 CONFIG_PACKAGE_luci-app-syncdial=y
 CONFIG_PACKAGE_luci-app-tcpdump=y
-CONFIG_PACKAGE_luci-app-ttyd=y
 CONFIG_PACKAGE_luci-app-turboacc=y
 CONFIG_PACKAGE_luci-app-udpxy=y
 CONFIG_PACKAGE_luci-app-unblockmusic=y
 CONFIG_PACKAGE_luci-app-unblockmusic_INCLUDE_UnblockNeteaseMusic_Go=y
 CONFIG_PACKAGE_luci-app-xlnetacc=y
-CONFIG_PACKAGE_luci-app-zerotier=y
 
 # 主题
 CONFIG_PACKAGE_luci-theme-argon-jerrykuku=y

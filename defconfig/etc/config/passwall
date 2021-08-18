@@ -5,8 +5,8 @@ config global
 	option tcp_node '696cd32c1d5149ee95fd1b3accbad6df'
 	option udp_node 'nil'
 	option dns_mode 'udp'
-	option dns_forward '127.0.0.1#7054'
 	option up_china_dns 'default'
+	option dns_forward '127.0.0.1#7054'
 	option tcp_proxy_mode 'chnroute'
 	option udp_proxy_mode 'chnroute'
 	option localhost_tcp_proxy_mode 'chnroute'
@@ -42,32 +42,34 @@ config global_other
 config global_rules
 	option auto_update '1'
 	option week_update '7'
-	option time_update '5'
+	option time_update '7'
 	option chnlist_update '1'
 	option chnroute_update '1'
 	option chnroute6_update '1'
 	option gfwlist_update '1'
-	option gfwlist_url 'https://cdn.jsdelivr.net/gh/YW5vbnltb3Vz/domain-list-community@release/gfwlist.txt'
-	option chnroute_url 'https://ispip.clang.cn/all_cn.txt'
-	option chnroute6_url 'https://ispip.clang.cn/all_cn_ipv6.txt'
+	option geosite_update '1'
+	option geoip_update '1'
+	list gfwlist_url 'https://cdn.jsdelivr.net/gh/YW5vbnltb3Vz/domain-list-community@release/gfwlist.txt'
+	list chnroute_url 'https://ispip.clang.cn/all_cn.txt'
+	list chnroute6_url 'https://ispip.clang.cn/all_cn_ipv6.txt'
 	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/accelerated-domains.china.conf'
 	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/apple.china.conf'
 	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/google.china.conf'
-	option xray_location_asset '/usr/share/xray/'
-	option geosite_update '1'
-	option geoip_update '1'
+	option v2ray_location_asset '/usr/share/xray/'
 
 config global_app
+	option v2ray_file '/usr/bin/v2ray'
 	option xray_file '/usr/bin/xray'
 	option trojan_go_file '/usr/bin/trojan-go'
 	option kcptun_client_file '/usr/bin/kcptun-client'
 	option brook_file '/usr/bin/brook'
+	option hysteria_file '/usr/bin/hysteria'
 
 config global_subscribe
 	option subscribe_proxy '0'
 	option auto_update_subscribe '1'
 	option week_update_subscribe '7'
-	option time_update_subscribe '4'
+	option time_update_subscribe '6'
 	option allowInsecure '1'
 	option filter_keyword_mode '1'
 	list filter_discard_list '过期时间'
@@ -82,20 +84,25 @@ config auto_switch
 	option testing_time '1'
 	option connect_timeout '3'
 	option retry_num '3'
+	option shunt_logic '1'
 
 config nodes '696cd32c1d5149ee95fd1b3accbad6df'
 	option remarks '分流总节点'
 	option type 'Xray'
 	option protocol '_shunt'
+	option ads '_blackhole'
 	option bittorrent '_direct'
 	option proxy '_default'
 	option direct '_direct'
 	option netflix 'nil'
 	option usa 'nil'
-	option ads '_blackhole'	
 	option default_node '_direct'
 	option default_proxy '0'
-	option domainStrategy 'IPIfNonMatch'
+	option domainStrategy 'AsIs'
+
+config shunt_rules 'ads'
+	option remarks '广告'
+	option domain_list 'geosite:category-ads'
 
 config shunt_rules 'bittorrent'
 	option remarks 'BT下载'
@@ -103,23 +110,44 @@ config shunt_rules 'bittorrent'
 
 config shunt_rules 'proxy'
 	option remarks '代理'
-	option domain_list 'steamcommunity'
+	option domain_list 'geosite:category-dev
+geosite:imdb
+steamcommunity.com
+plex.bz
+themoviedb.org
+chapterdb.org
+fanart.tv
+cinematerial.com
+thetvdb.com
+songkick.com
+opensubtitles.org
+netsarang.com
+netsarang.net
+piriform.com
+ccleaner.com
+corsair.com'
 
 config shunt_rules 'direct'
 	option remarks '直连'
 	option domain_list 'geosite:steam
+geosite:steamunlocked
+steamcontent.tnkjmec.com
+steamstat.us
+steambroadcast
+steamstore
+steamuserimages
 geosite:category-games@cn
+geosite:bing@cn
 geosite:icloud@cn
 geosite:apple-cn
-geosite:microsoft@cn
 geosite:huawei
 geosite:speedtest
-geosite:category-pt'
+geosite:category-pt
+plex.tv'
 
 config shunt_rules 'netflix'
 	option remarks '奈飞'
 	option domain_list 'geosite:netflix'
-	option ip_list 'geoip:netflix'
 
 config shunt_rules 'usa'
 	option remarks '美国'

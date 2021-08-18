@@ -74,7 +74,7 @@ do_prepare() {
 
     if [ ! -d "${CUR_PATH}/${code_dir}" ]; then
         echo "Info: Clone code ${REPO_URL} ${REPO_BRANCH}..."
-        git clone --depth=1 ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
+        git clone ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
     else
         cd ${CUR_PATH}/${code_dir}
 
@@ -86,8 +86,8 @@ do_prepare() {
             clean_package package/lean/luci-app-adbyby-plus
         fi
 
-        if [ -d "package/feeds/diy1/luci-app-passwall" ]; then
-            clean_package package/feeds/diy1/luci-app-passwall
+        if [ -d "package/feeds/passwall/luci-app-passwall" ]; then
+            clean_package package/feeds/passwall/luci-app-passwall
         fi
 
         if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
