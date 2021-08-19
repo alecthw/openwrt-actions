@@ -41,6 +41,7 @@ do_common() {
             cp -f ../defconfig/etc/config/smartdns package/luci-app-smartdns/root/etc/config/smartdns
             cp -rf ../defconfig/etc/smartdns/* package/luci-app-smartdns/root/etc/smartdns/
             if [ -f "package/luci-app-smartdns/root/etc/smartdns/anti-ad.sh" ]; then
+                curl -o package/luci-app-smartdns/root/etc/smartdns/anti-ad-smartdns.conf https://anti-ad.net/anti-ad-for-smartdns.conf
                 chmod 755 package/luci-app-smartdns/root/etc/smartdns/anti-ad.sh
             fi
         fi
