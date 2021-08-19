@@ -25,7 +25,7 @@ uci commit uhttpd
 
 # remove feeds repository
 sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
-sed -i '/diy1/d' /etc/opkg/distfeeds.conf
+sed -i '/passwall/d' /etc/opkg/distfeeds.conf
 sed -i '/n2n/d' /etc/opkg/distfeeds.conf
 
 # firewall.user

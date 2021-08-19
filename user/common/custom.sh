@@ -23,6 +23,10 @@ do_common() {
             cp -rf ../defconfig/usr/share/passwall/* package/feeds/passwall/luci-app-passwall/root/usr/share/passwall/
             chmod 775 package/feeds/passwall/luci-app-passwall/root/usr/share/passwall/curl_ping.sh
             chmod 775 package/feeds/passwall/luci-app-passwall/root/usr/share/passwall/test_node.sh
+
+            mkdir package/feeds/passwall/luci-app-passwall/root/usr/share/geodata
+            curl -kL --retry 3 --connect-timeout 3 -o package/feeds/passwall/luci-app-passwall/root/usr/share/geodata/geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
+            curl -kL --retry 3 --connect-timeout 3 -o package/feeds/passwall/luci-app-passwall/root/usr/share/geodata/geosite.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
         fi
 
         if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
@@ -31,7 +35,7 @@ do_common() {
             cp -f ../defconfig/etc/config/smartdns package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
             cp -rf ../defconfig/etc/smartdns/* package/feeds/luci/luci-app-smartdns/root/etc/smartdns/
             if [ -f "package/feeds/luci/luci-app-smartdns/root/etc/smartdns/anti-ad.sh" ]; then
-                curl -o package/feeds/luci/luci-app-smartdns/root/etc/smartdns/anti-ad-smartdns.conf https://anti-ad.net/anti-ad-for-smartdns.conf
+                curl -kL --retry 3 --connect-timeout 3 -o package/feeds/luci/luci-app-smartdns/root/etc/smartdns/anti-ad-smartdns.conf https://anti-ad.net/anti-ad-for-smartdns.conf
                 chmod 755 package/feeds/luci/luci-app-smartdns/root/etc/smartdns/anti-ad.sh
             fi
         fi
@@ -41,7 +45,7 @@ do_common() {
             cp -f ../defconfig/etc/config/smartdns package/luci-app-smartdns/root/etc/config/smartdns
             cp -rf ../defconfig/etc/smartdns/* package/luci-app-smartdns/root/etc/smartdns/
             if [ -f "package/luci-app-smartdns/root/etc/smartdns/anti-ad.sh" ]; then
-                curl -o package/luci-app-smartdns/root/etc/smartdns/anti-ad-smartdns.conf https://anti-ad.net/anti-ad-for-smartdns.conf
+                curl -kL --retry 3 --connect-timeout 3 -o package/luci-app-smartdns/root/etc/smartdns/anti-ad-smartdns.conf https://anti-ad.net/anti-ad-for-smartdns.conf
                 chmod 755 package/luci-app-smartdns/root/etc/smartdns/anti-ad.sh
             fi
         fi
