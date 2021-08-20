@@ -30,7 +30,8 @@ CONFIG_PACKAGE_ipv6helper=y
 # CONFIG_PACKAGE_libustream-wolfssl is not set
 
 # 插件选择
-CONFIG_PACKAGE_luci-ssl-openssl=y
+# CONFIG_PACKAGE_luci is not set
+CONFIG_PACKAGE_luci-ssl-nginx=y
 CONFIG_PACKAGE_luci-app-adbyby-plus=y
 CONFIG_PACKAGE_luci-app-adguardhome=y
 CONFIG_PACKAGE_luci-app-aria2=y

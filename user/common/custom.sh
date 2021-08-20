@@ -14,6 +14,10 @@ do_common() {
     if [ -d "../defconfig" ]; then
         cp -f ../defconfig/zzz-extra-settings package/base-files/files/etc/uci-defaults/zzz-extra-settings
 
+        if [ -d "package/feeds/packages/nginx-util" ]; then
+            cp -f ../defconfig/etc/config/nginx package/feeds/packages/nginx-util/files/nginx.config
+        fi
+
         if [ -d "package/lean/luci-app-adbyby-plus" ]; then
             cp -f ../defconfig/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
         fi
