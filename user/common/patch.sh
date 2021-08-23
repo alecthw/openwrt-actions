@@ -23,6 +23,7 @@ do_lienol_common() {
 do_lede_common() {
     # add custom packages
     svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-tcpdump package/luci-app-tcpdump
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-webrestriction package/luci-app-control-webrestriction
 
     # remove n2n
     rm -rf package/lean/luci-app-n2n_v2
