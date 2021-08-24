@@ -1,9 +1,8 @@
---- feeds.conf.default	2021-06-21 14:16:55.432233900 +0800
-+++ feeds.conf.default	2021-06-21 14:18:58.515894529 +0800
-@@ -6,3 +6,6 @@
+--- feeds.conf.default	2021-08-17 20:16:59.692844922 +0800
++++ feeds.conf.default	2021-08-17 20:16:52.060845293 +0800
+@@ -6,3 +6,5 @@
  #src-git targets https://github.com/openwrt/targets.git
  #src-git oldpackages http://git.openwrt.org/packages.git
  #src-link custom /usr/src/openwrt/custom-feed
-+src-git helloworld https://github.com/fw876/helloworld
 +src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main
 +src-git n2n https://github.com/alecthw/openwrt-n2n.git
