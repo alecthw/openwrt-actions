@@ -22,6 +22,8 @@ do_lienol_common() {
 
 do_lede_common() {
     # add custom packages
+    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+
     svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-tcpdump package/luci-app-tcpdump
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-webrestriction package/luci-app-control-webrestriction
 
