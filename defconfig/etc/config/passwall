@@ -110,23 +110,8 @@ config shunt_rules 'ads'
 
 config shunt_rules 'proxy'
 	option remarks '代理'
-	option domain_list 'geosite:category-dev
-geosite:imdb
-steamcommunity
-steam-chat
-plex.bz
-themoviedb.org
-chapterdb.org
-fanart.tv
-cinematerial.com
-thetvdb.com
-songkick.com
-opensubtitles.org
-netsarang.com
-netsarang.net
-piriform.com
-ccleaner.com
-corsair.com'
+	option domain_list 'steamcommunity
+steam-chat'
 
 config shunt_rules 'direct'
 	option remarks '直连'
@@ -167,4 +152,3 @@ config shunt_rules 'usa'
 geosite:disney
 geosite:hbo
 geosite:category-media'
-
