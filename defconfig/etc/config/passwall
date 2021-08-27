@@ -90,8 +90,8 @@ config nodes '696cd32c1d5149ee95fd1b3accbad6df'
 	option remarks '分流总节点'
 	option type 'Xray'
 	option protocol '_shunt'
-	option ads '_blackhole'
 	option bittorrent '_direct'
+	option ads '_blackhole'
 	option proxy '_default'
 	option direct '_direct'
 	option netflix 'nil'
@@ -100,19 +100,20 @@ config nodes '696cd32c1d5149ee95fd1b3accbad6df'
 	option default_proxy '0'
 	option domainStrategy 'AsIs'
 
-config shunt_rules 'ads'
-	option remarks '广告'
-	option domain_list 'geosite:category-ads'
-
 config shunt_rules 'bittorrent'
 	option remarks 'BT下载'
 	option protocol 'bittorrent'
+
+config shunt_rules 'ads'
+	option remarks '广告'
+	option domain_list 'geosite:category-ads'
 
 config shunt_rules 'proxy'
 	option remarks '代理'
 	option domain_list 'geosite:category-dev
 geosite:imdb
-steamcommunity.com
+steamcommunity
+steam-chat
 plex.bz
 themoviedb.org
 chapterdb.org
@@ -129,13 +130,24 @@ corsair.com'
 
 config shunt_rules 'direct'
 	option remarks '直连'
-	option domain_list 'geosite:steam
-geosite:steamunlocked
-steamcontent.tnkjmec.com
-steamstat.us
+	option domain_list 's.team
+dl.steam
+st.dl
 steambroadcast
+steamcdn
+steamchina
+steamcloud
+steamcontent
+steamgames
+steampowered
+steamstatic
 steamstore
+steamusercontent
 steamuserimages
+steamvideo
+wmsjsteam
+geosite:steam
+geosite:steamunlocked
 geosite:category-games@cn
 geosite:bing@cn
 geosite:icloud@cn
@@ -155,8 +167,4 @@ config shunt_rules 'usa'
 geosite:disney
 geosite:hbo
 geosite:category-media'
-
-config shunt_rules 'ads'
-	option remarks '广告'
-	option domain_list 'geosite:category-ads'
 
