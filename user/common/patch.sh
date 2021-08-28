@@ -17,6 +17,9 @@ do_common() {
 }
 
 do_lienol_common() {
+    # add custom packages
+    svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-uugamebooster package/luci-app-uugamebooster
+
     rm -rf package/diy/OpenAppFilter
     git clone https://github.com/Lienol/openwrt.git package/diy/OpenAppFilter
 }
@@ -26,9 +29,14 @@ do_lede_common() {
     git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
     svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-tcpdump package/luci-app-tcpdump
+    svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-adguardhome package/luci-app-adguardhome
+
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-webrestriction package/luci-app-control-webrestriction
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-timewol package/luci-app-control-timewol
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-weburl package/luci-app-control-weburl
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-fileassistant package/luci-app-fileassistant
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-nginx-pingos package/luci-app-nginx-pingos
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-timecontrol package/luci-app-timecontrol
 
     # remove pkg

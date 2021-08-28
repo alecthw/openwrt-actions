@@ -40,6 +40,7 @@ echo "#iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53
 # move menu
 sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua
 sed -i 's/\"services\"/\"control\"/g' /usr/lib/lua/luci/controller/mia.lua
+sed -i 's/\"services\"/\"nas\"/g' /usr/lib/lua/luci/controller/samba.lua
 
 # anti-ad auto update for smartdns
 if [ -f "/etc/smartdns/anti-ad.sh" ]; then
