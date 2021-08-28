@@ -19,6 +19,7 @@ do_common() {
 do_lienol_common() {
     # add custom packages
     svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-uugamebooster package/luci-app-uugamebooster
+    svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/uugamebooster package/uugamebooster
 
     rm -rf package/diy/OpenAppFilter
     git clone https://github.com/Lienol/openwrt.git package/diy/OpenAppFilter
@@ -37,7 +38,6 @@ do_lede_common() {
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-fileassistant package/luci-app-fileassistant
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-nginx-pingos package/luci-app-nginx-pingos
-    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-timecontrol package/luci-app-timecontrol
 
     # remove pkg
     rm -rf package/lean/luci-app-n2n_v2
