@@ -32,6 +32,7 @@ jobs:
             lede-x64,
             lede-wrt1900acs,
             lede-newifi_d2,
+            lede-r2s,
           ]
 
     steps:
