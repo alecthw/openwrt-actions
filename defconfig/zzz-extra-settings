@@ -28,15 +28,6 @@ sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
 sed -i '/passwall/d' /etc/opkg/distfeeds.conf
 sed -i '/n2n/d' /etc/opkg/distfeeds.conf
 
-# firewall.user
-# NTP
-#sed -i '/REDIRECT --to-ports 123/d' /etc/firewall.user
-#echo "iptables -t nat -A PREROUTING -p udp --dport 123 -j REDIRECT --to-ports 123" >>/etc/firewall.user
-# DNS (has enabled dns redirect in dnsmasq)
-sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
-echo "#iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
-echo "#iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
-
 # move menu
 sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua
 sed -i 's/\"services\"/\"control\"/g' /usr/lib/lua/luci/controller/mia.lua
@@ -58,7 +49,7 @@ if [ -f "/etc/smartdns/anti-ad.sh" ]; then
     echo "0 5 * * * /etc/smartdns/anti-ad.sh > /dev/null 2>&1 &" >>/etc/crontabs/root
 
     # disable dnsmasq dns cache
-    uci set dhcp.@dnsmasq[0].dns_redirect='1'
+    uci set dhcp.@dnsmasq[0].dns_redirect='0'
     uci set dhcp.@dnsmasq[0].cachesize='0'
     uci set dhcp.@dnsmasq[0].server='127.0.0.1#7055'
     uci commit dhcp
@@ -68,5 +59,15 @@ fi
 if [ -f "/usr/share/passwall/curl_ping.sh" ]; then
     ln -s /usr/share/passwall/curl_ping.sh /usr/bin/curl_ping
 fi
+
+# firewall.user
+# NTP
+#sed -i '/REDIRECT --to-ports 123/d' /etc/firewall.user
+#echo "iptables -t nat -A PREROUTING -p udp --dport 123 -j REDIRECT --to-ports 123" >>/etc/firewall.user
+# DNS (has enabled dns redirect in dnsmasq)
+sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
+echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
+echo "iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
+uci commit firewall
 
 exit 0

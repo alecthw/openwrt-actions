@@ -14,6 +14,8 @@ do_common() {
     git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
     git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git package/luci-app-jd-dailybonus
     git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
+
+    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 }
 
 do_lienol_common() {
@@ -22,13 +24,10 @@ do_lienol_common() {
     svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/uugamebooster package/uugamebooster
 
     rm -rf package/diy/OpenAppFilter
-    git clone https://github.com/Lienol/openwrt.git package/diy/OpenAppFilter
 }
 
 do_lede_common() {
     # add custom packages
-    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-
     svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-tcpdump package/luci-app-tcpdump
     svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-adguardhome package/luci-app-adguardhome
 
