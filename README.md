@@ -4,7 +4,7 @@ Build OpenWRT using github actions!
 
 ![Badge](https://github.com/alecthw/openwrt-actions/workflows/Openwrt-AutoBuild/badge.svg)
 
-Default IP: `192.168.11.1/24`, no password.
+Default IP: `192.168.11.1/24`, No password.
 
 ## Add two tools for passwall
 
@@ -39,123 +39,42 @@ Default IP: `192.168.11.1/24`, no password.
     台湾2                                267.508      323.721      1809.887
     ```
 
-## Img Config
+## Images Config
 
-- Disable ext4 img
-- GZip images
-- VMWare images
+- ext4
+- squashfs
+- VMWare
+- GZip
+- Kernel partition size: 32MB
+- Root filesystem partition 760MB
 
 ## Lienol x64
 
-Use Lienol's [code](https://github.com/Lienol/openwrt) dev-master branch
+Use Lienol's [code](https://github.com/Lienol/openwrt)
 
-Copy config from [hyird's Actions](https://github.com/hyird/openwrt-actions) and [Lienol's Actions](https://github.com/Lienol/openwrt-actions).
-Compared with the config, the changes are as follows.
+### Packages
 
-### Additional packages
+Refer to:
 
-- KERNEL_PARTSIZE 32
-- ROOTFS_PARTSIZE 760
-- ipv6helper
-- luci-ssl-openssl
-- luci-app-jd-dailybonus
-- luci-app-n2n_n2
-- luci-app-passwall
-- luci-app-serverchan
-- luci-app-udpxy
-- luci-theme-argon-jerrykuku
-- luci-theme-material
-- openssl-sftp-server
-- open-vm-tools
+- main branch: [config.diff](user/lienol-main-x64/config.diff)
+- 1907 branch: [config.diff](user/lienol-1907-x64/config.diff)
 
-## LEDE x64
+## LEDE
 
 Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
 
-Compared with the lean's default config, the changes are as follows.
+### Packages
 
-### Additional packages
+Refer to:
 
-- KERNEL_PARTSIZE 32
-- ROOTFS_PARTSIZE 760
-- ipv6helper
-- luci-ssl-openssl
-- luci-app-jd-dailybonus
-- luci-app-n2n_n2
-- luci-app-passwall
-- luci-app-serverchan
-- luci-app-smartdns
-- luci-app-ssr-plus
-- luci-app-tcpdump
-- luci-app-udpxy
-- luci-theme-argon-jerrykuku
-- luci-theme-material
-- luci-theme-netgear
-- openssl-sftp-server
-- snmpd
-- open-vm-tools
-
-## LEDE wrt1900acs/newifi d2
-
-Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
-
-### Extra packages
-
-- ipv6helper
-- automount
-- autosamba
-
-### Collections
-
-- luci-ssl-openssl
-
-### Apps
-
-- luci-app-adbyby-plus
-- luci-app-advanced-reboot (only wrt1900acs)
-- luci-app-autoreboot
-- luci-app-cpufreq (only wrt1900acs)
-- luci-app-ddns
-- luci-app-filetransfer
-- luci-app-firewall
-- luci-app-flowoffload (only newifi d2)
-- luci-app-frpc
-- luci-app-minidlna
-- luci-app-mtwifi (only newifi d2)
-- luci-app-mwan3
-- luci-app-mwan3helper
-- luci-app-n2n_v2
-- luci-app-ramfree
-- luci-app-samba
-- luci-app-sfe (only wrt1900acs)
-- luci-app-ssr-plus (V2ray_plugin, V2ray, Trojan, Redsocks2, ShadowsocksR_Server)
-- luci-app-syncdial
-- luci-app-tcpdump
-- luci-app-udpxy
-- luci-app-upnp
-- luci-app-vlmcsd
-- luci-app-vsftpd
-- luci-app-wol
-- luci-app-xlnetacc
-
-### Themes
-
-- luci-theme-argon-jerrykuku
-- luci-theme-material
-
-### Protocols
-
-- luci-proto-bonding
-
-### Other packages
-
-- curl
-- openssh-sftp-server
-- snmpd
+- x86_64: [config.diff](user/lede-x64/config.diff)
+- r2s: [config.diff](user/lede-r2s/config.diff)
+- wrt1900acs: [config.diff](user/lede-wrt1900acs/config.diff)
+- newifi d2: [config.diff](user/lede-newifi_d2/config.diff)
 
 ## StarWind V2V Converter
 
-https://www.starwindsoftware.com/tmplink/starwindconverter.exe
+[Download link](https://www.starwindsoftware.com/tmplink/starwindconverter.exe)
 
 ## Generate Patch
 
