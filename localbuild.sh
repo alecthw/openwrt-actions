@@ -114,10 +114,22 @@ do_prepare() {
         git clean -fd
         rm -rf package/luci-theme-argon-jerrykuku
         rm -rf package/luci-app-jd-dailybonus
-        rm -rf package/luci-app-ramfree
         rm -rf package/luci-app-serverchan
-        rm -rf package/luci-app-smartdns
+        rm -rf package/luci-app-uugamebooster
+        rm -rf package/uugamebooster
+        rm -rf package/OpenAppFilter
         rm -rf package/luci-app-tcpdump
+        rm -rf package/luci-app-adguardhome
+        rm -rf package/luci-app-control-webrestriction
+        rm -rf package/luci-app-control-timewol
+        rm -rf package/luci-app-control-timewol
+        rm -rf package/luci-app-control-weburl
+        rm -rf package/luci-app-fileassistant
+        rm -rf package/luci-app-filebrowser
+        rm -rf package/luci-app-nginx-pingos
+        rm -rf package/luci-app-ssr-plus
+        rm -rf package/luci-app-smartdns
+        rm -rf package/luci-app-ramfree
 
         echo "Info: Update code..."
         force_pull

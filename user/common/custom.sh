@@ -12,7 +12,7 @@ echo "source=${source}"
 do_common() {
     # copy default config
     if [ -d "../defconfig" ]; then
-        cp -f ../defconfig/zzz-extra-settings package/base-files/files/etc/uci-defaults/zzz-extra-settings
+        cp -f ../defconfig/zzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
 
         if [ -d "package/feeds/packages/nginx-util" ]; then
             cp -f ../defconfig/etc/config/nginx package/feeds/packages/nginx-util/files/nginx.config
