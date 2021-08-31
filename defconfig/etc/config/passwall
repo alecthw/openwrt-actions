@@ -3,10 +3,11 @@ config global
 	option enabled '0'
 	option socks_enabled '0'
 	option tcp_node '696cd32c1d5149ee95fd1b3accbad6df'
-	option udp_node 'nil'
+	option udp_node 'tcp'
 	option dns_mode 'udp'
 	option up_china_dns 'default'
 	option dns_forward '127.0.0.1#7054'
+	option chinadns_ng '0'
 	option tcp_proxy_mode 'chnroute'
 	option udp_proxy_mode 'chnroute'
 	option localhost_tcp_proxy_mode 'chnroute'
@@ -78,6 +79,8 @@ config global_subscribe
 	list filter_discard_list '官网'
 	list filter_discard_list '高速流量'
 	list filter_discard_list '套餐过期'
+	option ss_aead_type 'shadowsocks-rust'
+	option trojan_type 'trojan-go'
 
 config auto_switch
 	option enable '0'
