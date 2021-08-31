@@ -50,7 +50,7 @@ init_code_dir() {
     official-master-x64)
         code_dir="official"
         ;;
-    lede-newifi_d2 | lede-wrt1900acs)
+    lede-newifi_d2 | lede-wrt1900acs | lede-r2s)
         code_dir="lede_device"
         ;;
     *)
