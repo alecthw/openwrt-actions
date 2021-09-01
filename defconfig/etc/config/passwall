@@ -7,11 +7,11 @@ config global
 	option dns_mode 'udp'
 	option up_china_dns 'default'
 	option dns_forward '127.0.0.1#7054'
-	option chinadns_ng '0'
+	option chinadns_ng '1'
 	option tcp_proxy_mode 'chnroute'
 	option udp_proxy_mode 'chnroute'
-	option localhost_tcp_proxy_mode 'chnroute'
-	option localhost_udp_proxy_mode 'chnroute'
+	option localhost_tcp_proxy_mode 'default'
+	option localhost_udp_proxy_mode 'default'
 	option close_log_tcp '1'
 	option close_log_udp '1'
 	option loglevel 'warning'
@@ -118,7 +118,8 @@ steam-chat'
 
 config shunt_rules 'direct'
 	option remarks '直连'
-	option domain_list 's.team
+	option domain_list 'digicert.com
+s.team
 dl.steam
 st.dl
 steambroadcast
@@ -138,8 +139,9 @@ geosite:steam
 geosite:steamunlocked
 geosite:category-games@cn
 geosite:bing@cn
-geosite:icloud@cn
+geosite:apple@cn
 geosite:apple-cn
+geosite:google-cn
 geosite:huawei
 geosite:speedtest
 geosite:category-pt
