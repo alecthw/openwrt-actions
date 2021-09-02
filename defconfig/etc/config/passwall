@@ -56,6 +56,7 @@ config global_rules
 	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/accelerated-domains.china.conf'
 	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/apple.china.conf'
 	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/google.china.conf'
+	list chnlist_url 'https://cdn.jsdelivr.net/gh/alecthw/chnlist@release/direct.domains.conf'
 	option v2ray_location_asset '/usr/share/geodata/'
 
 config global_app
@@ -95,8 +96,6 @@ config nodes '696cd32c1d5149ee95fd1b3accbad6df'
 	option protocol '_shunt'
 	option bittorrent '_direct'
 	option ads '_blackhole'
-	option proxy '_default'
-	option direct '_direct'
 	option netflix 'nil'
 	option usa 'nil'
 	option default_node '_direct'
@@ -111,42 +110,6 @@ config shunt_rules 'ads'
 	option remarks '广告'
 	option domain_list 'geosite:category-ads'
 
-config shunt_rules 'proxy'
-	option remarks '代理'
-	option domain_list 'steamcommunity
-steam-chat'
-
-config shunt_rules 'direct'
-	option remarks '直连'
-	option domain_list 'digicert.com
-s.team
-dl.steam
-st.dl
-steambroadcast
-steamcdn
-steamchina
-steamcloud
-steamcontent
-steamgames
-steampowered
-steamstatic
-steamstore
-steamusercontent
-steamuserimages
-steamvideo
-wmsjsteam
-geosite:steam
-geosite:steamunlocked
-geosite:category-games@cn
-geosite:bing@cn
-geosite:apple@cn
-geosite:apple-cn
-geosite:google-cn
-geosite:huawei
-geosite:speedtest
-geosite:category-pt
-plex.tv'
-
 config shunt_rules 'netflix'
 	option remarks '奈飞'
 	option domain_list 'geosite:netflix'
@@ -154,6 +117,5 @@ config shunt_rules 'netflix'
 config shunt_rules 'usa'
 	option remarks '美国'
 	option domain_list 'geosite:paypal
-geosite:disney
 geosite:hbo
 geosite:category-media'
