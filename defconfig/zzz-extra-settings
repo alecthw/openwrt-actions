@@ -64,10 +64,5 @@ fi
 # NTP
 #sed -i '/REDIRECT --to-ports 123/d' /etc/firewall.user
 #echo "iptables -t nat -A PREROUTING -p udp --dport 123 -j REDIRECT --to-ports 123" >>/etc/firewall.user
-# DNS (has enabled dns redirect in dnsmasq)
-sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
-echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
-echo "iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >>/etc/firewall.user
-uci commit firewall
 
 exit 0

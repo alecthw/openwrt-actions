@@ -13,6 +13,7 @@ do_common() {
     # copy default config
     if [ -d "../defconfig" ]; then
         cp -f ../defconfig/zzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
+        cp -f ../defconfig/etc/firewall.user package/network/config/firewall/files/firewall.user
 
         if [ -d "package/feeds/packages/nginx-util" ]; then
             cp -f ../defconfig/etc/config/nginx package/feeds/packages/nginx-util/files/nginx.config
@@ -61,12 +62,15 @@ do_common() {
 }
 
 do_lienol_common() {
-    echo ""
+    # delete 53 redirect
+    sed -i '/REDIRECT --to-ports 53/d' package/default-settings/files/zzz-default-settings
 }
 
 do_lede_common() {
     # delete default password
     sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
+    # delete 53 redirect
+    sed -i '/REDIRECT --to-ports 53/d' package/lean/default-settings/files/zzz-default-settings
 }
 
 # excute begin
