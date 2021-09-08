@@ -29,79 +29,47 @@ config smartdns
 	list old_enabled '1'
 
 config server
-	option name 'adguardhome'
-	option ip '106.15.105.195'
-	option type 'udp'
+	option name 'ali_doh'
+	option ip 'https://223.5.5.5/dns-query'
+	option type 'https'
 	option server_group 'china'
 	option blacklist_ip '0'
 	option enabled '0'
 
 config server
-	option name 'chinanet_js'
-	option ip '218.2.2.2'
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name 'CNNIC'
-	option ip '1.2.4.8'
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name 'unicom'
-	option ip '123.123.123.123'
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'chinanet'
-	option ip '219.141.136.10'
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'cmcc'
-	option ip '221.179.155.161'
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'baidu'
-	option ip '114.114.114.114'
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name 'dnspod'
+	option name 'ali_dot'
 	option ip '223.5.5.5'
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name 'rubyfish'
-	option ip 'rubyfish.cn'
 	option type 'tls'
 	option server_group 'china'
 	option blacklist_ip '0'
 	option enabled '1'
 
 config server
-	option name '360'
+	option name 'dnspod_doh'
+	option ip 'https://doh.pub/dns-query'
+	option type 'https'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name 'dnspod_dot'
+	option ip 'dot.pub'
+	option type 'tls'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name '360_doh'
+	option ip 'https://doh.360.cn/dns-query'
+	option type 'https'
+	option server_group 'china'
+	option blacklist_ip '0'
+	option enabled '0'
+
+config server
+	option name '360_dot'
 	option ip 'dot.360.cn'
 	option type 'tls'
 	option server_group 'china'
@@ -109,31 +77,7 @@ config server
 	option enabled '1'
 
 config server
-	option name 'ali'
-	option ip 'https://223.5.5.5/dns-query'
-	option type 'https'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name 'google'
-	option ip '8.8.8.8'
-	option type 'tcp'
-	option server_group 'us'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name 'google'
-	option ip '8.8.8.8'
-	option type 'tls'
-	option server_group 'us'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'google'
+	option name 'google_doh'
 	option ip 'https://dns.google/dns-query'
 	option type 'https'
 	option server_group 'us'
@@ -141,74 +85,41 @@ config server
 	option enabled '0'
 
 config server
-	option name 'google'
-	option ip '8.8.4.4'
-	option type 'tcp'
-	option server_group 'us'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'google'
-	option ip '8.8.4.4'
+	option name 'google_dot'
+	option ip '8.8.8.8'
 	option type 'tls'
-	option server_group 'us'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'google'
-	option ip '8.8.4.4'
-	option type 'https'
-	option server_group 'us'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'opendns'
-	option ip '208.67.222.222'
-	option type 'tcp'
 	option server_group 'us'
 	option blacklist_ip '0'
 	option enabled '1'
 
 config server
-	option name 'opendns'
-	option ip '208.67.222.222'
+	option name 'google_dot2'
+	option ip '8.8.4.4'
 	option type 'tls'
 	option server_group 'us'
 	option blacklist_ip '0'
 	option enabled '0'
 
 config server
-	option name 'opendns'
-	option ip 'https://doh.opendns.com/dns-query'
-	option type 'https'
-	option server_group 'us'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'Quad9'
-	option ip '9.9.9.9'
-	option type 'tcp'
-	option server_group 'us'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option name 'Quad9'
-	option ip '9.9.9.9'
-	option type 'tls'
-	option server_group 'us'
-	option blacklist_ip '0'
-	option enabled '0'
-
-config server
-	option name 'Quad9'
+	option name 'Quad9_doh'
 	option ip 'https://dns.quad9.net/dns-query'
 	option type 'https'
 	option server_group 'us'
 	option blacklist_ip '0'
 	option enabled '0'
 
+config server
+	option name 'Quad9_dot'
+	option ip '9.9.9.9'
+	option type 'tls'
+	option server_group 'us'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'opendns_doh'
+	option ip 'https://doh.opendns.com/dns-query'
+	option type 'https'
+	option server_group 'us'
+	option blacklist_ip '0'
+	option enabled '1'

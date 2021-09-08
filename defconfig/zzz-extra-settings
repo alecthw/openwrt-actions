@@ -6,11 +6,11 @@ uci add_list system.ntp.server='ntp1.aliyun.com'
 uci add_list system.ntp.server='time1.cloud.tencent.com'
 uci add_list system.ntp.server='time.ustc.edu.cn'
 uci add_list system.ntp.server='cn.pool.ntp.org'
-#uci set system.ntp.enable_server='1'
+# uci set system.ntp.enable_server='1'
 uci commit system
 
 # set default theme
-#uci set luci.main.mediaurlbase=/luci-static/argon
+# uci set luci.main.mediaurlbase=/luci-static/argon
 uci set luci.main.mediaurlbase=/luci-static/material
 uci commit luci
 
@@ -62,7 +62,7 @@ fi
 
 # firewall.user
 # NTP
-#sed -i '/REDIRECT --to-ports 123/d' /etc/firewall.user
-#echo "iptables -t nat -A PREROUTING -p udp --dport 123 -j REDIRECT --to-ports 123" >>/etc/firewall.user
+# sed -i '/REDIRECT --to-ports 123/d' /etc/firewall.user
+# echo "iptables -t nat -A PREROUTING -p udp --dport 123 -j REDIRECT --to-ports 123" >>/etc/firewall.user
 
 exit 0
