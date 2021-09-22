@@ -1,44 +1,5 @@
 #!/bin/sh
 
-# iptables cmd
-rm -rf /usr/sbin/iptables
-cat >/usr/sbin/iptables <<EOF
-#!/bin/sh
-cmd=\$@
-check=\$(echo \$cmd | sed -e 's/-A/-C/g')
-if [ "\$check" == "\$cmd" ]; then
-    xtables-legacy-multi iptables \$@
-else
-    xtables-legacy-multi iptables \$check
-    ret=\$?
-    if [ "\$ret" -eq 0 ]; then
-        exit 0
-    else
-        xtables-legacy-multi iptables \$@
-    fi
-fi
-EOF
-chmod 755 /usr/sbin/iptables
-
-rm -rf /usr/sbin/ip6tables
-cat >/usr/sbin/ip6tables <<EOF
-#!/bin/sh
-cmd=\$@
-check=\$(echo \$cmd | sed -e 's/-A/-C/g')
-if [ "\$check" == "\$cmd" ]; then
-    xtables-legacy-multi ip6tables \$@
-else
-    xtables-legacy-multi ip6tables \$check
-    ret=\$?
-    if [ "\$ret" -eq 0 ]; then
-        exit 0
-    else
-        xtables-legacy-multi ip6tables \$@
-    fi
-fi
-EOF
-chmod 755 /usr/sbin/ip6tables
-
 # cumtos ntp
 uci delete system.ntp.server
 uci add_list system.ntp.server='ntp1.aliyun.com'
