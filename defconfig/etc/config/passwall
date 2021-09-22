@@ -117,5 +117,7 @@ config shunt_rules 'netflix'
 config shunt_rules 'usa'
 	option remarks '美国'
 	option domain_list 'geosite:paypal
+geosite:twitter
+geosite:disney
 geosite:hbo
 geosite:category-media'
