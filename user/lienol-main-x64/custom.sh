@@ -8,4 +8,7 @@ echo "Execute custom custom.sh"
 rm -rf feeds/packages/net/kcptun
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/kcptun feeds/packages/net/kcptun
 
+rm -rf feeds/packages/net/xray-core
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-core feeds/packages/net/xray-core
+
 cat package/default-settings/files/zzz-default-settings
