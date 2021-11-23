@@ -13,22 +13,22 @@ do_common() {
     # modify passwall subscribe.lua
     subscribe_script="package/feeds/passwall/luci-app-passwall/root/usr/share/passwall/subscribe.lua"
     if [ -f "$subscribe_script" ]; then
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\		-- ×Ô¶¨ÒåÓÅÏÈ¼¶ ¶©ÔÄ + ÀàĞÍ + ±¸×¢' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\		if not server then' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\			for index, node in pairs(nodes) do' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\				if config.currentNode.add_from and config.currentNode.type and config.currentNode.remarks then' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\					if node.add_from and node.type and node.remarks then' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\						if node.add_from == config.currentNode.add_from and node.type == config.currentNode.type and node.remarks == config.currentNode.remarks then' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\							if config.log == nil or config.log == true then' $subscribe_script
-        sed -i "/µÚÒ»ÓÅÏÈ¼¶/i\								log('¸üĞÂ¡¾' .. config.remarks .. '¡¿×Ô¶¨ÒåÆ¥Åä½Úµã£º' .. node.remarks)" $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\							end' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\							server = node[".name"]' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\							break' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\						end' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\					end' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\				end' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\			end' $subscribe_script
-        sed -i '/µÚÒ»ÓÅÏÈ¼¶/i\		end' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\		-- è‡ªå®šä¹‰ä¼˜å…ˆçº§ è®¢é˜… + ç±»å‹ + å¤‡æ³¨' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\		if not server then' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\			for index, node in pairs(nodes) do' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\				if config.currentNode.add_from and config.currentNode.type and config.currentNode.remarks then' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\					if node.add_from and node.type and node.remarks then' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\						if node.add_from == config.currentNode.add_from and node.type == config.currentNode.type and node.remarks == config.currentNode.remarks then' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\							if config.log == nil or config.log == true then' $subscribe_script
+        sed -i "/ç¬¬ä¸€ä¼˜å…ˆçº§/i\								log('æ›´æ–°ã€' .. config.remarks .. 'ã€‘è‡ªå®šä¹‰åŒ¹é…èŠ‚ç‚¹ï¼š' .. node.remarks)" $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\							end' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\							server = node[".name"]' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\							break' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\						end' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\					end' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\				end' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\			end' $subscribe_script
+        sed -i '/ç¬¬ä¸€ä¼˜å…ˆçº§/i\		end' $subscribe_script
 
         sed -i 's/log = false/log = true/g' $subscribe_script
     fi
@@ -44,6 +44,9 @@ do_common() {
 
         if [ -d "package/lean/luci-app-adbyby-plus" ]; then
             cp -f ../defconfig/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
+        fi
+        if [ -d "package/feeds/other/luci-app-adbyby-plus" ]; then
+            cp -f ../defconfig/etc/config/adbyby package/feeds/other/luci-app-adbyby-plus/root/etc/config/adbyby
         fi
 
         if [ -d "package/feeds/passwall/luci-app-passwall" ]; then

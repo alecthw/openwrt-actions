@@ -89,6 +89,9 @@ do_prepare() {
         if [ -d "package/lean/luci-app-adbyby-plus" ]; then
             clean_package package/lean/luci-app-adbyby-plus
         fi
+        if [ -d "package/feeds/other/luci-app-adbyby-plus" ]; then
+            clean_package package/feeds/other/luci-app-adbyby-plus
+        fi
 
         if [ -d "package/feeds/passwall/luci-app-passwall" ]; then
             clean_package package/feeds/passwall/luci-app-passwall

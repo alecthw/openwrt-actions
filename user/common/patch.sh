@@ -20,17 +20,13 @@ do_common() {
 do_lienol_common() {
     # add custom packages
     git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
-    svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-uugamebooster package/luci-app-uugamebooster
-    svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/uugamebooster package/uugamebooster
-
-    rm -rf package/diy/OpenAppFilter
 }
 
 do_lede_common() {
     # add custom packages
     git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
-    svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-tcpdump package/luci-app-tcpdump
-    svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-adguardhome package/luci-app-adguardhome
+    svn co https://github.com/Lienol/openwrt-package/branches/other/luci-app-tcpdump package/luci-app-tcpdump
+    svn co https://github.com/Lienol/openwrt-package/branches/other/luci-app-adguardhome package/luci-app-adguardhome
 
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-webrestriction package/luci-app-control-webrestriction
     svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-timewol package/luci-app-control-timewol

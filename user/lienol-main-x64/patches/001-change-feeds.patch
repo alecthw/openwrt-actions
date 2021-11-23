@@ -1,8 +1,8 @@
---- feeds.conf.default	2021-01-30 17:00:02.383211649 +0800
-+++ feeds.conf.default1	2021-01-30 17:13:22.371297086 +0800
-@@ -9,3 +9,5 @@
- #src-git oldpackages http://git.openwrt.org/packages.git
+--- feeds.conf.default	2021-11-23 08:24:54.278914347 +0800
++++ feeds.conf.default	2021-11-23 08:36:53.372441125 +0800
+@@ -8,3 +8,5 @@
  #src-link custom /usr/src/openwrt/custom-feed
  src-git lienol https://github.com/Lienol/openwrt-package.git;main
+ src-git other https://github.com/Lienol/openwrt-package.git;other
 +src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main
 +src-git n2n https://github.com/alecthw/openwrt-n2n.git;master
