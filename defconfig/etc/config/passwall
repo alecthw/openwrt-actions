@@ -1,21 +1,20 @@
 
 config global
-	option enabled '0'
 	option socks_enabled '0'
 	option tcp_node '696cd32c1d5149ee95fd1b3accbad6df'
 	option udp_node 'tcp'
 	option dns_mode 'udp'
 	option up_china_dns 'default'
 	option dns_forward '127.0.0.1#7054'
-	option chinadns_ng '1'
 	option tcp_proxy_mode 'chnroute'
 	option udp_proxy_mode 'chnroute'
 	option localhost_tcp_proxy_mode 'default'
 	option localhost_udp_proxy_mode 'default'
 	option close_log_tcp '1'
 	option close_log_udp '1'
-	option loglevel 'warning'
-	option trojan_loglevel '2'
+	option loglevel 'error'
+	option trojan_loglevel '4'
+	option enabled '0'
 
 config global_haproxy
 	option balancing_enable '0'
@@ -29,16 +28,15 @@ config global_forwarding
 	option process '0'
 	option tcp_no_redir_ports 'disable'
 	option udp_no_redir_ports '80,443'
-	option tcp_redir_ports '22,25,53,143,465,587,993,995,80,443'
+	option tcp_redir_ports '22,25,53,143,465,587,853,993,995,80,443'
 	option udp_redir_ports '1:65535'
 	option accept_icmp '0'
-	option tcp_proxy_way 'tproxy'
-	option proxy_ipv6 '0'
+	option tcp_proxy_way 'redirect'
+	option ipv6_tproxy '0'
 
 config global_other
 	option status 'big_icon show_check_port show_ip111'
 	option nodes_ping 'auto_ping tcping'
-	option ipv6_tproxy '0'
 
 config global_rules
 	option auto_update '1'
@@ -69,10 +67,6 @@ config global_app
 
 config global_subscribe
 	option subscribe_proxy '0'
-	option auto_update_subscribe '1'
-	option week_update_subscribe '7'
-	option time_update_subscribe '6'
-	option allowInsecure '1'
 	option filter_keyword_mode '1'
 	list filter_discard_list '过期时间'
 	list filter_discard_list '剩余流量'
@@ -92,32 +86,42 @@ config auto_switch
 
 config nodes '696cd32c1d5149ee95fd1b3accbad6df'
 	option remarks '分流总节点'
-	option type 'Xray'
+	option type 'V2ray'
 	option protocol '_shunt'
-	option bittorrent '_direct'
-	option ads '_blackhole'
-	option netflix 'nil'
-	option usa 'nil'
+	option AD '_blackhole'
+	option BT '_direct'
+	option Netflix 'nil'
+	option USA 'nil'
+	option China 'nil'
 	option default_node '_direct'
-	option default_proxy '0'
-	option domainStrategy 'AsIs'
+	option domainStrategy 'IPIfNonMatch'
 
-config shunt_rules 'bittorrent'
-	option remarks 'BT下载'
-	option protocol 'bittorrent'
-
-config shunt_rules 'ads'
-	option remarks '广告'
+config shunt_rules 'AD'
+	option remarks 'AD'
 	option domain_list 'geosite:category-ads'
 
-config shunt_rules 'netflix'
-	option remarks '奈飞'
-	option domain_list 'geosite:netflix'
+config shunt_rules 'BT'
+	option remarks 'BT'
+	option protocol 'bittorrent'
 
-config shunt_rules 'usa'
-	option remarks '美国'
+config shunt_rules 'Netflix'
+	option remarks 'Netflix'
+	option domain_list 'geosite:netflix'
+	option ip_list 'geoip:netflix'
+
+config shunt_rules 'USA'
+	option remarks 'USA'
 	option domain_list 'geosite:paypal
 geosite:twitter
 geosite:disney
 geosite:hbo
-geosite:category-media'
+geosite:category-media
+np-edge.itunes.apple.com
+play-edge.itunes.apple.com
+tv.apple.com'
+
+config shunt_rules 'China'
+	option remarks 'China'
+	option domain_list 'geosite:cn
+geosite:epicgames'
+	option ip_list 'geoip:cn'
