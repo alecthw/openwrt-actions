@@ -1,0 +1,57 @@
+
+config smartdns
+	option dualstack_ip_selection '0'
+	option rr_ttl_min '600'
+	option seconddns_no_speed_check '0'
+	option seconddns_no_rule_addr '0'
+	option seconddns_no_rule_ipset '0'
+	option seconddns_no_rule_soa '0'
+	option seconddns_no_dualstack_selection '0'
+	option coredump '0'
+	option seconddns_no_rule_nameserver '0'
+	option rr_ttl_max '3600'
+	option prefetch_domain '1'
+	option seconddns_port '7913'
+	option seconddns_server_group 'us'
+	option seconddns_no_cache '0'
+	option seconddns_tcp_server '0'
+	option ipv6_server '0'
+	option server_name 'smartdns'
+	option port '6054'
+	option tcp_server '0'
+	option serve_expired '0'
+	option force_aaaa_soa '0'
+	option redirect 'none'
+	option enabled '1'
+	option cache_size '5000'
+	list old_redirect 'none'
+	list old_port '6054'
+	list old_enabled '1'
+
+config server
+	option name 'Google_dot'
+	option ip '8.8.4.4'
+	option type 'tls'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'Quad9_dot'
+	option ip '9.9.9.9'
+	option type 'tls'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'Cloudflare_dot'
+	option ip '1.0.0.1'
+	option type 'tls'
+	option blacklist_ip '0'
+	option enabled '1'
+
+config server
+	option name 'OpenDNS_doh'
+	option ip 'https://208.67.222.222/dns-query'
+	option type 'https'
+	option blacklist_ip '0'
+	option enabled '1'
