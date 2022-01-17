@@ -101,10 +101,10 @@ do_common() {
             fi
         fi
 
-        if [ -d "package/luci-app-openclash" ]; then
-            #cp -f ../defconfig/etc/config/openclash package/luci-app-openclash/root/etc/config/openclash
-            #sed -i '/^config dns_servers/,$d' package/luci-app-openclash/root/etc/config/openclash
-        fi
+        # if [ -d "package/luci-app-openclash" ]; then
+            # cp -f ../defconfig/etc/config/openclash package/luci-app-openclash/root/etc/config/openclash
+            # sed -i '/^config dns_servers/,$d' package/luci-app-openclash/root/etc/config/openclash
+        # fi
     fi
 }
 
