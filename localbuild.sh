@@ -47,6 +47,9 @@ init_code_dir() {
     lede-x64)
         code_dir="lede"
         ;;
+    lede-openclash-x64)
+        code_dir="lede_openclash"
+        ;;
     official-master-x64)
         code_dir="official"
         ;;
