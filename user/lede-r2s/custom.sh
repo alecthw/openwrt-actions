@@ -17,7 +17,4 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/microsocks feeds/pack
 rm -rf feeds/packages/net/pdnsd-alt
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/pdnsd-alt feeds/packages/net/pdnsd-alt
 
-rm -rf feeds/packages/net/shadowsocksr-libev
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/shadowsocksr-libev feeds/packages/net/shadowsocksr-libev
-
 cat package/lean/default-settings/files/zzz-default-settings
