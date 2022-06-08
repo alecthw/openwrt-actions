@@ -27,7 +27,6 @@ jobs:
       matrix:
         target:
           [
-            lienol-main-x64,
             lede-x64,
             lede-wrt1900acs,
             lede-newifi_d2,
