@@ -17,6 +17,31 @@ uci commit luci
 # set lan ip
 uci set network.lan.ipaddr='192.168.11.1'
 uci set network.lan.netmask='255.255.255.0'
+
+if [ -f "/etc/config/n2n_v2" ]; then
+    uci set network.n2n0=interface
+    uci set network.n2n0.proto='none'
+    if $new_net; then
+        uci set network.n2n0.device='n2n0'
+    else
+        uci set network.n2n0.ifname='n2n0'
+    fi
+    uci set network.n2n0.delegate='0'
+    uci set network.n2n0.auto='1'
+fi
+
+if [ -f "/etc/config/zerotier" ]; then
+    uci set network.zerotier=interface
+    uci set network.zerotier.proto='none'
+    if $new_net; then
+        uci set network.zerotier.device='zt5u4x7t2c'
+    else
+        uci set network.zerotier.ifname='zt5u4x7t2c'
+    fi
+    uci set network.zerotier.delegate='0'
+    uci set network.zerotier.auto='1'
+fi
+
 uci commit network
 
 # disable redirect https
@@ -64,5 +89,10 @@ fi
 # NTP
 # sed -i '/REDIRECT --to-ports 123/d' /etc/firewall.user
 # echo "iptables -t nat -A PREROUTING -p udp --dport 123 -j REDIRECT --to-ports 123" >>/etc/firewall.user
+
+# firewall
+uci set firewall.@zone[0].network='lan zerotier n2n0'
+uci set firewall.@zone[1].network='wan wan6'
+uci commit firewall
 
 exit 0
