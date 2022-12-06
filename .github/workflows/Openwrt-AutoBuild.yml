@@ -1,8 +1,6 @@
 name: Openwrt-AutoBuild
 
 on:
-  #  release:
-  #    types: [published]
   push:
     branches:
       - master
@@ -10,18 +8,23 @@ on:
       - "start"
   schedule:
     - cron: 0 22 * * 4
-  watch:
-    types: [started]
+  # release:
+  #   types: [published]
 
-env:
-  RUN_VALIDATION: true
+permissions:
+  contents: read
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
+    permissions:
+      contents: write # for release creation
 
     name: Build ${{matrix.target}}
+
+    runs-on: ubuntu-latest
+
+    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
+
     strategy:
       fail-fast: false
       matrix:

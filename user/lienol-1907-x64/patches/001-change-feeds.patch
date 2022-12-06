@@ -1,7 +1,0 @@
---- feeds.conf.default	2021-11-23 00:44:08.372676833 +0000
-+++ feeds.conf.default	2021-11-23 00:44:56.522003085 +0000
-@@ -5,3 +5,4 @@
- src-git freifunk https://github.com/freifunk/openwrt-packages.git;openwrt-19.07
- src-git lienol https://github.com/Lienol/openwrt-package.git;main
- src-git other https://github.com/Lienol/openwrt-package.git;other
-+src-git passwall https://github.com/alecthw/openwrt-passwall.git;main
