@@ -48,17 +48,6 @@ Default IP: `192.168.11.1/24`, No password.
 - Kernel partition size: 32MB
 - Root filesystem partition 760MB
 
-## Lienol x64
-
-Use Lienol's [code](https://github.com/Lienol/openwrt)
-
-### Packages
-
-Refer to:
-
-- main branch: [config.diff](user/lienol-main-x64/config.diff)
-- 1907 branch: [config.diff](user/lienol-1907-x64/config.diff)
-
 ## LEDE
 
 Use coolsnowwolf's [code](https://github.com/coolsnowwolf/lede)
@@ -71,6 +60,10 @@ Refer to:
 - r2s: [config.diff](user/lede-r2s/config.diff)
 - wrt1900acs: [config.diff](user/lede-wrt1900acs/config.diff)
 - newifi d2: [config.diff](user/lede-newifi_d2/config.diff)
+
+## Lienol x64
+
+Use Lienol's [code](https://github.com/Lienol/openwrt)
 
 ## StarWind V2V Converter
 
