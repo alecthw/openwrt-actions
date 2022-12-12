@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set Date
         run: |
@@ -156,7 +156,7 @@ jobs:
           cd openwrt
           echo -e "$(nproc) thread compile"
           make -j$(nproc) || make -j1 V=s
-          echo "::set-output name=status::success"
+          echo "name=status::success" >> $GITHUB_OUTPUT
 
       - name: Pack packages_dir
         if: steps.compile.outputs.status == 'success'
