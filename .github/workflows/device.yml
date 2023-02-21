@@ -1,4 +1,4 @@
-name: Openwrt-AutoBuild
+name: device
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
       fail-fast: false
       # max-parallel: 2
       matrix:
-        target: [lede-x64, lede-wrt1900acs, lede-newifi_d2, lede-r2s]
+        target: [lede-x64, lede-r2s]
 
     steps:
       - name: Checkout
