@@ -24,6 +24,7 @@ fi
 uci set network.lan.ipaddr='192.168.11.1'
 uci set network.lan.netmask='255.255.255.0'
 
+# add n2n_v2 interface
 if [ -f "/etc/config/n2n_v2" ]; then
     uci set network.n2n0=interface
     uci set network.n2n0.proto='none'
@@ -36,6 +37,7 @@ if [ -f "/etc/config/n2n_v2" ]; then
     uci set network.n2n0.auto='1'
 fi
 
+# add zerotier interface
 if [ -f "/etc/config/zerotier" ]; then
     uci set network.zerotier=interface
     uci set network.zerotier.proto='none'
