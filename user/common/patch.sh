@@ -22,8 +22,8 @@ do_lienol_common() {
     git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
 
     # n2n_v2
-    svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-n2n_v2 package/luci-app-n2n_v2
-    svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/n2n_v2 package/n2n_v2
+    svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-n2n package/luci-app-n2n
+    svn co https://github.com/coolsnowwolf/packages/trunk/net/n2n package/n2n
 }
 
 do_lede_common() {

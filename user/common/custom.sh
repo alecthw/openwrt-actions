@@ -48,8 +48,8 @@ do_common() {
             cp -f ../defconfig/etc/config/nginx package/feeds/packages/nginx-util/files/nginx.config
         fi
 
-        if [ -d "package/lean/luci-app-adbyby-plus" ]; then
-            cp -f ../defconfig/etc/config/adbyby package/lean/luci-app-adbyby-plus/root/etc/config/adbyby
+        if [ -d "package/feeds/luci/luci-app-adbyby-plus" ]; then
+            cp -f ../defconfig/etc/config/adbyby package/feeds/luci/luci-app-adbyby-plus/root/etc/config/adbyby
         fi
         if [ -d "package/feeds/other/luci-app-adbyby-plus" ]; then
             cp -f ../defconfig/etc/config/adbyby package/feeds/other/luci-app-adbyby-plus/root/etc/config/adbyby
