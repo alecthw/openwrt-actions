@@ -2,7 +2,8 @@
 
 Build OpenWRT using github actions!
 
-![Badge](https://github.com/alecthw/openwrt-actions/workflows/Openwrt-AutoBuild/badge.svg)
+[![router](https://github.com/alecthw/openwrt-actions/actions/workflows/router.yml/badge.svg)](https://github.com/alecthw/openwrt-actions/actions/workflows/router.yml)
+[![device](https://github.com/alecthw/openwrt-actions/actions/workflows/device.yml/badge.svg)](https://github.com/alecthw/openwrt-actions/actions/workflows/device.yml)
 
 Default IP: `192.168.11.1/24`, No password.
 
