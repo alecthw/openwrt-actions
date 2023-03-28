@@ -1,0 +1,135 @@
+# 白名单模式
+# 白名单 或 境外查询IP是geoip:CN，走国内
+
+log:
+  level: info
+
+plugins:
+  # mmdb
+  - tag: country
+    type: mmdb
+    args:
+      file: "./rule/Country.mmdb"
+
+  # cn ip
+  - tag: whitelist
+    type: domain_set
+    args:
+      files:
+        - "./rule/cn-white.txt"
+
+  # 广告域名列表 geosite:category-ads-all
+  - tag: geosite_ads
+    type: domain_set
+    args:
+      files:
+        - "./rule/reject-list.txt"
+
+  # hosts
+  - tag: hosts
+    type: hosts
+    args:
+      entries:
+        - "localhost 127.0.0.1"
+
+  # 缓存
+  - tag: cache
+    type: cache
+    args:
+      size: 20480
+      lazy_cache_ttl: 86400
+      dump_file: "./cache.dump"
+      dump_interval: 1800
+
+  # 查询境外DNS
+  - tag: forward_global
+    type: forward
+    args:
+      concurrent: 3
+      upstreams:
+        - tag: Google_dot
+          addr: "tls://8.8.4.4"
+          enable_pipeline: true
+        - tag: Quad9_dot
+          addr: "tls://9.9.9.9"
+          enable_pipeline: true
+        - tag: Cloudflare_dot
+          addr: "tls://1.0.0.1"
+          enable_pipeline: true
+        - tag: OpenDNS_dot
+          addr: "tls://208.67.222.222"
+          enable_pipeline: true
+
+  # 查询国内DNS
+  - tag: forward_china
+    type: forward
+    args:
+      concurrent: 2
+      upstreams:
+        - tag: Ali_dot
+          addr: "tls://223.5.5.5"
+        - tag: DNSPod_dot
+          addr: "tls://120.53.53.53"
+          enable_pipeline: true
+
+  # 境外解析，优先IPV4
+  - tag: global_sequence
+    type: sequence
+    args:
+      - matches: qname $whitelist
+        exec: return
+      - exec: prefer_ipv4
+      - exec: $forward_global
+      - matches: resp_ip_mmdb $country CN
+        exec: drop_resp
+
+  # 国内解析，不设置过滤，作为fallback
+  - tag: china_sequence
+    type: sequence
+    args:
+      - exec: $forward_china
+
+  # 屏蔽解析
+  - tag: reject_sequence
+    type: sequence
+    args:
+      - matches: qname $geosite_ads
+        exec: reject 3
+      - matches: qtype 12
+        exec: reject 3
+      # - matches: qtype 65
+      #   exec: reject 3
+
+  # 如果 primary 抛出错误，或返回但没有应答，或在 threshold 毫秒内无响应，则执行 secondary。
+  # 所以在 primary 中不能用 rejcet，reject 也是应答
+  # Fallback
+  - tag: fallback
+    type: fallback
+    args:
+      primary: global_sequence
+      secondary: china_sequence
+      threshold: 150
+      always_standby: true
+
+  - tag: main_sequence
+    type: sequence
+    args:
+      - exec: $reject_sequence
+
+      - exec: $hosts
+      - matches: has_resp
+        exec: accept
+
+      - exec: $cache
+      - matches: has_resp
+        exec: accept
+
+      - exec: $fallback
+      - matches: has_resp
+        exec: ttl 10-600
+
+  - tag: udp_server
+    type: udp_server
+    args:
+      entry: main_sequence
+      listen: 0.0.0.0:5335

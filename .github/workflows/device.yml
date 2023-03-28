@@ -1,209 +1,219 @@
 name: device
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - "start"
-  schedule:
-    - cron: 0 22 * * 4
-  # release:
-  #   types: [published]
+    push:
+        branches:
+            - master
+        paths:
+            - "start"
+    schedule:
+        - cron: 0 22 * * 4
+    # release:
+    #   types: [published]
 
 permissions:
-  contents: read
+    contents: read
 
 jobs:
-  build:
-    permissions:
-      contents: write # for release creation
+    build:
+        permissions:
+            contents: write # for release creation
 
-    name: Build ${{matrix.target}}
+        name: Build ${{matrix.target}}
 
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
+        if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
 
-    strategy:
-      fail-fast: false
-      # max-parallel: 2
-      matrix:
-        target: [lede-x64, lede-r2s]
+        strategy:
+            fail-fast: false
+            # max-parallel: 2
+            matrix:
+                target: [lede-x64, lede-r2s]
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
 
-      - name: Set Date
-        run: |
-          date=$(date +%Y-%m-%d)
-          echo "DATE=${date}" >> $GITHUB_ENV
+            - name: Set Date
+              run: |
+                  date=$(date +%Y-%m-%d)
+                  echo "DATE=${date}" >> $GITHUB_ENV
 
-      - name: Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          docker rmi `docker images -q`
-          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
-          sudo -E apt-get update
-          sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc-s1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf swig
-          sudo -E apt-get -y autoremove --purge
-          sudo -E apt-get clean
+            - name: Initialize environment
+              env:
+                  DEBIAN_FRONTEND: noninteractive
+              run: |
+                  docker rmi `docker images -q`
+                  sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+                  sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
+                  sudo -E apt-get update
+                  sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 zip unzip zlib1g-dev lib32gcc-s1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf swig
+                  sudo -E apt-get -y autoremove --purge
+                  sudo -E apt-get clean
 
-      - name: Set git identity
-        run: |
-          git config --global user.email "22856212+alecthw@users.noreply.github.com"
-          git config --global user.name "alecthw"
+            - name: Set git identity
+              run: |
+                  git config --global user.email "22856212+alecthw@users.noreply.github.com"
+                  git config --global user.name "alecthw"
 
-      - name: Load Settings.ini
-        run: |
-          source "${GITHUB_WORKSPACE}/user/${{matrix.target}}/settings.ini"
-          echo "REPO_URL=${REPO_URL}"                           >> $GITHUB_ENV
-          echo "REPO_BRANCH=${REPO_BRANCH}"                     >> $GITHUB_ENV
-          echo "CONFIG_FILE=${CONFIG_FILE}"                     >> $GITHUB_ENV
-          echo "UPLOAD_PACKAGES_DIR=${UPLOAD_PACKAGES_DIR}"     >> $GITHUB_ENV
-          echo "UPLOAD_TARGETS_DIR=${UPLOAD_TARGETS_DIR}"       >> $GITHUB_ENV
-          echo "UPLOAD_FIRMWARE=${UPLOAD_FIRMWARE}"             >> $GITHUB_ENV
-          echo "UPLOAD_TO_ARTIFACTS=${UPLOAD_TO_ARTIFACTS}"     >> $GITHUB_ENV
-          echo "WECHAT_NOTIFICATION=${WECHAT_NOTIFICATION}"     >> $GITHUB_ENV
+            - name: Load Settings.ini
+              run: |
+                  source "${GITHUB_WORKSPACE}/user/${{matrix.target}}/settings.ini"
+                  echo "REPO_URL=${REPO_URL}"                           >> $GITHUB_ENV
+                  echo "REPO_BRANCH=${REPO_BRANCH}"                     >> $GITHUB_ENV
+                  echo "CONFIG_FILE=${CONFIG_FILE}"                     >> $GITHUB_ENV
+                  echo "UPLOAD_PACKAGES_DIR=${UPLOAD_PACKAGES_DIR}"     >> $GITHUB_ENV
+                  echo "UPLOAD_TARGETS_DIR=${UPLOAD_TARGETS_DIR}"       >> $GITHUB_ENV
+                  echo "UPLOAD_FIRMWARE=${UPLOAD_FIRMWARE}"             >> $GITHUB_ENV
+                  echo "UPLOAD_TO_ARTIFACTS=${UPLOAD_TO_ARTIFACTS}"     >> $GITHUB_ENV
+                  echo "WECHAT_NOTIFICATION=${WECHAT_NOTIFICATION}"     >> $GITHUB_ENV
 
-      - name: Clone source code
-        run: |
-          git clone ${{env.REPO_URL}} -b ${{env.REPO_BRANCH}} openwrt
+            - name: Clone source code
+              run: |
+                  git clone --depth=1 -b ${{env.REPO_BRANCH}} ${{env.REPO_URL}} openwrt
 
-      - name: Apply patches
-        run: |
-          echo "Apply patches"
-          if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
-          (
-            find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
-          )
-          fi
-          if [ -n "$(ls -A "user/${{matrix.target}}/patches" 2>/dev/null)" ]; then
-          (
-            find "user/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
-          )
-          fi
+            - name: Apply patches
+              run: |
+                  echo "Apply patches"
+                  if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
+                  (
+                    find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
+                  )
+                  fi
+                  if [ -n "$(ls -A "user/${{matrix.target}}/patches" 2>/dev/null)" ]; then
+                  (
+                    find "user/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
+                  )
+                  fi
 
-          echo "Apply patch.sh"
-          if [ -f "user/common/patch.sh" ]; then
-          (
-            cd openwrt
-            /bin/bash "../user/common/patch.sh" ${{matrix.target}}
-          )
-          fi
-          if [ -f "user/${{matrix.target}}/patch.sh" ]; then
-          (
-            cd openwrt
-            /bin/bash "../user/${{matrix.target}}/patch.sh"
-          )
-          fi
+                  echo "Apply patch.sh"
+                  if [ -f "user/common/patch.sh" ]; then
+                  (
+                    cd openwrt
+                    /bin/bash "../user/common/patch.sh" ${{matrix.target}}
+                  )
+                  fi
+                  if [ -f "user/${{matrix.target}}/patch.sh" ]; then
+                  (
+                    cd openwrt
+                    /bin/bash "../user/${{matrix.target}}/patch.sh"
+                  )
+                  fi
 
-      - name: Update feeds
-        run: cd openwrt && ./scripts/feeds update -a
+            - name: Update feeds
+              run: cd openwrt && ./scripts/feeds update -a
 
-      - name: Install feeds
-        run: cd openwrt && ./scripts/feeds install -a
+            - name: Install feeds
+              run: cd openwrt && ./scripts/feeds install -a
 
-      - name: Load custom configuration
-        run: |
-          echo "Apply files..."
-          if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
-          (
-            cp -rf user/common/files/* openwrt/package/base-files/files/
-          )
-          fi
-          if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
-          (
-            cp -rf user/${{matrix.target}}/files/* openwrt/package/base-files/files/
-          )
-          fi
+            - name: Load custom script
+              run: |
+                  echo "Apply files..."
+                  if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
+                  (
+                    cp -rf user/common/files/* openwrt/package/base-files/files/
+                  )
+                  fi
+                  if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
+                  (
+                    cp -rf user/${{matrix.target}}/files/* openwrt/package/base-files/files/
+                  )
+                  fi
 
-          echo "Apply custom.sh"
-          if [ -f "user/common/custom.sh" ]; then
-          (
-            cd openwrt
-            /bin/bash "../user/common/custom.sh" ${{matrix.target}}
-          )
-          fi
-          if [ -f "user/${{matrix.target}}/custom.sh" ]; then
-          (
-            cd openwrt
-            /bin/bash "../user/${{matrix.target}}/custom.sh"
-          )
-          fi
+                  echo "Apply custom.sh"
+                  if [ -f "user/common/custom.sh" ]; then
+                  (
+                    cd openwrt
+                    /bin/bash "../user/common/custom.sh" ${{matrix.target}}
+                  )
+                  fi
+                  if [ -f "user/${{matrix.target}}/custom.sh" ]; then
+                  (
+                    cd openwrt
+                    /bin/bash "../user/${{matrix.target}}/custom.sh"
+                  )
+                  fi
 
-      - name: Copy config
-        id: config
-        run: |
-          cd openwrt
-          cp ../user/${{matrix.target}}/${{env.CONFIG_FILE}} .config
-          make defconfig
+            - name: Load custom configuration
+              run: |
+                  echo "Apply config.sh"
+                  if [ -f "user/common/config.sh" ]; then
+                  (
+                    cd openwrt
+                    /bin/bash "../user/common/config.sh" ${{matrix.target}}
+                  )
+                  fi
 
-      - name: Download package
-        id: package
-        run: |
-          cd openwrt
-          make download -j8
-          find dl -size -1024c -exec ls -l {} \;
-          find dl -size -1024c -exec rm -f {} \;
+            - name: Copy build config
+              id: config
+              run: |
+                  cd openwrt
+                  cp ../user/${{matrix.target}}/${{env.CONFIG_FILE}} .config
+                  make defconfig
 
-      - name: Compile the firmware
-        id: compile
-        run: |
-          cd openwrt
-          echo -e "$(nproc) thread compile"
-          make -j$(nproc) || make -j1 V=s
-          echo "status=success" >> $GITHUB_OUTPUT
+            - name: Download package
+              id: package
+              run: |
+                  cd openwrt
+                  make download -j8
+                  find dl -size -1024c -exec ls -l {} \;
+                  find dl -size -1024c -exec rm -f {} \;
 
-      - name: Pack packages_dir
-        if: steps.compile.outputs.status == 'success'
-        run: |
-          cd openwrt/bin/packages/
-          tar -cvf ${{matrix.target}}_packages.tar ./
-          mv *.tar ..
+            - name: Compile the firmware
+              id: compile
+              run: |
+                  cd openwrt
+                  echo -e "$(nproc) thread compile"
+                  make -j$(nproc) || make -j1 V=s
+                  echo "status=success" >> $GITHUB_OUTPUT
 
-      - name: Pack targets_dir
-        if: steps.compile.outputs.status == 'success'
-        run: |
-          cd openwrt/bin/targets/
-          tar -cvf ${{matrix.target}}_targets.tar ./
-          mv *.tar ..
+            - name: Pack packages_dir
+              if: steps.compile.outputs.status == 'success'
+              run: |
+                  cd openwrt/bin/packages/
+                  tar -cvf ${{matrix.target}}_packages.tar ./
+                  mv *.tar ..
 
-      - name: Assemble Firmware
-        run: |
-          rm -rf ./Firmware/
-          mkdir -p ./Firmware/
-          cp -f openwrt/.config ./Firmware/
-          find openwrt/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./Firmware/
-          find openwrt/bin/targets/ -name "*sysupgrade*img*" | xargs -i mv -f {} ./Firmware/
-          find openwrt/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./Firmware/
-          find openwrt/bin/targets/ -name "*factory*img*" | xargs -i mv -f {} ./Firmware/
-          find openwrt/bin/targets/ -name "*vmdk*" | xargs -i mv -f {} ./Firmware/
+            - name: Pack targets_dir
+              if: steps.compile.outputs.status == 'success'
+              run: |
+                  cd openwrt/bin/targets/
+                  tar -cvf ${{matrix.target}}_targets.tar ./
+                  mv *.tar ..
 
-      - name: Upload packages directory
-        if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　&& steps.compile.outputs.status == 'success'
-        uses: actions/upload-artifact@main
-        with:
-          name: OpenWrt_packages_${{matrix.target}}
-          path: openwrt/bin/packages
+            - name: Assemble Firmware
+              run: |
+                  rm -rf ./Firmware/
+                  mkdir -p ./Firmware/
+                  cp -f openwrt/.config ./Firmware/
+                  find openwrt/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./Firmware/
+                  find openwrt/bin/targets/ -name "*sysupgrade*img*" | xargs -i mv -f {} ./Firmware/
+                  find openwrt/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./Firmware/
+                  find openwrt/bin/targets/ -name "*factory*img*" | xargs -i mv -f {} ./Firmware/
+                  find openwrt/bin/targets/ -name "*vmdk*" | xargs -i mv -f {} ./Firmware/
 
-      - name: Upload targets directory
-        if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
-        uses: actions/upload-artifact@main
-        with:
-          name: OpenWrt_targets_${{matrix.target}}
-          path: openwrt/bin/targets
+            - name: Upload packages directory
+              if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　&& steps.compile.outputs.status == 'success'
+              uses: actions/upload-artifact@main
+              with:
+                  name: OpenWrt_packages_${{matrix.target}}
+                  path: openwrt/bin/packages
 
-      - name: Upload Firmware
-        if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
-        uses: actions/upload-artifact@main
-        with:
-          name: OpenWrt_firmware_${{matrix.target}}
-          path: ./Firmware/
+            - name: Upload targets directory
+              if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+              uses: actions/upload-artifact@main
+              with:
+                  name: OpenWrt_targets_${{matrix.target}}
+                  path: openwrt/bin/targets
 
-      - name: WeChat notification
-        if: env.WECHAT_NOTIFICATION == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
-        run: curl https://sc.ftqq.com/${{secrets.SCKEY}}.send?text=${{matrix.target}}编译完成
+            - name: Upload Firmware
+              if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+              uses: actions/upload-artifact@main
+              with:
+                  name: OpenWrt_firmware_${{matrix.target}}
+                  path: ./Firmware/
+
+            - name: WeChat notification
+              if: env.WECHAT_NOTIFICATION == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+              run: curl https://sc.ftqq.com/${{secrets.SCKEY}}.send?text=${{matrix.target}}编译完成

@@ -77,40 +77,13 @@ do_prepare() {
 
     if [ ! -d "${CUR_PATH}/${code_dir}" ]; then
         echo "Info: Clone code ${REPO_URL} ${REPO_BRANCH}..."
-        git clone ${REPO_URL} -b ${REPO_BRANCH} ${code_dir}
+        git clone --depth=1 -b ${REPO_BRANCH} ${REPO_URL} ${code_dir}
     else
         cd ${CUR_PATH}/${code_dir}
 
         # clean package build which has bee changed by script
         echo "Info: Clean build has custom config..."
         clean_package package/base-files
-
-        if [ -d "package/feeds/packages/nginx-util" ]; then
-            clean_package package/feeds/packages/nginx-util
-        fi
-
-        if [ -d "package/lean/luci-app-adbyby-plus" ]; then
-            clean_package package/lean/luci-app-adbyby-plus
-        fi
-        if [ -d "package/feeds/other/luci-app-adbyby-plus" ]; then
-            clean_package package/feeds/other/luci-app-adbyby-plus
-        fi
-
-        if [ -d "package/feeds/passwall/luci-app-passwall" ]; then
-            clean_package package/feeds/passwall/luci-app-passwall
-        fi
-
-        if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
-            clean_package package/feeds/luci/luci-app-smartdns
-        fi
-        if [ -d "package/luci-app-smartdns" ]; then
-            clean_package package/luci-app-smartdns
-        fi
-
-        if [ -d "package/luci-app-openclash" ]; then
-            clean_package package/luci-app-openclash
-        fi
-
 
         # clean feeds
         echo "Info: Clean feeds..."
@@ -119,29 +92,12 @@ do_prepare() {
         # clean code
         echo "Info: Clean custom package..."
         git clean -fd
-        rm -rf package/luci-theme-argon-jerrykuku
-        rm -rf package/luci-app-jd-dailybonus
-        rm -rf package/luci-app-serverchan
-        rm -rf package/luci-app-uugamebooster
-        rm -rf package/uugamebooster
-        rm -rf package/OpenAppFilter
-        rm -rf package/luci-app-tcpdump
-        rm -rf package/luci-app-adguardhome
-        rm -rf package/luci-app-control-webrestriction
-        rm -rf package/luci-app-control-timewol
-        rm -rf package/luci-app-control-timewol
-        rm -rf package/luci-app-control-weburl
-        rm -rf package/luci-app-fileassistant
-        rm -rf package/luci-app-filebrowser
-        rm -rf package/luci-app-nginx-pingos
-        rm -rf package/luci-app-ssr-plus
-        rm -rf package/luci-app-smartdns
-        rm -rf package/luci-app-ramfree
 
         echo "Info: Update code..."
         force_pull
     fi
 
+    # --------------------- Apply patches
     # apply patches
     echo "Info: Apply patches..."
     cd ${CUR_PATH}
@@ -151,7 +107,6 @@ do_prepare() {
     if [ -n "$(ls -A "user/${target}/patches" 2>/dev/null)" ]; then
         find "user/${target}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '${code_dir}' -p0 --forward"
     fi
-
     # apply patch.sh
     echo "Info: Apply patch.sh..."
     cd ${CUR_PATH}/${code_dir}
@@ -162,11 +117,12 @@ do_prepare() {
         /bin/bash "../user/${target}/patch.sh"
     fi
 
-    # feeds
+    # --------------------- Update & Install feeds
     echo "Info: Update feeds..."
     cd ${CUR_PATH}/${code_dir}
     ./scripts/feeds update -a && ./scripts/feeds install -a
 
+    # --------------------- Load custom script
     # apply files...
     if [ "lede_device" != "${code_dir}" ]; then
         echo "Info: Apply files..."
@@ -178,7 +134,6 @@ do_prepare() {
             cp -rf user/${target}/files/* ${code_dir}/package/base-files/files/
         fi
     fi
-
     # apply custom.sh
     echo "Info: Apply custom.sh..."
     cd ${CUR_PATH}/${code_dir}
@@ -189,7 +144,13 @@ do_prepare() {
         /bin/bash "../user/${target}/custom.sh"
     fi
 
-    # copy config
+    # --------------------- Load custom configuration
+    echo "Apply config.sh"
+    if [ -f "../user/common/config.sh" ]; then
+        /bin/bash "../user/common/config.sh" ${target}
+    fi
+
+    # --------------------- Copy build config
     cd ${CUR_PATH}/${code_dir}
     cp -f ../user/${target}/${CONFIG_FILE} .config
     echo "Info: Make defconfig..."
