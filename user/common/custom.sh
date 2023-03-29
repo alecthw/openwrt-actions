@@ -35,9 +35,8 @@ do_common() {
     fi
 }
 
-do_lienol_common() {
-    # delete 53 redirect
-    sed -i '/REDIRECT --to-ports 53/d' package/default-settings/files/zzz-default-settings
+do_official_common() {
+    echo ""
 }
 
 do_lede_common() {
@@ -51,9 +50,9 @@ do_lede_common() {
 do_common
 
 case "${source}" in
-lienol)
-    echo "do lienol"
-    do_lienol_common
+official)
+    echo "do official"
+    do_official_common
     ;;
 lede)
     echo "do lede"

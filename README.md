@@ -62,10 +62,6 @@ Refer to:
 - wrt1900acs: [config.diff](user/lede-wrt1900acs/config.diff)
 - newifi d2: [config.diff](user/lede-newifi_d2/config.diff)
 
-## Lienol x64
-
-Use Lienol's [code](https://github.com/Lienol/openwrt)
-
 ## StarWind V2V Converter
 
 [Download link](https://www.starwindsoftware.com/tmplink/starwindconverter.exe)
@@ -89,6 +85,6 @@ bash localbuild.sh e
 Compile
 
 ``` bash
-bash localbuild.sh p -t lienol-master-x64   # Clone/Update code, Update feeds, apply custom settings, make defconfig
-bash localbuild.sh c -t lienol-master-x64   # make download, make
+bash localbuild.sh p -t lede-x64   # Clone/Update code, Update feeds, apply custom settings, make defconfig
+bash localbuild.sh c -t lede-x64   # make download, make
 ```

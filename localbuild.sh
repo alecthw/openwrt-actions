@@ -38,19 +38,13 @@ init_code_dir() {
     source ${CUR_PATH}/user/${target}/settings.ini
 
     case "${target}" in
-    lienol-main-x64)
-        code_dir="openwrt"
-        ;;
-    lienol-1907-x64)
-        code_dir="openwrt_1907"
-        ;;
     lede-x64)
         code_dir="lede"
         ;;
     lede-openclash-x64)
         code_dir="lede_openclash"
         ;;
-    official-master-x64)
+    official-x64)
         code_dir="official"
         ;;
     lede-newifi_d2 | lede-wrt1900acs | lede-r2s)
@@ -186,8 +180,8 @@ options:
     --target, -t           target to execute, it's a sub dir name in user
 
 examples:
-    bash localbuild.sh p -t lienol-master-x64
-    bash localbuild.sh c -t lienol-master-x64
+    bash localbuild.sh p -t lede-x64
+    bash localbuild.sh c -t lede-x64
 EOF
 }
 
