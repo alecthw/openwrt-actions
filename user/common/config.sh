@@ -80,7 +80,7 @@ if [ -d "../defconfig" ]; then
         # copy config
         cp -f ../defconfig/etc/mosdns/cus_config.yaml package/feeds/luci/luci-app-mosdns/root/etc/mosdns/cus_config.yaml
         cp -f ../defconfig/etc/mosdns/update_rules.sh package/feeds/luci/luci-app-mosdns/root/etc/mosdns/update_rules.sh
-        chomd 755 package/feeds/luci/luci-app-mosdns/root/etc/mosdns/update_rules.sh
+        chmod 755 package/feeds/luci/luci-app-mosdns/root/etc/mosdns/update_rules.sh
 
         # download rules
         curl -kL --retry 3 --connect-timeout 3 -o package/feeds/luci/luci-app-mosdns/root/etc/mosdns/rule/reject-list.txt https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt
