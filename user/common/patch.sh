@@ -12,9 +12,6 @@ echo "Source: ${source}"
 
 do_common() {
     # add custom packages
-    rm -rf package/luci-theme-argon-jerrykuku
-    git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
-
     rm -rf package/luci-app-serverchan
     git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
 
@@ -28,6 +25,9 @@ do_official_common() {
 
 do_lede_common() {
     # add custom packages
+    rm -rf package/luci-theme-argon-jerrykuku
+    git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
+
     rm -rf package/luci-app-tcpdump
     svn co https://github.com/Lienol/openwrt-package/branches/other/luci-app-tcpdump package/luci-app-tcpdump
 
