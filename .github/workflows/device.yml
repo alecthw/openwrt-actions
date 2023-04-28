@@ -30,7 +30,7 @@ jobs:
       fail-fast: false
       # max-parallel: 2
       matrix:
-        target: [lede-x64, lede-r2s]
+        target: [lede-common-x64, lede-common-r2s]
 
     steps:
       - name: Checkout
