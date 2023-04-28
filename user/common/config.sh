@@ -6,11 +6,17 @@
 target=$1
 echo "Execute common config.sh ${target}"
 
+target_array=(${target//-/ })
+build_source=${target_array[0]}
+build_type=${target_array[1]}
+build_arch=${target_array[2]}
+echo "source=${build_source}, type=${build_type}, arch=${build_arch}"
+
 # copy default config
 if [ -d "../defconfig" ]; then
     cp -f ../defconfig/zzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
 
-    if [ "${target}" != "lede-openclash-x64" ]; then
+    if [ "${build_type}" != "openclash" ]; then
         cp -f ../defconfig/etc/firewall.user package/network/config/firewall/files/firewall.user
     else
         # special for openclash
@@ -42,7 +48,7 @@ if [ -d "../defconfig" ]; then
     if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns
-        if [ "${target}" != "lede-openclash-x64" ]; then
+        if [ "${build_type}" != "openclash" ]; then
             cp -f ../defconfig/etc/config/smartdns package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
             cp -rf ../defconfig/etc/smartdns/custom.conf package/feeds/luci/luci-app-smartdns/root/etc/smartdns/custom.conf
         else
@@ -59,7 +65,7 @@ if [ -d "../defconfig" ]; then
     if [ -d "package/luci-app-smartdns" ]; then
         mkdir -p package/luci-app-smartdns/root/etc/config
         mkdir -p package/luci-app-smartdns/root/etc/smartdns
-        if [ "${target}" != "lede-openclash-x64" ]; then
+        if [ "${build_type}" != "openclash" ]; then
             cp -f ../defconfig/etc/config/smartdns package/luci-app-smartdns/root/etc/config/smartdns
             cp -rf ../defconfig/etc/smartdns/custom.conf package/luci-app-smartdns/root/etc/smartdns/custom.conf
         else
