@@ -6,33 +6,16 @@
 target=$1
 echo "Execute common custom.sh ${target}"
 
-array=(${target//-/ })
-source=${array[0]}
-echo "source=${source}"
+target_array=(${target//-/ })
+build_source=${target_array[0]}
+build_type=${target_array[1]}
+build_arch=${target_array[2]}
+echo "source=${build_source}, type=${build_type}, arch=${build_arch}"
 
 do_common() {
-    # modify passwall subscribe.lua
-    subscribe_script="package/feeds/passwall/luci-app-passwall/root/usr/share/passwall/subscribe.lua"
-    if [ -f "$subscribe_script" ]; then
-        sed -i '/第一优先级/i\		-- 自定义优先级 订阅 + 类型 + 备注' $subscribe_script
-        sed -i '/第一优先级/i\		if not server then' $subscribe_script
-        sed -i '/第一优先级/i\			for index, node in pairs(nodes) do' $subscribe_script
-        sed -i '/第一优先级/i\				if config.currentNode.add_from and config.currentNode.type and config.currentNode.remarks then' $subscribe_script
-        sed -i '/第一优先级/i\					if node.add_from and node.type and node.remarks then' $subscribe_script
-        sed -i '/第一优先级/i\						if node.add_from == config.currentNode.add_from and node.type == config.currentNode.type and node.remarks == config.currentNode.remarks then' $subscribe_script
-        sed -i '/第一优先级/i\							if config.log == nil or config.log == true then' $subscribe_script
-        sed -i "/第一优先级/i\								log('更新【' .. config.remarks .. '】自定义匹配节点：' .. node.remarks)" $subscribe_script
-        sed -i '/第一优先级/i\							end' $subscribe_script
-        sed -i '/第一优先级/i\							server = node[".name"]' $subscribe_script
-        sed -i '/第一优先级/i\							break' $subscribe_script
-        sed -i '/第一优先级/i\						end' $subscribe_script
-        sed -i '/第一优先级/i\					end' $subscribe_script
-        sed -i '/第一优先级/i\				end' $subscribe_script
-        sed -i '/第一优先级/i\			end' $subscribe_script
-        sed -i '/第一优先级/i\		end' $subscribe_script
-
-        sed -i 's/log = false/log = true/g' $subscribe_script
-    fi
+    # add OpenAppFilter
+    rm -rf package/OpenAppFilter
+    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 }
 
 do_official_common() {
@@ -44,12 +27,33 @@ do_lede_common() {
     sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
     # delete 53 redirect
     sed -i '/REDIRECT --to-ports 53/d' package/lean/default-settings/files/zzz-default-settings
+
+    # add luci-theme-argon-jerrykuku
+    rm -rf package/luci-theme-argon-jerrykuku
+    git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
+
+    # add luci-app-tcpdump
+    rm -rf package/luci-app-tcpdump
+    svn co https://github.com/Lienol/openwrt-package/branches/other/luci-app-tcpdump package/luci-app-tcpdump
+
+    # add luci-app-adguardhome
+    rm -rf package/luci-app-adguardhome
+    svn co https://github.com/Lienol/openwrt-package/branches/other/luci-app-adguardhome package/luci-app-adguardhome
+
+    # add other app
+    rm -rf package/luci-app-control-timewol package/luci-app-control-webrestriction package/luci-app-control-weburl package/luci-app-fileassistant package/luci-app-filebrowser package/luci-app-nginx-pingos
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-timewol package/luci-app-control-timewol
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-webrestriction package/luci-app-control-webrestriction
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-control-weburl package/luci-app-control-weburl
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-fileassistant package/luci-app-fileassistant
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
+    svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-nginx-pingos package/luci-app-nginx-pingos
 }
 
 # excute begin
 do_common
 
-case "${source}" in
+case "${build_source}" in
 official)
     echo "do official"
     do_official_common
@@ -59,6 +63,6 @@ lede)
     do_lede_common
     ;;
 *)
-    echo "Unknow ${source}!"
+    echo "Unknow ${build_source}!"
     ;;
 esac

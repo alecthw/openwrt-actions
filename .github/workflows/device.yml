@@ -1,13 +1,14 @@
 name: device
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - "start"
+  workflow_dispatch:
   schedule:
     - cron: 0 22 * * 4
+  # push:
+  #   branches:
+  #     - master
+  #   paths:
+  #     - "start"
   # release:
   #   types: [published]
 
@@ -29,7 +30,7 @@ jobs:
       fail-fast: false
       # max-parallel: 2
       matrix:
-        target: [lede-x64, lede-r2s]
+        target: [lede-common-x64, lede-common-r2s]
 
     steps:
       - name: Checkout
@@ -45,12 +46,16 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           docker rmi `docker images -q`
-          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
-          sudo -E apt-get update
-          sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 zip unzip zlib1g-dev lib32gcc-s1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf swig
-          sudo -E apt-get -y autoremove --purge
-          sudo -E apt-get clean
+          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+          sudo -E apt-mark hold grub-efi-amd64-signed
+          sudo -E apt update
+          sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap*
+          sudo -E apt -y full-upgrade
+          sudo -E apt -y install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          sudo -E systemctl daemon-reload
+          sudo -E apt -y autoremove --purge
+          sudo -E apt clean
+          sudo -E timedatectl set-timezone "Asia/Shanghai"
 
       - name: Set git identity
         run: |
@@ -87,25 +92,8 @@ jobs:
           )
           fi
 
-          echo "Apply patch.sh"
-          if [ -f "user/common/patch.sh" ]; then
-          (
-            cd openwrt
-            /bin/bash "../user/common/patch.sh" ${{matrix.target}}
-          )
-          fi
-          if [ -f "user/${{matrix.target}}/patch.sh" ]; then
-          (
-            cd openwrt
-            /bin/bash "../user/${{matrix.target}}/patch.sh"
-          )
-          fi
-
       - name: Update feeds
         run: cd openwrt && ./scripts/feeds update -a
-
-      - name: Install feeds
-        run: cd openwrt && ./scripts/feeds install -a
 
       - name: Load custom script
         run: |
@@ -134,6 +122,9 @@ jobs:
             /bin/bash "../user/${{matrix.target}}/custom.sh"
           )
           fi
+
+      - name: Install feeds
+        run: cd openwrt && ./scripts/feeds install -a
 
       - name: Load custom configuration
         run: |
