@@ -38,16 +38,16 @@ init_code_dir() {
     source ${CUR_PATH}/user/${target}/settings.ini
 
     case "${target}" in
-    lede-x64)
+    lede-common-x64 | lede-common-r2s)
         code_dir="lede"
         ;;
     lede-openclash-x64)
         code_dir="lede_openclash"
         ;;
-    official-x64)
+    official-common-x64)
         code_dir="official"
         ;;
-    lede-newifi_d2 | lede-wrt1900acs | lede-r2s)
+    lede-common-newifi_d2 | lede-common-wrt1900acs)
         code_dir="lede_device"
         ;;
     *)
@@ -83,6 +83,9 @@ do_prepare() {
         echo "Info: Clean feeds..."
         ./scripts/feeds clean -a
 
+        # clean tmp
+        rm -rf tmp .config
+
         # clean code
         echo "Info: Clean custom package..."
         git clean -fd
@@ -101,20 +104,11 @@ do_prepare() {
     if [ -n "$(ls -A "user/${target}/patches" 2>/dev/null)" ]; then
         find "user/${target}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '${code_dir}' -p0 --forward"
     fi
-    # apply patch.sh
-    echo "Info: Apply patch.sh..."
-    cd ${CUR_PATH}/${code_dir}
-    if [ -f "../user/common/patch.sh" ]; then
-        /bin/bash "../user/common/patch.sh" ${target}
-    fi
-    if [ -f "../user/${target}/patch.sh" ]; then
-        /bin/bash "../user/${target}/patch.sh"
-    fi
 
-    # --------------------- Update & Install feeds
+    # --------------------- Update feeds
     echo "Info: Update feeds..."
     cd ${CUR_PATH}/${code_dir}
-    ./scripts/feeds update -a && ./scripts/feeds install -a
+    ./scripts/feeds update -a
 
     # --------------------- Load custom script
     # apply files...
@@ -137,6 +131,11 @@ do_prepare() {
     if [ -f "../user/${target}/custom.sh" ]; then
         /bin/bash "../user/${target}/custom.sh"
     fi
+
+    # --------------------- Install feeds
+    echo "Info: Update feeds..."
+    cd ${CUR_PATH}/${code_dir}
+    ./scripts/feeds update -a && ./scripts/feeds install -a
 
     # --------------------- Load custom configuration
     echo "Apply config.sh"
