@@ -15,7 +15,7 @@ echo "source=${build_source}, type=${build_type}, arch=${build_arch}"
 do_common() {
     # add OpenAppFilter
     rm -rf package/OpenAppFilter
-    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+    git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 }
 
 do_official_common() {
@@ -30,7 +30,7 @@ do_lede_common() {
 
     # add luci-theme-argon-jerrykuku
     rm -rf package/luci-theme-argon-jerrykuku
-    git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
+    git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git -b 18.06 package/luci-theme-argon-jerrykuku
 
     # add luci-app-tcpdump
     rm -rf package/luci-app-tcpdump
