@@ -110,7 +110,7 @@ do_prepare() {
     cd ${CUR_PATH}/${code_dir}
     ./scripts/feeds update -a
 
-    # --------------------- Load custom script
+    # --------------------- Copy custom files
     # apply files...
     if [ "lede_device" != "${code_dir}" ]; then
         echo "Info: Apply files..."
@@ -122,6 +122,8 @@ do_prepare() {
             cp -rf user/${target}/files/* ${code_dir}/package/base-files/files/
         fi
     fi
+
+    # --------------------- Load custom script
     # apply custom.sh
     echo "Info: Apply custom.sh..."
     cd ${CUR_PATH}/${code_dir}
@@ -139,6 +141,7 @@ do_prepare() {
 
     # --------------------- Load custom configuration
     echo "Apply config.sh"
+    cd ${CUR_PATH}/${code_dir}
     if [ -f "../user/common/config.sh" ]; then
         /bin/bash "../user/common/config.sh" ${target}
     fi

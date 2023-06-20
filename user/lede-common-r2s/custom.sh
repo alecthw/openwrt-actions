@@ -21,7 +21,7 @@ svn co -q https://github.com/QiuSimons/openwrt-mos/trunk/luci-app-mosdns feeds/l
 rm -rf feeds/packages/net/mosdns
 svn co -q https://github.com/QiuSimons/openwrt-mos/trunk/mosdns feeds/packages/net/mosdns
 # use fork repo before PR accepted
-sed -i 's/^PKG_VERSION.*/PKG_VERSION:=088bf91/g' feeds/packages/net/mosdns/Makefile
+sed -i 's/^PKG_VERSION.*/PKG_VERSION:=2f1bfed/g' feeds/packages/net/mosdns/Makefile
 sed -i 's#IrineSistiana/mosdns/tar#alecthw/mosdns/tar#g' feeds/packages/net/mosdns/Makefile
 
 # replace dns2socks
