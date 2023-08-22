@@ -5,9 +5,9 @@
 
 echo "Execute custom custom.sh"
 
-# add luci-app-smartdns
-rm -rf package/luci-app-smartdns
-git clone --depth=1 -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+# replace luci-app-smartdns
+rm -rf feeds/luci/applications/luci-app-smartdns
+git clone --depth=1 -b lede https://github.com/pymumu/luci-app-smartdns.git feeds/luci/applications/luci-app-smartdns
 
 # replace smartdns
 rm -rf feeds/packages/net/smartdns
