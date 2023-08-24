@@ -36,6 +36,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Check server configuration
+        run: |
+          echo "警告⚠"
+          echo "若分配的服务器性能不足，务必及时取消，重新运行！"
+          echo "已知编译成功CPU型号：8370C,8171M"
+          echo "已知性能不足CPU型号：8272CL"
+          echo -e "-------------- ------------CPU信息------------------------------------------\n"
+          echo "CPU物理数量:$(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
+          echo -e "CPU核心及版本信息：$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
+          echo "-------------------------------内存信息-------------------------------------------"
+          echo "已安装内存详细信息："
+          sudo lshw -short -C memory | grep GiB
+          echo -e "\n"
+          echo "-----------------------------硬盘信息---------------------------------------------"
+          echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
+          echo "硬盘详情："
+          df -Th
+
       - name: Set Date
         run: |
           date=$(date +%Y-%m-%d)
@@ -49,7 +67,7 @@ jobs:
           sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
           sudo -E apt-mark hold grub-efi-amd64-signed
           sudo -E apt update
-          sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap*
+          sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
           sudo -E apt -y full-upgrade
           sudo -E apt -y install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
           sudo -E systemctl daemon-reload
