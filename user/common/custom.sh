@@ -16,10 +16,35 @@ do_common() {
     # add OpenAppFilter
     rm -rf package/OpenAppFilter
     git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+
+    # replace luci-app-smartdns
+    rm -rf feeds/luci/applications/luci-app-smartdns
+    git clone --depth=1 -b lede https://github.com/pymumu/luci-app-smartdns.git feeds/luci/applications/luci-app-smartdns
+
+    # replace smartdns
+    rm -rf feeds/packages/net/smartdns
+    svn co -q https://github.com/Lienol/openwrt-packages/branches/master/net/smartdns feeds/packages/net/smartdns
 }
 
 do_official_common() {
-    echo ""
+    # add luci-theme-argon-jerrykuku
+    rm -rf package/luci-theme-argon-jerrykuku
+    git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-jerrykuku
+
+    # add luci-app-mosdns
+    rm -rf package/luci-app-mosdns
+    svn co https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns package/luci-app-mosdns
+    # sed -i 's#PROG start#PROG start -d /etc/mosdns#g' package/luci-app-mosdns/root/etc/init.d/mosdns
+
+    # add mosdns
+    rm -rf package/mosdns
+    svn co https://github.com/sbwml/luci-app-mosdns/trunk/mosdns package/mosdns
+    rm -rf package/mosdns/patches
+    # use fork repo before PR accepted
+    sed -i 's/^PKG_VERSION.*/PKG_VERSION:=fa4996c/g' package/mosdns/Makefile
+    sed -i 's#IrineSistiana/mosdns/tar#alecthw/mosdns/tar#g' package/mosdns/Makefile
+    sed -i 's#v$(PKG_VERSION)#$(PKG_VERSION)#g' package/mosdns/Makefile
+    sed -i 's/^PKG_HASH.*/PKG_HASH:=skip/g' package/mosdns/Makefile
 }
 
 do_lede_common() {
@@ -36,9 +61,28 @@ do_lede_common() {
     rm -rf package/luci-app-tcpdump
     svn co -q https://github.com/Lienol/openwrt-package/branches/other/luci-app-tcpdump package/luci-app-tcpdump
 
+    # replace v2ray-geodata
+    rm -rf feeds/packages/net/v2ray-geodata
+    svn co https://github.com/fw876/helloworld/trunk/v2ray-geodata feeds/packages/net/v2ray-geodata
+
     # replace open-vm-tools
     rm -rf feeds/packages/utils/open-vm-tools
     svn co -q https://github.com/openwrt/packages/trunk/utils/open-vm-tools feeds/packages/utils/open-vm-tools
+
+    # replace luci-app-mosdns
+    rm -rf feeds/luci/applications/luci-app-mosdns
+    svn co https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns feeds/luci/applications/luci-app-mosdns
+    # sed -i 's#PROG start#PROG start -d /etc/mosdns#g' feeds/luci/applications/luci-app-mosdns/root/etc/init.d/mosdns
+
+    # replace mosdns
+    rm -rf feeds/packages/net/mosdns
+    svn co https://github.com/sbwml/luci-app-mosdns/trunk/mosdns feeds/packages/net/mosdns
+    rm -rf feeds/packages/net/mosdns/patches
+    # use fork repo before PR accepted
+    sed -i 's/^PKG_VERSION.*/PKG_VERSION:=fa4996c/g' feeds/packages/net/mosdns/Makefile
+    sed -i 's#IrineSistiana/mosdns/tar#alecthw/mosdns/tar#g' feeds/packages/net/mosdns/Makefile
+    sed -i 's#v$(PKG_VERSION)#$(PKG_VERSION)#g' feeds/packages/net/mosdns/Makefile
+    sed -i 's/^PKG_HASH.*/PKG_HASH:=skip/g' feeds/packages/net/mosdns/Makefile
 
     # add luci-app-adguardhome
     rm -rf package/luci-app-adguardhome
