@@ -38,7 +38,7 @@ jobs:
 
       - name: Check server configuration
         run: |
-          echo -e "--------------------------CPU Info--------------------------\n"
+          echo -e "--------------------------CPU Info--------------------------"
           echo "CPU Physical Num: $(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
           echo -e "CPU Core Num: $(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
           echo "--------------------------Memory Info--------------------------"
