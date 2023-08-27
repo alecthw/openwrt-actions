@@ -192,14 +192,16 @@ jobs:
         run: |
           rm -rf ./Firmware/
           mkdir -p ./Firmware/
-          cp -f openwrt/.config ./Firmware/
+          ls -l openwrt/bin/targets/*/*
+          cp -f openwrt/.config ./Firmware/config
+          find openwrt/bin/targets/ -name "*.buildinfo" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "sha256sums" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*sysupgrade*img*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*factory*img*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*vmdk*" | xargs -i mv -f {} ./Firmware/
-          cd ./Firmware
-          ls -l
+          ls -l ./Firmware
 
       - name: Upload packages directory
         if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
@@ -226,14 +228,13 @@ jobs:
         if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: ncipollo/release-action@v1
         with:
-          name: R${{ env.DATE }} for router
+          name: R${{ env.DATE }} for ${{matrix.target}}
           allowUpdates: true
           removeArtifacts: true
-          tag: router
+          tag: ${{matrix.target}}
           commit: master
           token: ${{ secrets.PERSONAL_TOKEN }}
           artifacts: ./Firmware/*
           body: |
-            - For low-memory router like newifi_d2!
             - Default IP: 192.168.11.1/24
             - Default Password:
