@@ -3,27 +3,28 @@
 
 log:
   level: info
+  file: "/tmp/mosdns.log"
 
 plugins:
   # mmdb
   - tag: country
     type: mmdb
     args:
-      file: "./rule/Country.mmdb"
+      file: /etc/mosdns/rule/Country.mmdb"
 
   # cn ip
   - tag: whitelist
     type: domain_set
     args:
       files:
-        - "./rule/cn-white.txt"
+        - "/etc/mosdns/rule/cn-white.txt"
 
   # 广告域名列表 geosite:category-ads-all
   - tag: geosite_ads
     type: domain_set
     args:
       files:
-        - "./rule/reject-list.txt"
+        - "/etc/mosdns/rule/reject-list.txt"
 
   # hosts
   - tag: hosts
@@ -38,7 +39,7 @@ plugins:
     args:
       size: 20480
       lazy_cache_ttl: 86400
-      dump_file: "./cache.dump"
+      dump_file: "/etc/mosdns/cache.dump"
       dump_interval: 1800
 
   # 查询境外DNS
