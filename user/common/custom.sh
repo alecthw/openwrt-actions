@@ -69,6 +69,10 @@ do_lede_common() {
     rm -rf feeds/packages/utils/open-vm-tools
     svn co -q https://github.com/openwrt/packages/trunk/utils/open-vm-tools feeds/packages/utils/open-vm-tools
 
+    # replace glib2
+    rm -rf feeds/packages/libs/glib2
+    svn co -q https://github.com/openwrt/packages/trunk/libs/glib2 feeds/packages/libs/glib2
+
     # replace luci-app-mosdns
     rm -rf feeds/luci/applications/luci-app-mosdns
     svn co https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns feeds/luci/applications/luci-app-mosdns
