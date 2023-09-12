@@ -100,16 +100,14 @@ do_prepare() {
 
     # --------------------- Copy custom files
     # apply files...
-    if [ "lede_device" != "${code_dir}" ]; then
-        echo "Info: Apply files..."
-        cd ${CUR_PATH}
-        mkdir -p ${code_dir}/files
-        if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
-            cp -af user/common/files/* ${code_dir}/files/
-        fi
-        if [ -n "$(ls -A "user/${target}/files" 2>/dev/null)" ]; then
-            cp -af user/${target}/files/* ${code_dir}/files/
-        fi
+    echo "Info: Apply files..."
+    cd ${CUR_PATH}
+    mkdir -p ${code_dir}/files
+    if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
+        cp -af user/common/files/* ${code_dir}/files/
+    fi
+    if [ -n "$(ls -A "user/${target}/files" 2>/dev/null)" ]; then
+        cp -af user/${target}/files/* ${code_dir}/files/
     fi
 
     # --------------------- Load custom script

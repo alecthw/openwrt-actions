@@ -11,12 +11,14 @@ echo "Execute common custom.sh ${target}"
 target_array=(${target//-/ })
 build_source=${target_array[0]}
 build_type=${target_array[1]}
-build_arch=${target_array[2]}
-echo "source=${build_source}, type=${build_type}, arch=${build_arch}"
+build_target=${target_array[2]}
+build_arch=${target_array[3]}
+echo "source=${build_source}, type=${build_type}, target=${build_target}, arch=${build_arch}"
 
 do_common() {
     # Set banner
     echo " Built on $(date +%Y-%m-%d)" >> files/etc/banner
+    mv -f files/etc/banner package/base-files/files/etc/banner
 
     # Set openwrt_release
     sed -i "s|DISTRIB_REVISION='.*'|DISTRIB_REVISION='R$(date +%Y.%m.%d)'|g" package/lean/default-settings/files/zzz-default-settings
