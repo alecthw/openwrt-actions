@@ -38,20 +38,20 @@ uci set network.lan6.proto='dhcpv6'
 uci set network.lan6.reqaddress='try'
 uci set network.lan6.reqprefix='auto'
 uci set network.lan6.peerdns='0'
+uci add_list firewall.@zone[0].network='lan6'
 
 # add n2n_v2 interface
 if [ -f "/etc/config/n2n_v2" ]; then
     uci set network.n2n0=interface
     if $new_net; then
         uci set network.n2n0.device='n2n0'
-        uci add_list firewall.@zone[0].network='n2n0'
     else
         uci set network.n2n0.ifname='n2n0'
-        uci set firewall.@zone[0].network="$(uci get firewall.@zone[0].network) n2n0"
     fi
     uci set network.n2n0.proto='none'
     uci set network.n2n0.delegate='0'
     uci set network.n2n0.auto='1'
+    uci add_list firewall.@zone[0].network='n2n0'
 fi
 
 # add zerotier interface
@@ -59,14 +59,13 @@ if [ -f "/etc/config/zerotier" ]; then
     uci set network.zerotier=interface
     if $new_net; then
         uci set network.zerotier.device='zt5u4x7t2c'
-        uci add_list firewall.@zone[0].network='zerotier'
     else
         uci set network.zerotier.ifname='zt5u4x7t2c'
-        uci set firewall.@zone[0].network="$(uci get firewall.@zone[0].network) zerotier"
     fi
     uci set network.zerotier.proto='none'
     uci set network.zerotier.delegate='0'
     uci set network.zerotier.auto='1'
+    uci add_list firewall.@zone[0].network='zerotier'
 fi
 
 uci commit network
