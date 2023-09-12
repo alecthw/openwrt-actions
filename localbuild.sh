@@ -82,6 +82,17 @@ do_prepare() {
         force_pull
     fi
 
+    # --------------------- Apply private
+    # apply private if exist
+    echo "Info: Apply private..."
+    cd ${CUR_PATH}
+    if [ -n "../archive" ]; then
+        rm -rf app_config
+        cp -rf archive/home/defconfig app_config
+        rm -rf user/${target}/files/etc/config
+        rm -rf user/${target}/files/etc/AdGuardHome
+    fi
+
     # --------------------- Apply patches
     # apply patches
     echo "Info: Apply patches..."
@@ -136,6 +147,10 @@ do_prepare() {
     # --------------------- Copy build config
     cd ${CUR_PATH}/${code_dir}
     cp -af ../user/${target}/${CONFIG_FILE} .config
+    # apply private if exist
+    if [ -f "../app_config/${target}.diff" ]; then
+        cp ../app_config/${target}.diff .config
+    fi
     echo "Info: Make defconfig..."
     make defconfig
 }

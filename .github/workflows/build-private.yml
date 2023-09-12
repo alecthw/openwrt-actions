@@ -183,7 +183,12 @@ jobs:
         id: config
         run: |
           cd openwrt
-          cp ../app_config/${{matrix.target}}.diff .config
+          cp ../user/${{matrix.target}}/${{env.CONFIG_FILE}} .config
+          if [ -f "../app_config/${{matrix.target}}.diff" ]; then
+          (
+            cp ../app_config/${{matrix.target}}.diff .config
+          )
+          fi
           make defconfig
 
       - name: Download package
