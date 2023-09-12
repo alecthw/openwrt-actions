@@ -18,6 +18,7 @@ echo "source=${build_source}, type=${build_type}, target=${build_target}, arch=$
 do_common() {
     # Set banner
     echo " Built on $(date +%Y-%m-%d)" >> files/etc/banner
+    echo "" >> files/etc/banner
     mv -f files/etc/banner package/base-files/files/etc/banner
 
     # Set openwrt_release

@@ -10,6 +10,8 @@
 
 默认配置好了AdGuardHome、mosdns和openclash（或ssrp）的搭配运行配置。
 
+openclash预置`clash_meta`内核。
+
 - AdGuardHome的监控和广告过滤能力
   - 由于开启了路由本地代理，可以开启AdGuardHome的`浏览安全`和`家长监控`
 - mosdns的分流能力，并启用了缓存

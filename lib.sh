@@ -10,7 +10,7 @@ copy_s() {
     elif [ -d $1 ]; then
         echo "Info: $1 is a directory"
         mkdir -p $2
-        mv -f $1/* $2/
+        cp -af $1/* $2/
     else
         echo "Warning: $1 not exist"
     fi
