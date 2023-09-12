@@ -88,7 +88,7 @@ do_prepare() {
     cd ${CUR_PATH}
     if [ -n "../archive" ]; then
         rm -rf app_config
-        cp -rf archive/home/defconfig app_config
+        cp -rf ../archive/home/defconfig app_config
         rm -rf user/${target}/files/etc/config
         rm -rf user/${target}/files/etc/AdGuardHome
     fi
