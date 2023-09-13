@@ -13,3 +13,9 @@
 详细参考`[config.diff](config.diff)
 
 - CONFIG_PACKAGE_luci-app-amlogic
+
+## 链接
+
+- [breakings openwrt](https://github.com/breakings/OpenWrt)
+- [Flippy's script](https://github.com/unifreq/openwrt_packit)
+- [晶晨宝盒](https://github.com/ophub/luci-app-amlogic)
