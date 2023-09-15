@@ -28,6 +28,10 @@ fi
 if [ -d "../$APP_CONFIG_DIR" ]; then
     copy_s ../$APP_CONFIG_DIR/etc/uci-defaults/zzzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
 
+    if [ -d "package/feeds/packages/net/ddns-scripts" ]; then
+        copy_s ../$APP_CONFIG_DIR/etc/config/ddns package/feeds/packages/net/ddns-scripts/files/ddns.config
+    fi
+
     if [ -d "package/feeds/packages/nginx-util" ]; then
         copy_s ../$APP_CONFIG_DIR/etc/config/nginx package/feeds/packages/nginx-util/files/nginx.config
     fi
