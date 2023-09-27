@@ -216,6 +216,9 @@ jobs:
           cp -f openwrt/.config ./Firmware/config
           find openwrt/bin/targets/ -name "*.buildinfo" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "sha256sums" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*rootfs*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*qcow2*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*vhdx*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*vmdk*" | xargs -i mv -f {} ./Firmware/
           ls -l ./Firmware
 

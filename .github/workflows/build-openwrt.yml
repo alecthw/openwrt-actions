@@ -191,6 +191,9 @@ jobs:
           find openwrt/bin/targets/ -name "*sysupgrade*img*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*factory*img*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*rootfs*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*qcow2*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*vhdx*" | xargs -i mv -f {} ./Firmware/
           find openwrt/bin/targets/ -name "*vmdk*" | xargs -i mv -f {} ./Firmware/
           ls -l ./Firmware
 
