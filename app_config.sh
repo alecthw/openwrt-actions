@@ -28,8 +28,8 @@ fi
 if [ -d "../$APP_CONFIG_DIR" ]; then
     copy_s ../$APP_CONFIG_DIR/etc/uci-defaults/zzzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
 
-    if [ -d "package/feeds/packages/net/ddns-scripts" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/ddns package/feeds/packages/net/ddns-scripts/files/ddns.config
+    if [ -d "package/feeds/packages/ddns-scripts" ]; then
+        copy_s ../$APP_CONFIG_DIR/etc/config/ddns package/feeds/packages/ddns-scripts/files/ddns.config
     fi
 
     if [ -d "package/feeds/packages/nginx-util" ]; then
@@ -148,10 +148,10 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         copy_s ../$APP_CONFIG_DIR/etc/config/vlmcsd package/feeds/luci/luci-app-vlmcsd/root/etc/config/vlmcsd
     fi
 
-    if [ -d "feeds/packages/net/zerotier" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/zerotier feeds/packages/net/zerotier/files/etc/config/zerotier
+    if [ -d "package/feeds/packages/zerotier" ]; then
+        copy_s ../$APP_CONFIG_DIR/etc/config/zerotier package/feeds/packages/zerotier/files/etc/config/zerotier
         if [ -f "../$APP_CONFIG_DIR/etc/config/zero.tar.gz" ]; then
-            tar xzf ../$APP_CONFIG_DIR/etc/config/zero.tar.gz -C feeds/packages/net/zerotier/files/etc/config/
+            tar xzf ../$APP_CONFIG_DIR/etc/config/zero.tar.gz -C package/feeds/packages/zerotier/files/etc/config/
         fi
     fi
 fi
