@@ -42,7 +42,7 @@ do_common() {
     dl_svn https://github.com/sbwml/luci-app-mosdns/trunk/mosdns feeds/packages/net/mosdns
     rm -rf feeds/packages/net/mosdns/patches
     # use fork repo before PR accepted
-    sed -i 's/^PKG_VERSION.*/PKG_VERSION:=6915534/g' feeds/packages/net/mosdns/Makefile
+    sed -i 's/^PKG_VERSION.*/PKG_VERSION:=cf7b323/g' feeds/packages/net/mosdns/Makefile
     sed -i 's#IrineSistiana/mosdns/tar#alecthw/mosdns/tar#g' feeds/packages/net/mosdns/Makefile
     sed -i 's#v$(PKG_VERSION)#$(PKG_VERSION)#g' feeds/packages/net/mosdns/Makefile
     sed -i 's/^PKG_HASH.*/PKG_HASH:=skip/g' feeds/packages/net/mosdns/Makefile
@@ -88,7 +88,7 @@ do_lede_common() {
 
     # replace v2ray-geodata
     rm -rf feeds/packages/net/v2ray-geodata
-    dl_svn https://github.com/fw876/helloworld/trunk/v2ray-geodata feeds/packages/net/v2ray-geodata
+    dl_svn https://github.com/fw876/helloworld/branches/main/v2ray-geodata feeds/packages/net/v2ray-geodata
 
     # replace open-vm-tools
     rm -rf feeds/packages/utils/open-vm-tools
