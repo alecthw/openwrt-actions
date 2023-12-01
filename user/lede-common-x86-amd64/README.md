@@ -31,7 +31,7 @@ AdGuardHome[53, no cache] ────⟶ openclash[7874] ────⟶ mosdns
 
 ### 配合openclash
 
-openclash中DNS设置`停用`，当openclash运行时，openclash作为AdGuardHome的上游主要服务器`生效`。
+openclash中`本地DNS劫持`设置`停用`，当openclash运行时，openclash作为AdGuardHome的上游主要服务器`生效`。
 
 同时设置openclash复写设置中，启用自定义上游DNS服务器，并指定mosdns为唯一上游。
 

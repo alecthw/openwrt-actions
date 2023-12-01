@@ -20,10 +20,16 @@
 
 ## 命令行修改IP和掩码
 
+注意，作为旁路由未开启DHCP，作为旁路由未开启DHCP，作为旁路由未开启DHCP！
+
+所以，如果不在控制台修改IP，请修改电脑的IP访问。
+
 ```bash
 # 作为旁路路由，IP不建议设置1，防止和主路由冲突！
+# 命令行修改IP示例：
 uci set network.lan.ipaddr='192.168.1.2'
 uci set network.lan.netmask='255.255.255.0'
+uci set network.lan.gateway='192.168.1.1'
 uci commit network
 ```
 
