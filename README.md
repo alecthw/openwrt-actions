@@ -15,8 +15,21 @@
 
 ## 详细说明见各个目标子目录
 
-- [lede-common-x86-amd64](user/lede-common-x86-amd64/README.md) 旁路由固件
-- [lede-common-r2s-arm64](user/lede-common-r2s-arm64/README.md) 旁路由固件
+分为旁路由固件和硬件路由固件。需要其他固件可以提[Wiki](https://github.com/alecthw/openwrt-actions/wiki)。
+
+注意：旁路由未开启DHCP！！！
+
+### 旁路由固件
+
+- [lede-common-n1-arm64](user/lede-common-n1-arm64/README.md)
+- [lede-common-r2s-arm64](user/lede-common-r2s-arm64/README.md)
+- [lede-common-x86-amd64](user/lede-common-x86-amd64/README.md)
+- [lede-openclash-x86-amd64](user/lede-openclash-x86-amd64/README.md)
+
+### 硬件路由固件
+
+- [lede-common-360t7-arm64](user/lede-common-360t7-arm64/README.md)
+- [lede-common-newifi_d2-mipsle_softfloat](user/lede-common-newifi_d2-mipsle_softfloat/README.md) (由于FRP和GO版本兼容问题，暂停构建)
 
 ## 命令行修改IP和掩码
 
