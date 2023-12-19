@@ -115,11 +115,11 @@ filters:
     name: EasyPrivacy
     id: 1631003445
   - enabled: true
-    url: https://ghproxy.net/https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
+    url: https://gh.goindex.space/https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
     name: CJX's Annoyance List
     id: 1631009987
   - enabled: true
-    url: https://ghproxy.net/https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-ublock.txt
+    url: https://gh.goindex.space/https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-ublock.txt
     name: CJX's uBlock list
     id: 1631009988
   - enabled: true

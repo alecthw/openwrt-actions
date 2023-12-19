@@ -1,7 +1,7 @@
 #!/bin/bash
 
-github_prefix1="https://ghproxy.net/"
-github_prefix2="https://ghproxy.com/"
+github_prefix1="https://gh.goindex.space/"
+github_prefix2="https://mirror.ghproxy.com/"
 github_prefix3="https://gitclone.com/"
 github_prefix4="https://hub.fgit.gq/"
 github_prefix5="https://hub.fgit.ml/"
