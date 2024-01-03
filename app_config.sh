@@ -96,9 +96,6 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
 
         openclash_arch="${build_arch}"
         case "${build_arch}" in
-        amd64)
-            openclash_arch="amd64-compatible"
-            ;;
         mipsle_softfloat)
             openclash_arch="mipsle-softfloat"
             ;;
