@@ -61,6 +61,38 @@ dl_git() {
     rm -rf $tmp_dir
 }
 
+# $1: git url
+# $2: target dir
+# $3: sub dir
+# $4: branch
+dl_git_sub() {
+    tmp_dir=$(mktemp -d)
+
+    if [ -z $4 ]; then
+        git clone -q --depth=1 $1 $tmp_dir/tmp
+    else
+        git clone -q --depth=1 -b $4 $1 $tmp_dir/tmp
+    fi
+
+    if [ $? == 0 ]; then
+        echo "Info: Git download success: $1"
+        rm -rf $tmp_dir/tmp/.git
+        # mkdir -p ${2%/*}
+        mkdir -p $2
+
+        if [ -z $3 ]; then
+            mv -f $tmp_dir/tmp/* $2/
+        else
+            mv -f $tmp_dir/tmp/$3/* $2/
+        fi
+
+    else
+        echo "Error: Git download fail: $1/branches/$4/$3"
+    fi
+
+    rm -rf $tmp_dir
+}
+
 # $1: url
 # $2: target file
 dl_curl() {

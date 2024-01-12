@@ -11,7 +11,7 @@ echo "Execute custom custom.sh"
 sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
 
 # Add luci-app-amlogic
-dl_svn https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
+dl_git_sub https://github.com/ophub/luci-app-amlogic package/luci-app-amlogic luci-app-amlogic main
 sed -i "s|amlogic_firmware_repo.*|amlogic_firmware_repo 'https://github.com/alecthw/openwrt-actions'|g" package/luci-app-amlogic/root/etc/config/amlogic
 sed -i "s|ARMv8|lede-common-n1|g" package/luci-app-amlogic/root/etc/config/amlogic
 

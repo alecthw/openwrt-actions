@@ -124,10 +124,10 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
 
         # download rule provider files
         rm -rf package/luci-app-openclash/root/etc/openclash/rule_provider
-        dl_svn https://github.com/blackmatrix7/ios_rule_script/trunk/rule/Clash package/luci-app-openclash/root/etc/openclash/rule_provider/rules
+        dl_git_sub https://github.com/blackmatrix7/ios_rule_script package/luci-app-openclash/root/etc/openclash/rule_provider/rules rule/Clash master
         mv -f package/luci-app-openclash/root/etc/openclash/rule_provider/rules/**/*.yaml package/luci-app-openclash/root/etc/openclash/rule_provider
         rm -rf package/luci-app-openclash/root/etc/openclash/rule_provider/rules
-        dl_svn https://github.com/alecthw/chnlist/branches/release/Providers/Custom package/luci-app-openclash/root/etc/openclash/rule_provider
+        dl_git_sub https://github.com/alecthw/chnlist package/luci-app-openclash/root/etc/openclash/rule_provider Providers/Custom release
     fi
 
     if [ -d "package/feeds/luci/luci-app-turboacc" ]; then

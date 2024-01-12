@@ -26,20 +26,21 @@ do_common() {
 
     # add OpenAppFilter
     rm -rf package/OpenAppFilter
-    dl_svn https://github.com/destan19/OpenAppFilter/trunk package/OpenAppFilter
+    dl_git https://github.com/destan19/OpenAppFilter package/OpenAppFilter
 
     # replace smartdns
     rm -rf feeds/packages/net/smartdns
-    dl_svn https://github.com/Lienol/openwrt-packages/branches/master/net/smartdns feeds/packages/net/smartdns
+    dl_git_sub https://github.com/Lienol/openwrt-packages feeds/packages/net/smartdns net/smartdns master
 
     # replace/add luci-app-mosdns
     rm -rf feeds/luci/applications/luci-app-mosdns
-    dl_svn https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns feeds/luci/applications/luci-app-mosdns
+    dl_git_sub https://github.com/sbwml/luci-app-mosdns feeds/luci/applications/luci-app-mosdns luci-app-mosdns v5
     # sed -i 's#PROG start#PROG start -d /etc/mosdns#g' feeds/luci/applications/luci-app-mosdns/root/etc/init.d/mosdns
 
     # replace mosdns
+    rm -rf feeds/helloworld/mosdns
     rm -rf feeds/packages/net/mosdns
-    dl_svn https://github.com/sbwml/luci-app-mosdns/trunk/mosdns feeds/packages/net/mosdns
+    dl_git_sub https://github.com/sbwml/luci-app-mosdns feeds/packages/net/mosdns mosdns v5
     rm -rf feeds/packages/net/mosdns/patches
     # use fork repo before PR accepted
     sed -i 's/^PKG_VERSION.*/PKG_VERSION:=cf7b323/g' feeds/packages/net/mosdns/Makefile
@@ -49,7 +50,7 @@ do_common() {
 
     # add openclash
     rm -rf package/luci-app-openclash
-    dl_svn https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+    dl_git_sub https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash master
 }
 
 do_official_common() {
@@ -58,11 +59,11 @@ do_official_common() {
 
     # add luci-theme-argon-jerrykuku
     rm -rf package/luci-theme-argon-jerrykuku
-    dl_svn https://github.com/jerrykuku/luci-theme-argon/trunk package/luci-theme-argon-jerrykuku
+    dl_git https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon-jerrykuku
 
     # replace luci-app-smartdns
     rm -rf feeds/luci/applications/luci-app-smartdns
-    dl_svn https://github.com/pymumu/luci-app-smartdns/trunk feeds/luci/applications/luci-app-smartdns
+    dl_git https://github.com/pymumu/luci-app-smartdns feeds/luci/applications/luci-app-smartdns
 }
 
 do_lede_common() {
@@ -76,44 +77,44 @@ do_lede_common() {
 
     # add luci-theme-argon-jerrykuku
     rm -rf package/luci-theme-argon-jerrykuku
-    dl_svn https://github.com/jerrykuku/luci-theme-argon/branches/18.06 package/luci-theme-argon-jerrykuku
+    dl_git https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon-jerrykuku 18.06
 
     # replace luci-app-smartdns
     rm -rf feeds/luci/applications/luci-app-smartdns
-    dl_svn https://github.com/pymumu/luci-app-smartdns/branches/lede feeds/luci/applications/luci-app-smartdns
+    dl_git https://github.com/pymumu/luci-app-smartdns feeds/luci/applications/luci-app-smartdns lede
 
     # add luci-app-tcpdump
     rm -rf package/luci-app-tcpdump
-    dl_svn https://github.com/Lienol/openwrt-package/branches/other/luci-app-tcpdump package/luci-app-tcpdump
+    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-tcpdump luci-app-tcpdump other
 
     # replace v2ray-geodata
     rm -rf feeds/packages/net/v2ray-geodata
-    dl_svn https://github.com/fw876/helloworld/branches/main/v2ray-geodata feeds/packages/net/v2ray-geodata
+    dl_git_sub https://github.com/fw876/helloworld feeds/packages/net/v2ray-geodata v2ray-geodata main
 
     # replace open-vm-tools
     rm -rf feeds/packages/utils/open-vm-tools
-    dl_svn https://github.com/openwrt/packages/trunk/utils/open-vm-tools feeds/packages/utils/open-vm-tools
+    dl_git_sub https://github.com/openwrt/packages feeds/packages/utils/open-vm-tools utils/open-vm-tools master
 
     # replace glib2
     rm -rf feeds/packages/libs/glib2
-    dl_svn https://github.com/openwrt/packages/trunk/libs/glib2 feeds/packages/libs/glib2
+    dl_git_sub https://github.com/openwrt/packages feeds/packages/libs/glib2 libs/glib2 master
 
     # replace pcre2
     rm -rf feeds/packages/libs/pcre2
-    dl_svn https://github.com/openwrt/openwrt/trunk/package/libs/pcre2 feeds/packages/libs/pcre2
+    dl_git_sub https://github.com/openwrt/openwrt feeds/packages/libs/pcre2 package/libs/pcre2 main
 
     # add luci-app-adguardhome
     rm -rf package/luci-app-adguardhome
-    dl_svn https://github.com/Lienol/openwrt-package/branches/other/luci-app-adguardhome package/luci-app-adguardhome
+    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-adguardhome luci-app-adguardhome other
 
     # add other app
     rm -rf package/luci-app-control-timewol package/luci-app-control-webrestriction package/luci-app-control-weburl package/luci-app-fileassistant package/luci-app-filebrowser package/luci-app-nginx-pingos
-    dl_svn https://github.com/Lienol/openwrt-package/trunk/luci-app-control-timewol package/luci-app-control-timewol
-    dl_svn https://github.com/Lienol/openwrt-package/trunk/luci-app-control-webrestriction package/luci-app-control-webrestriction
-    dl_svn https://github.com/Lienol/openwrt-package/trunk/luci-app-control-weburl package/luci-app-control-weburl
-    dl_svn https://github.com/Lienol/openwrt-package/trunk/luci-app-fileassistant package/luci-app-fileassistant
-    dl_svn https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
-    dl_svn https://github.com/Lienol/openwrt-package/trunk/luci-app-nginx-pingos package/luci-app-nginx-pingos
+    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-control-timewol luci-app-control-timewol main
+    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-control-webrestriction luci-app-control-webrestriction main
+    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-control-weburl luci-app-control-weburl main
+    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-fileassistant luci-app-fileassistant main
+    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-filebrowser luci-app-filebrowser main
+    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-nginx-pingos luci-app-nginx-pingos main
 }
 
 # excute begin
