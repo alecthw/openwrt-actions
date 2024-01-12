@@ -75,7 +75,7 @@ dl_git_sub() {
     fi
 
     if [ $? == 0 ]; then
-        echo "Info: Git download success: $1"
+        echo "Info: Git-sub download success: $1/branches/$4/$3"
         rm -rf $tmp_dir/tmp/.git
         # mkdir -p ${2%/*}
         mkdir -p $2
@@ -87,7 +87,7 @@ dl_git_sub() {
         fi
 
     else
-        echo "Error: Git download fail: $1/branches/$4/$3"
+        echo "Error: Git-sub download fail: $1/branches/$4/$3"
     fi
 
     rm -rf $tmp_dir
