@@ -88,8 +88,8 @@ do_lede_common() {
     dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-tcpdump luci-app-tcpdump other
 
     # replace v2ray-geodata
-    rm -rf feeds/packages/net/v2ray-geodata
-    dl_git_sub https://github.com/fw876/helloworld feeds/packages/net/v2ray-geodata v2ray-geodata main
+    # rm -rf feeds/packages/net/v2ray-geodata
+    # dl_git_sub https://github.com/fw876/helloworld feeds/packages/net/v2ray-geodata v2ray-geodata main
 
     # replace open-vm-tools
     rm -rf feeds/packages/utils/open-vm-tools
