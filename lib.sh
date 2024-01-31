@@ -26,7 +26,7 @@ dl_svn() {
     if [ $? == 0 ]; then
         echo "Info: Svn download success: $1"
         rm -rf $tmp_dir/tmp/.svn
-        # mkdir -p ${2%/*}
+
         mkdir -p $2
         mv -f $tmp_dir/tmp/* $2/
     else
@@ -51,7 +51,7 @@ dl_git() {
     if [ $? == 0 ]; then
         echo "Info: Git download success: $1"
         rm -rf $tmp_dir/tmp/.git
-        # mkdir -p ${2%/*}
+
         mkdir -p $2
         mv -f $tmp_dir/tmp/* $2/
     else
@@ -77,15 +77,19 @@ dl_git_sub() {
     if [ $? == 0 ]; then
         echo "Info: Git-sub download success: $1/tree/$4/$3"
         rm -rf $tmp_dir/tmp/.git
-        # mkdir -p ${2%/*}
-        mkdir -p $2
 
-        if [ -z $3 ]; then
-            mv -f $tmp_dir/tmp/* $2/
-        else
-            mv -f $tmp_dir/tmp/$3/* $2/
+        src_dir=$tmp_dir/tmp
+
+        if [ -n $3 ]; then
+            src_dir=$tmp_dir/tmp/$3
         fi
 
+        if [ -e $src_dir ]; then
+            mkdir -p $2
+            mv -f $src_dir/* $2/
+        else
+            echo "Error: Git-sub copy fail not exist: $src_dir"
+        fi
     else
         echo "Error: Git-sub download fail: $1/tree/$4/$3"
     fi
@@ -103,6 +107,7 @@ dl_curl() {
     if [ $? == 0 ]; then
         echo "Info: Curl Download success: $1"
         rm -rf $tmp_dir/.git
+
         mkdir -p ${2%/*}
         mv -f $tmp_dir/tmp $2
     else
