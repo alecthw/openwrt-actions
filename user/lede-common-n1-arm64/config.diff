@@ -147,8 +147,9 @@ CONFIG_PACKAGE_f2fs-tools=y
 CONFIG_PACKAGE_f2fsck=y
 CONFIG_PACKAGE_lsattr=y
 CONFIG_PACKAGE_mkf2fs=y
-CONFIG_PACKAGE_xfs-fsck=y
-CONFIG_PACKAGE_xfs-mkfs=y
+# xfsprogs 编译错误，暂时屏蔽
+# CONFIG_PACKAGE_xfs-fsck is not set
+# CONFIG_PACKAGE_xfs-mkfs is not set
 
 # Utilities -> Shells
 CONFIG_PACKAGE_bash=y
