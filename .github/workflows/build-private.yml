@@ -32,7 +32,7 @@ jobs:
       matrix:
         location:
           - ysh
-          - sxyg
+          - ha
         target:
           - lede-openclash-x86-amd64
 
