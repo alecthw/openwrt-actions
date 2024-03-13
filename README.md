@@ -21,6 +21,8 @@
 
 ### 旁路由固件
 
+重点是 AdGuardHome 、 mosdns 和 openclash （或 ssrp ）的搭配，详细介绍见子目录下的 README。
+
 - [lede-common-n1-arm64](user/lede-common-n1-arm64/README.md)
 - [lede-common-r2s-arm64](user/lede-common-r2s-arm64/README.md)
 - [lede-common-x86-amd64](user/lede-common-x86-amd64/README.md)
@@ -67,4 +69,5 @@ StarWind V2V Converter
 
 ## 链接
 
+- [chnlist](https://github.com/alecthw/chnlist)
 - [coolsnowwolf lede](https://github.com/coolsnowwolf/lede)
