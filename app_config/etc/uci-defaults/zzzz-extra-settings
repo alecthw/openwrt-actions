@@ -10,8 +10,8 @@ uci add_list system.ntp.server='cn.pool.ntp.org'
 uci commit system
 
 # set default theme
-# uci set luci.main.mediaurlbase=/luci-static/argon
-uci set luci.main.mediaurlbase=/luci-static/design
+uci set luci.main.mediaurlbase=/luci-static/argon
+# uci set luci.main.mediaurlbase=/luci-static/design
 # uci set luci.main.mediaurlbase=/luci-static/material
 uci commit luci
 
@@ -28,9 +28,9 @@ uci delete network.wan6
 
 # lan
 uci delete network.lan.ip6assign
-uci set network.lan.ipaddr='192.168.11.4'
+uci set network.lan.ipaddr='192.168.31.200'
 uci set network.lan.netmask='255.255.255.0'
-uci set network.lan.gateway='192.168.11.1'
+uci set network.lan.gateway='192.168.31.1'
 uci set network.lan.dns='223.5.5.5 114.114.114.114'
 
 # lan6

@@ -92,7 +92,7 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         # sed -i '/^config dns_servers/,$d' package/luci-app-openclash/root/etc/config/openclash
 
         # config runtime config file
-        copy_s ../$APP_CONFIG_DIR/etc/openclash/config/OpenClash.yaml package/luci-app-openclash/root/etc/openclash/config/OpenClash.yaml
+        copy_s ../$APP_CONFIG_DIR/etc/openclash/config/config.yaml package/luci-app-openclash/root/etc/openclash/config/config.yaml
 
         openclash_arch="${build_arch}"
         case "${build_arch}" in
@@ -116,11 +116,11 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
 
         # update geosite
         rm -rf package/luci-app-openclash/root/etc/openclash/GeoSite.dat
-        dl_curl https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat package/luci-app-openclash/root/etc/openclash/GeoSite.dat
+        dl_curl https://github.com/Loyalsoldier/v2ray-rules-dat@release/geosite.dat package/luci-app-openclash/root/etc/openclash/GeoSite.dat
 
         # update mmdb
         rm -rf package/luci-app-openclash/root/etc/openclash/Country.mmdb
-        dl_curl https://testingcf.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb package/luci-app-openclash/root/etc/openclash/Country.mmdb
+        dl_curl https://github.com/alecthw/mmdb_china_ip_list@release/Country.mmdb package/luci-app-openclash/root/etc/openclash/Country.mmdb
 
         # download rule provider files
         rm -rf package/luci-app-openclash/root/etc/openclash/rule_provider

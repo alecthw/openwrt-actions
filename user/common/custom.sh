@@ -70,8 +70,10 @@ do_lede_common() {
     # Set openwrt_release
     echo "DISTRIB_SOURCECODE='lede'" >>package/base-files/files/etc/openwrt_release
 
-    # delete default password
+    # change default password
     sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
+    sed -i 's/root:::0:99999:7:::/root:$1$D83UJ4ln$RgVoh1MTWEb4OiSS4.Ha51:19819:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
+
     # delete 53 redirect
     sed -i '/REDIRECT --to-ports 53/d' package/lean/default-settings/files/zzz-default-settings
 
