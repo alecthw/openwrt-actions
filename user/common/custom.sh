@@ -50,7 +50,7 @@ do_common() {
 
     # add openclash
     rm -rf package/luci-app-openclash
-    dl_git_sub https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash master
+    dl_git_sub https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash dev
 }
 
 do_official_common() {
@@ -71,7 +71,8 @@ do_lede_common() {
     echo "DISTRIB_SOURCECODE='lede'" >>package/base-files/files/etc/openwrt_release
 
     # change default password
-    sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
+    # sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
+    sed -i 's/root::0:0:99999:7:::/root:$1$D83UJ4ln$RgVoh1MTWEb4OiSS4.Ha51:19819:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
     sed -i 's/root:::0:99999:7:::/root:$1$D83UJ4ln$RgVoh1MTWEb4OiSS4.Ha51:19819:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
 
     # delete 53 redirect

@@ -116,6 +116,7 @@ config authentication
 
 config config_subscribe
 	option enabled '1'
+	option name 'Paid'
 	option address 'https://suburl.sbs/sub/v2ray/f1f6851e6dbfb7a042ea01c9969eb8da061c2f3e54c0a1ca169a2798cb423b786b8d159d7e73284952127b93ad61df83de800e4dfd00989dc4d2bc576628265c '
 	option sub_ua 'Clash'
 	option sub_convert '1'
