@@ -71,9 +71,11 @@ do_lede_common() {
     echo "DISTRIB_SOURCECODE='lede'" >>package/base-files/files/etc/openwrt_release
 
     # change default password
-    # sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
-    sed -i 's/root::0:0:99999:7:::/root:$1$D83UJ4ln$RgVoh1MTWEb4OiSS4.Ha51:19819:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
-    sed -i 's/root:::0:99999:7:::/root:$1$D83UJ4ln$RgVoh1MTWEb4OiSS4.Ha51:19819:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
+    #sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
+    root_password="nihao132!"
+    (echo "$root_password"; sleep 1; echo "$root_password") | passwd > /dev/null
+    #sed -i 's/root::0:0:99999:7:::/root:$1$D83UJ4ln$RgVoh1MTWEb4OiSS4.Ha51:19819:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
+    #sed -i 's/root:::0:99999:7:::/root:$1$D83UJ4ln$RgVoh1MTWEb4OiSS4.Ha51:19819:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
 
     # delete 53 redirect
     sed -i '/REDIRECT --to-ports 53/d' package/lean/default-settings/files/zzz-default-settings
