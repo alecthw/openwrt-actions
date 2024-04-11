@@ -1,16 +1,16 @@
-# Newifi-D2 common固件
+# Newifi-D2 common 固件
 
-默认IP: `192.168.1.1/24`
+默认 IP: `192.168.1.1/24`
 
-密码: `没有密码`，其他涉及默认密码的都是`password`
+密码: `没有密码`，其他涉及默认密码的都是 `password`
 
 ## 特性
 
-常规主路由固件，`非旁路由配置`。
+常规主路由固件，**非旁路由配置**。
 
 ### 主要插件应用
 
-详细参考`[config.diff](config.diff)
+详细参考 `[config.diff](config.diff)
 
 - CONFIG_PACKAGE_automount
 - CONFIG_PACKAGE_autosamba
