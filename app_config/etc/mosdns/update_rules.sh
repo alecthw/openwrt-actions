@@ -27,6 +27,14 @@ if [ $? == 0 -a $http_code == 200 ]; then
     mv -f ${tmp_dir}/cn-white.txt /etc/mosdns/rule/cn-white.txt
 fi
 
+# Dwonload blacklist.list
+http_code=$(curl -skL --retry 3 --connect-timeout 3 -w %{http_code} -o ${tmp_dir}/cn-black.txt ${github_prefix}https://raw.githubusercontent.com/alecthw/chnlist/release/mosdns/blacklist.list)
+
+if [ $? == 0 -a $http_code == 200 ]; then
+    echo "Dwonload cn-black success"
+    mv -f ${tmp_dir}/cn-black.txt /etc/mosdns/rule/cn-black.txt
+fi
+
 # Dwonload Country.mmdb
 http_code=$(curl -skL --retry 3 --connect-timeout 3 -w %{http_code} -o ${tmp_dir}/Country.mmdb ${github_prefix}https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb)
 

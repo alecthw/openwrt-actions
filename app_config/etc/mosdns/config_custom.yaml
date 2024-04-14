@@ -1,5 +1,5 @@
-# 白名单模式
-# 白名单 或 境外查询IP是geoip:CN，走国内
+# 白名单模式，优先 china
+# 白名单 或 境内查询结果 IP 非 geoip:CN 是走国外，同时国外查询屏蔽 AAAA 记录
 
 log:
   level: info
@@ -74,22 +74,22 @@ plugins:
           addr: "tls://120.53.53.53"
           enable_pipeline: true
 
-  # 境外解析，优先IPV4
+  # 境外解析，优先IPV4，不设置过滤，作为fallback
   - tag: global_sequence
     type: sequence
     args:
-      - matches: qname $whitelist
-        exec: return
       - exec: prefer_ipv4
       - exec: $forward_global
-      - matches: resp_ip_mmdb $country CN
-        exec: drop_resp
 
-  # 国内解析，不设置过滤，作为fallback
+  # 国内解析
   - tag: china_sequence
     type: sequence
     args:
       - exec: $forward_china
+      - matches: qname $whitelist
+        exec: return
+      - matches: "!resp_ip_mmdb $country CN"
+        exec: drop_resp
 
   # 屏蔽解析
   - tag: reject_sequence
@@ -108,9 +108,9 @@ plugins:
   - tag: fallback
     type: fallback
     args:
-      primary: global_sequence
-      secondary: china_sequence
-      threshold: 150
+      primary: china_sequence
+      secondary: global_sequence
+      threshold: 200
       always_standby: true
 
   - tag: main_sequence
