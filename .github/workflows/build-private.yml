@@ -96,7 +96,7 @@ jobs:
         env:
           REPO_URL: https://${{github.actor}}:${{secrets.PERSONAL_TOKEN}}@github.com/alecthw/archive.git
         run: |
-          git clone --depth=1 $REPO_URL
+          git clone --depth 1 --single-branch $REPO_URL
           rm -rf app_config
           cp -rf archive/home/defconfig app_config
           if [ -n "$(ls -A "archive/home/defconfig_${{matrix.location}}" 2>/dev/null)" ]; then
@@ -113,7 +113,7 @@ jobs:
 
       - name: Clone source code
         run: |
-          git clone --depth=1 -b ${{env.REPO_BRANCH}} ${{env.REPO_URL}} openwrt
+          git clone --depth 1 --single-branch -b ${{env.REPO_BRANCH}} ${{env.REPO_URL}} openwrt
 
       - name: Apply patches
         run: |

@@ -94,7 +94,7 @@ jobs:
 
       - name: Clone source code
         run: |
-          git clone --depth=1 -b ${{env.REPO_BRANCH}} ${{env.REPO_URL}} openwrt
+          git clone --depth 1 --single-branch -b ${{env.REPO_BRANCH}} ${{env.REPO_URL}} openwrt
 
       - name: Apply patches
         run: |

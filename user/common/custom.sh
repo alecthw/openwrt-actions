@@ -21,9 +21,6 @@ do_common() {
     echo "" >> files/etc/banner
     mv -f files/etc/banner package/base-files/files/etc/banner
 
-    # Set openwrt_release
-    sed -i "s|DISTRIB_REVISION='.*'|DISTRIB_REVISION='R$(date +%Y.%m.%d)'|g" package/lean/default-settings/files/zzz-default-settings
-
     # add OpenAppFilter
     rm -rf package/OpenAppFilter
     dl_git https://github.com/destan19/OpenAppFilter package/OpenAppFilter
@@ -49,6 +46,7 @@ do_common() {
     sed -i 's/^PKG_HASH.*/PKG_HASH:=skip/g' feeds/packages/net/mosdns/Makefile
 
     # add openclash
+    rm -rf feeds/luci/applications/luci-app-openclash
     rm -rf package/luci-app-openclash
     dl_git_sub https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash master
 }
@@ -69,6 +67,9 @@ do_official_common() {
 do_lede_common() {
     # Set openwrt_release
     echo "DISTRIB_SOURCECODE='lede'" >>package/base-files/files/etc/openwrt_release
+
+    # Set revision
+    sed -i "s|DISTRIB_REVISION='.*'|DISTRIB_REVISION='R$(date +%Y.%m.%d)'|g" package/lean/default-settings/files/zzz-default-settings
 
     # delete default password
     sed -i "/shadow/d" package/lean/default-settings/files/zzz-default-settings
@@ -117,6 +118,15 @@ do_lede_common() {
     dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-nginx-pingos luci-app-nginx-pingos main
 }
 
+do_immortalwrt_common() {
+    # Set openwrt_release
+    echo "DISTRIB_SOURCECODE='immortalwrt'" >>package/base-files/files/etc/openwrt_release
+
+    # add luci-theme-argon-jerrykuku
+    rm -rf package/luci-theme-argon-jerrykuku
+    dl_git https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon-jerrykuku
+}
+
 # excute begin
 do_common
 
@@ -128,6 +138,10 @@ official)
 lede)
     echo "do lede"
     do_lede_common
+    ;;
+immortalwrt)
+    echo "do immortalwrt"
+    do_immortalwrt_common
     ;;
 *)
     echo "Unknow ${build_source}!"
