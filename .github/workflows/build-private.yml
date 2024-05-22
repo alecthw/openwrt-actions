@@ -60,6 +60,7 @@ jobs:
           echo "DATE=${date}" >> $GITHUB_ENV
 
       - name: Initialize environment
+        if: env.ACT != 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -223,16 +224,16 @@ jobs:
           ls -l ./Firmware
 
       - name: Upload Firmware to release
-        if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: ncipollo/release-action@v1
         with:
           repo: archive
-          name: R${{ env.DATE }} for ${{matrix.location}}:${{matrix.target}}
+          name: R${{env.DATE}} for ${{matrix.location}}:${{matrix.target}}
           allowUpdates: true
           removeArtifacts: true
           tag: ${{matrix.location}}_${{matrix.target}}
           commit: master
-          token: ${{ secrets.PERSONAL_TOKEN }}
+          token: ${{secrets.PERSONAL_TOKEN}}
           artifacts: ./Firmware/*
           body: |
             - This is a private firmware.

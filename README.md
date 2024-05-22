@@ -74,14 +74,49 @@ uci commit network
 8. 执行 `app_config.sh` 脚本，对插件做自定义，包括下载部分插件需要的二进制执行文件，例如 `clash` 和 `AdGuardHome`
 9. 开始编译
 
+## 本地构建指南
+
+使用 [act](https://nektosact.com/) 本地执行 workflow 进行构建。
+
+### 准备环境 Ubuntu 2204
+
+```bash
+sudo apt update -y
+sudo apt full-upgrade -y
+sudo apt install -y ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+```
+
+### 安装 act
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+```
+
+或参考官方文档：[act install](https://nektosact.com/installation/index.html)
+
+### 构建
+
+```bash
+source .profile
+git clone https://github.com/alecthw/openwrt-actions.git
+cd openwrt-actions
+act \
+    -P ubuntu-latest=-self-hosted \
+    -a alecthw \
+    -W '.github/workflows/build-openwrt.yml' \
+    --matrix target:lede-openclash-x86-amd64 \
+    schedule
+```
+
+matrix `target` 是 user 目录下下除 common 以外的文件夹名。
+
 ## 转换工具下载
 
-StarWind V2V Converter
-
-[Download link](https://www.starwindsoftware.com/tmplink/starwindconverter.exe)
+- StarWind V2V Converter: [Download link](https://www.starwindsoftware.com/tmplink/starwindconverter.exe)
 
 
 ## 链接
 
 - [chnlist](https://github.com/alecthw/chnlist)
 - [coolsnowwolf lede](https://github.com/coolsnowwolf/lede)
+- [immortalwrt](https://github.com/immortalwrt/immortalwrt)

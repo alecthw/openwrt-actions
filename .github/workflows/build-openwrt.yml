@@ -60,6 +60,7 @@ jobs:
           echo "DATE=${date}" >> $GITHUB_ENV
 
       - name: Initialize environment
+        if: env.ACT != 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -198,35 +199,35 @@ jobs:
           ls -l ./Firmware
 
       - name: Upload packages directory
-        if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_packages_${{matrix.target}}
           path: openwrt/bin/packages
 
       - name: Upload targets directory
-        if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_targets_${{matrix.target}}
           path: openwrt/bin/targets
 
       - name: Upload Firmware to artifact
-        if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_firmware_${{matrix.target}}
           path: ./Firmware/
 
       - name: Upload Firmware to release
-        if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: ncipollo/release-action@v1
         with:
-          name: R${{ env.DATE }} for ${{matrix.target}}
+          name: R${{env.DATE}} for ${{matrix.target}}
           allowUpdates: true
           removeArtifacts: true
           tag: ${{matrix.target}}
           commit: master
-          token: ${{ secrets.PERSONAL_TOKEN }}
+          token: ${{secrets.PERSONAL_TOKEN}}
           artifacts: ./Firmware/*
           bodyFile: ./user/${{matrix.target}}/RELEASE.md

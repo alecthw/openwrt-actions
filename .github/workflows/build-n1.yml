@@ -57,6 +57,7 @@ jobs:
           echo "DATE=${date}" >> $GITHUB_ENV
 
       - name: Initialize environment
+        if: env.ACT != 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -194,44 +195,44 @@ jobs:
           KERNEL_VERSION_NAME: 6.1.1
           KERNEL_AUTO_LATEST: true
           GZIP_IMGS: .gz
-          GH_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          GH_TOKEN: ${{secrets.PERSONAL_TOKEN}}
 
       - name: Copy build info to output
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
         run: |
-          cp -f config ${{ env.PACKAGED_OUTPUTPATH }}/config
-          find openwrt/bin/targets/ -name "*.buildinfo" | xargs -i cp -f {} ${{ env.PACKAGED_OUTPUTPATH }}/
+          cp -f config ${{env.PACKAGED_OUTPUTPATH}}/config
+          find openwrt/bin/targets/ -name "*.buildinfo" | xargs -i cp -f {} ${{env.PACKAGED_OUTPUTPATH}}/
 
       - name: Upload packages directory
-        if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_packages_${{matrix.target}}
           path: openwrt/bin/packages
 
       - name: Upload targets directory
-        if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_targets_${{matrix.target}}
           path: openwrt/bin/targets
 
       - name: Upload Firmware to artifact
-        if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_firmware_${{matrix.target}}
-          path: ${{ env.PACKAGED_OUTPUTPATH }}/
+          path: ${{env.PACKAGED_OUTPUTPATH}}/
 
       - name: Upload Firmware to release
-        if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
         uses: ncipollo/release-action@v1
         with:
-          name: R${{ env.DATE }} for ${{matrix.target}}
+          name: R${{env.DATE}} for ${{matrix.target}}
           allowUpdates: true
           removeArtifacts: true
           tag: ${{matrix.target}}
           commit: master
-          token: ${{ secrets.PERSONAL_TOKEN }}
-          artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+          token: ${{secrets.PERSONAL_TOKEN}}
+          artifacts: ${{env.PACKAGED_OUTPUTPATH}}/*
           bodyFile: ./user/${{matrix.target}}/RELEASE.md
