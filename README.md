@@ -45,7 +45,7 @@ Openwrt、iKuai、RouterOS 都是支持不通告 IPv6 DNS 的。如果你的主�
 ### 硬件路由固件
 
 - [lede-common-360t7-arm64](user/lede-common-360t7-arm64/README.md)
-- [lede-common-newifi_d2-mipsle_softfloat](user/lede-common-newifi_d2-mipsle_softfloat/README.md) (由于 FRP 和 GO 版本兼容问题，暂停构建)
+- [lede-common-newifi_d2-mipsle_softfloat](user/lede-common-newifi_d2-mipsle_softfloat/README.md)
 
 ## 命令行修改IP和掩码
 
@@ -113,7 +113,6 @@ matrix `target` 是 user 目录下下除 common 以外的文件夹名。
 ## 转换工具下载
 
 - StarWind V2V Converter: [Download link](https://www.starwindsoftware.com/tmplink/starwindconverter.exe)
-
 
 ## 链接
 
