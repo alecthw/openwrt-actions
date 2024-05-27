@@ -43,9 +43,9 @@ dl_git() {
     tmp_dir=$(mktemp -d)
 
     if [ -z $3 ]; then
-        git clone -q --depth=1 $1 $tmp_dir/tmp
+        git clone -q --depth=1 --single-branch $1 $tmp_dir/tmp
     else
-        git clone -q --depth=1 -b $3 $1 $tmp_dir/tmp
+        git clone -q --depth=1 --single-branch -b $3 $1 $tmp_dir/tmp
     fi
 
     if [ $? == 0 ]; then
@@ -69,9 +69,9 @@ dl_git_sub() {
     tmp_dir=$(mktemp -d)
 
     if [ -z $4 ]; then
-        git clone -q --depth=1 $1 $tmp_dir/tmp
+        git clone -q --depth=1 --single-branch $1 $tmp_dir/tmp
     else
-        git clone -q --depth=1 -b $4 $1 $tmp_dir/tmp
+        git clone -q --depth=1 --single-branch -b $4 $1 $tmp_dir/tmp
     fi
 
     if [ $? == 0 ]; then
