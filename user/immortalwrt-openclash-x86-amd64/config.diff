@@ -1,0 +1,87 @@
+# 配置
+CONFIG_MODULES=y
+CONFIG_HAVE_DOT_CONFIG=y
+
+# 机型选择
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_generic=y
+
+# 镜像设置
+CONFIG_TARGET_ROOTFS_TARGZ=y
+CONFIG_TARGET_ROOTFS_EXT4FS=y
+CONFIG_TARGET_ROOTFS_SQUASHFS=y
+# CONFIG_GRUB_IMAGES is not set
+CONFIG_GRUB_EFI_IMAGES=y
+CONFIG_GRUB_TIMEOUT="0"
+CONFIG_QCOW2_IMAGES=y
+CONFIG_VMDK_IMAGES=y
+CONFIG_VHDX_IMAGES=y
+CONFIG_TARGET_IMAGES_GZIP=y
+
+# 设置分区大小
+CONFIG_TARGET_KERNEL_PARTSIZE=32
+CONFIG_TARGET_ROOTFS_PARTSIZE=760
+
+# 基础包
+# CONFIG_PACKAGE_block-mount is not set
+
+# 额外包
+CONFIG_PACKAGE_autocore-x86=y
+# CONFIG_PACKAGE_automount is not set
+CONFIG_PACKAGE_autosamba=y
+CONFIG_PACKAGE_ipv6helper=y
+
+# 内核模块
+CONFIG_PACKAGE_kmod-ixgbevf=y
+
+# 插件选择
+CONFIG_PACKAGE_luci-ssl-openssl=y
+# CONFIG_PACKAGE_luci-app-accesscontrol is not set
+# CONFIG_PACKAGE_luci-app-adbyby-plus is not set
+CONFIG_PACKAGE_luci-app-adguardhome=y
+# CONFIG_PACKAGE_luci-app-arpbind is not set
+CONFIG_PACKAGE_luci-app-autoreboot=y
+CONFIG_PACKAGE_luci-app-ddns=y
+# CONFIG_PACKAGE_luci-app-diskman is not set
+# CONFIG_PACKAGE_luci-app-dockerman is not set
+# CONFIG_PACKAGE_luci-app-filetransfer is not set
+CONFIG_PACKAGE_luci-app-firewall=y
+CONFIG_PACKAGE_luci-app-frpc=y
+# CONFIG_PACKAGE_luci-app-ipsec-vpnd is not set
+CONFIG_PACKAGE_luci-app-mosdns=y
+# CONFIG_PACKAGE_luci-app-n2n_v2 is not set
+# CONFIG_PACKAGE_luci-app-nlbwmon is not set
+CONFIG_PACKAGE_luci-app-openclash=y
+# CONFIG_PACKAGE_luci-app-qbittorrent is not set
+CONFIG_PACKAGE_luci-app-ramfree=y
+# CONFIG_PACKAGE_luci-app-smartdns is not set
+CONFIG_PACKAGE_luci-app-tcpdump=y
+# CONFIG_PACKAGE_luci-app-ttyd is not set
+CONFIG_PACKAGE_luci-app-turboacc=y
+CONFIG_PACKAGE_luci-app-udpxy=y
+# CONFIG_PACKAGE_luci-app-unblockmusic is not set
+# CONFIG_PACKAGE_luci-app-upnp is not set
+# CONFIG_PACKAGE_luci-app-usb-printer is not set
+# CONFIG_PACKAGE_luci-app-uugamebooster is not set
+CONFIG_PACKAGE_luci-app-vlmcsd=y
+# CONFIG_PACKAGE_luci-app-vsftpd is not set
+# CONFIG_PACKAGE_luci-app-webadmin is not set
+# CONFIG_PACKAGE_luci-app-wireguard is not set
+CONFIG_PACKAGE_luci-app-wol=y
+# CONFIG_PACKAGE_luci-app-xlnetacc is not set
+CONFIG_PACKAGE_luci-app-zerotier=y
+
+# 主题
+CONFIG_PACKAGE_luci-theme-argon-jerrykuku=y
+CONFIG_PACKAGE_luci-theme-design=y
+CONFIG_PACKAGE_luci-theme-material=y
+
+# 协议
+CONFIG_PACKAGE_luci-proto-bonding=y
+
+# 其他
+CONFIG_PACKAGE_openssh-sftp-server=y
+CONFIG_PACKAGE_snmpd=y
+CONFIG_PACKAGE_fdisk=y
+CONFIG_PACKAGE_open-vm-tools=y
