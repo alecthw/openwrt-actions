@@ -49,6 +49,7 @@ do_common() {
     rm -rf feeds/luci/applications/luci-app-openclash
     rm -rf package/luci-app-openclash
     dl_git_sub https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash master
+    sed -i "/dashboard_password/d" package/luci-app-openclash/root/etc/uci-defaults/luci-openclash
 }
 
 do_official_common() {
