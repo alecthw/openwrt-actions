@@ -63,18 +63,24 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         fi
     fi
 
+    LUCI_APP_MOSDNS_DIR=""
     if [ -d "package/feeds/luci/luci-app-mosdns" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/mosdns package/feeds/luci/luci-app-mosdns/root/etc/config/mosdns
+        LUCI_APP_MOSDNS_DIR="package/feeds/luci/luci-app-mosdns"
+    elif [ -d "package/luci-app-mosdns" ]; then
+        LUCI_APP_MOSDNS_DIR="package/luci-app-mosdns"
+    fi
+    if [ -n "$LUCI_APP_MOSDNS_DIR" ]; then
+        copy_s ../$APP_CONFIG_DIR/etc/config/mosdns $LUCI_APP_MOSDNS_DIR/root/etc/config/mosdns
 
         # copy config
-        copy_s ../$APP_CONFIG_DIR/etc/mosdns/config_custom.yaml package/feeds/luci/luci-app-mosdns/root/etc/mosdns/config_custom.yaml
-        copy_s ../$APP_CONFIG_DIR/etc/mosdns/update_rules.sh package/feeds/luci/luci-app-mosdns/root/etc/mosdns/update_rules.sh
-        chmod 755 package/feeds/luci/luci-app-mosdns/root/etc/mosdns/update_rules.sh
+        copy_s ../$APP_CONFIG_DIR/etc/mosdns/config_custom.yaml $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/config_custom.yaml
+        copy_s ../$APP_CONFIG_DIR/etc/mosdns/update_rules.sh $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/update_rules.sh
+        chmod 755 $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/update_rules.sh
 
         # download rules
-        dl_curl https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt package/feeds/luci/luci-app-mosdns/root/etc/mosdns/rule/reject-list.txt
-        dl_curl https://raw.githubusercontent.com/alecthw/chnlist/release/mosdns/whitelist.list package/feeds/luci/luci-app-mosdns/root/etc/mosdns/rule/cn-white.txt
-        dl_curl https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb package/feeds/luci/luci-app-mosdns/root/etc/mosdns/rule/Country.mmdb
+        dl_curl https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/rule/reject-list.txt
+        dl_curl https://raw.githubusercontent.com/alecthw/chnlist/release/mosdns/whitelist.list $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/rule/cn-white.txt
+        dl_curl https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/rule/Country.mmdb
     fi
 
     if [ -d "package/luci-app-adguardhome" ]; then

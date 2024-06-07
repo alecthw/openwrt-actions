@@ -82,8 +82,9 @@ uci set dhcp.lan.ignore=1
 uci delete dhcp.lan.start
 uci delete dhcp.lan.limit
 uci delete dhcp.lan.leasetime
-uci delete dhcp.lan.dhcpv6
 uci delete dhcp.lan.ra
+uci delete dhcp.lan.dhcpv6
+uci delete dhcp.lan.ndp
 
 # disable dnsmasq dns cache
 uci set dhcp.@dnsmasq[0].dns_redirect='0'
