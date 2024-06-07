@@ -86,11 +86,9 @@ do_prepare() {
     # apply private if exist
     echo "Info: Apply private..."
     cd ${CUR_PATH}
-    if [ -n "../archive" ]; then
+    if [ -d "../archive" ]; then
         rm -rf app_config
         cp -rf ../archive/home/defconfig app_config
-        rm -rf user/${target}/files/etc/config
-        rm -rf user/${target}/files/etc/AdGuardHome
     fi
 
     # --------------------- Apply patches
