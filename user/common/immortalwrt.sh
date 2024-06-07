@@ -11,6 +11,8 @@ do_immortalwrt_common() {
     # add luci-app-mosdns
     rm -rf package/luci-app-mosdns
     dl_git_sub https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns luci-app-mosdns v5
+    rm -rf package/v2dat
+    dl_git_sub https://github.com/sbwml/luci-app-mosdns package/v2dat v2dat v5
 
     # add luci-app-tcpdump
     rm -rf package/luci-app-tcpdump

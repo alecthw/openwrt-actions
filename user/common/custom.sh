@@ -51,4 +51,4 @@ do_common() {
 do_common
 
 # excute custom for different source
-/bin/bash "../user/common/${build_source}.sh"
+source "../user/common/${build_source}.sh"
