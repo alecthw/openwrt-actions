@@ -7,4 +7,4 @@ source ../lib.sh
 
 echo "Execute custom custom.sh"
 
-cat package/lean/default-settings/files/zzz-default-settings
+cat package/emortal/default-settings/files/99-default-settings
