@@ -121,12 +121,12 @@ jobs:
         run: |
           echo "Apply files..."
           mkdir -p openwrt/files
-          if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
+          if [ -d "user/common/files" ]; then
           (
             cp -rf user/common/files/* openwrt/files/
           )
           fi
-          if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
+          if [ -d "user/${{matrix.target}}/files" ]; then
           (
             cp -rf user/${{matrix.target}}/files/* openwrt/files/
           )

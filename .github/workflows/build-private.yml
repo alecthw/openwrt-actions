@@ -99,18 +99,12 @@ jobs:
         run: |
           git clone --depth 1 --single-branch $REPO_URL
           rm -rf app_config
-          cp -rf archive/home/defconfig app_config
-          if [ -n "$(ls -A "archive/home/defconfig_${{matrix.location}}" 2>/dev/null)" ]; then
+          cp -rf archive/app_config/base app_config
+          if [ -d "archive/app_config/${{matrix.location}}" ]; then
           (
-            cp -rf archive/home/defconfig_${{matrix.location}}/* app_config/
+            cp -rf archive/app_config/${{matrix.location}}/* app_config/
           )
           fi
-
-      - name: Clean config
-        run: |
-          rm -rf user/${{matrix.target}}/files/etc/config
-          rm -rf user/${{matrix.target}}/files/etc/AdGuardHome
-          rm -rf user/${{matrix.target}}/files/etc/uci-defaults
 
       - name: Clone source code
         run: |
@@ -137,12 +131,12 @@ jobs:
         run: |
           echo "Apply files..."
           mkdir -p openwrt/files
-          if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
+          if [ -d "user/common/files" ]; then
           (
             cp -rf user/common/files/* openwrt/files/
           )
           fi
-          if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
+          if [ -d "user/${{matrix.target}}/files" ]; then
           (
             cp -rf user/${{matrix.target}}/files/* openwrt/files/
           )

@@ -40,17 +40,6 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         copy_s ../$APP_CONFIG_DIR/etc/config/adbyby package/feeds/luci/luci-app-adbyby-plus/root/etc/config/adbyby
     fi
 
-    if [ -d "package/feeds/passwall/luci-app-passwall" ]; then
-        # copy_s ../$APP_CONFIG_DIR/etc/config/passwall package/feeds/passwall/luci-app-passwall/root/etc/config/passwall
-        copy_s ../$APP_CONFIG_DIR/usr/share/passwall package/feeds/passwall/luci-app-passwall/root/usr/share/passwall
-        chmod 755 package/feeds/passwall/luci-app-passwall/root/usr/share/passwall/curl_ping.sh
-        chmod 755 package/feeds/passwall/luci-app-passwall/root/usr/share/passwall/test_node.sh
-
-        mkdir package/feeds/passwall/luci-app-passwall/root/usr/share/geodata
-        dl_curl https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat package/feeds/passwall/luci-app-passwall/root/usr/share/geodata/geoip.dat
-        dl_curl https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat package/feeds/passwall/luci-app-passwall/root/usr/share/geodata/geosite.dat
-    fi
-
     if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
         mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns

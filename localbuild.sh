@@ -88,7 +88,8 @@ do_prepare() {
     cd ${CUR_PATH}
     if [ -d "../archive" ]; then
         rm -rf app_config
-        cp -rf ../archive/home/defconfig app_config
+        cp -rf ../archive/app_config/base app_config
+        cp -rf ../archive/app_config/ysh/* app_config/
     fi
 
     # --------------------- Apply patches
