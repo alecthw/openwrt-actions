@@ -11,11 +11,11 @@
 默认 IP: `192.168.11.4/24`
 默认 GW: `192.168.11.1`
 
-密码: `没有密码`，其他涉及默认密码的都是 `password`
+密码: `没有密码`，其他如有涉及默认密码的都是 `password`
 
 ## 详细说明见各个目标子目录
 
-分为旁路由固件和硬件路由固件。需要其他固件可以提 [Wiki](https://github.com/alecthw/openwrt-actions/wiki)。
+分为旁路由固件和硬件路由固件。需要其他类型的固件可以提 [Issues](https://github.com/alecthw/openwrt-actions/issues)。
 
 注意：旁路由固件默认未开启 DHCP！！！
 
@@ -32,7 +32,7 @@
 
 ##### 1. DHCP 服务器
 
-一般情况下建议禁用旁路由 DHCP 服务器，在主路由配置 DHCP 服务器，把网关设置成旁路由，或者通过静态分配指定不同客户端指向不同网关。
+一般情况下建议禁用旁路由的 DHCP 服务器，在主路由配置 DHCP 服务器，把网关设置成旁路由，或者通过静态分配指定不同客户端指向不同网关。
 
 **由于旁路由 openclash 专属固件默认未设置 53 端口劫持，所以 DHCP 服务器设置中的 DNS 服务器，务必设置成旁路由，不要设置公共 DNS。如果需要配置劫持 53，可参考 [firewall.user](user/common/files/etc/firewall.user) 配置防火墙自定义规则**
 
@@ -42,7 +42,9 @@
 
 Openwrt、iKuai、RouterOS 都是支持不通告 IPv6 DNS 的。如果你的主路由不支持，IPv6 DNS 可以填个无效地址，如 `::1`
 
-### 硬件路由固件
+### 硬路由固件
+
+目前仅编译了我自己有的两款，需要其他固件提 [Issues](https://github.com/alecthw/openwrt-actions/issues)，或者 Fork 项目自行构建。
 
 - [lede-common-360t7-arm64](user/lede-common-360t7-arm64/README.md)
 - [lede-common-newifi_d2-mipsle_softfloat](user/lede-common-newifi_d2-mipsle_softfloat/README.md)
