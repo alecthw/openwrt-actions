@@ -5,6 +5,7 @@ CUR_PATH=$(
     pwd
 )
 echo "Info: Current path is ${CUR_PATH}"
+
 cd ${CUR_PATH}
 git pull
 
