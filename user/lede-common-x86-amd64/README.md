@@ -21,7 +21,7 @@ openclash 预置 `clash_meta` 内核。
 
 修改了 dnsmasq 的默认端口号，用 AdGuardHome 监听 53 端口作为默认的 DNS 解析，这样可以监控的各个终端的 DNS 请求。openclash 作为 AdGuardHome 的上游，mosdns 作为 AdGuardHome 的上游备用服务器。
 
-```
+``` txt
                           主要
 AdGuardHome[53, no cache] ────⟶ openclash[7874] ────⟶ mosdns[5335, cache]
                           |                           ↑

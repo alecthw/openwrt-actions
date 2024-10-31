@@ -10,7 +10,7 @@
 
 DNS 流向
 
-```
+``` txt
                           主要
 AdGuardHome[53, no cache] ────⟶ openclash[7874] ────⟶ mosdns[5335, cache]
                           |                           ↑
