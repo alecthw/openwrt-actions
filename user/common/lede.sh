@@ -45,7 +45,7 @@ do_lede_common() {
     # rm -rf feeds/packages/libs/pcre2
     # dl_git_sub https://github.com/openwrt/openwrt feeds/packages/libs/pcre2 package/libs/pcre2 main
 
-    # add luci-app-adguardhome
+    # add luci-app-adguardhome, which is already included in lede, uss Lienol's replace
     rm -rf package/luci-app-adguardhome
     dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-adguardhome luci-app-adguardhome other
 
@@ -54,8 +54,9 @@ do_lede_common() {
     dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-control-timewol luci-app-control-timewol main
     dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-control-webrestriction luci-app-control-webrestriction main
     dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-control-weburl luci-app-control-weburl main
-    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-fileassistant luci-app-fileassistant main
-    dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-filebrowser luci-app-filebrowser main
+    # The following two packages are already included in lede
+    # dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-fileassistant luci-app-fileassistant main
+    # dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-filebrowser luci-app-filebrowser main
     dl_git_sub https://github.com/Lienol/openwrt-package package/luci-app-nginx-pingos luci-app-nginx-pingos main
 }
 

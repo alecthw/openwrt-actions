@@ -40,7 +40,7 @@ do_common() {
     sed -i 's#v$(PKG_VERSION)#$(PKG_VERSION)#g' feeds/packages/net/mosdns/Makefile
     sed -i 's/^PKG_HASH.*/PKG_HASH:=skip/g' feeds/packages/net/mosdns/Makefile
 
-    # add openclash
+    # add openclash, which is already included in lede, uss offical's replace
     rm -rf feeds/luci/applications/luci-app-openclash
     rm -rf package/luci-app-openclash
     dl_git_sub https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash master
