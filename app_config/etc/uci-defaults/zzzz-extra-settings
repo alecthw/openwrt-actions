@@ -118,11 +118,6 @@ if [ -f "/etc/mosdns/update_rules.sh" ]; then
     echo "0 6 * * * /etc/mosdns/update_rules.sh" >>/etc/crontabs/root
 fi
 
-# passwall tool
-if [ -f "/usr/share/passwall/curl_ping.sh" ]; then
-    ln -s /usr/share/passwall/curl_ping.sh /usr/bin/curl_ping
-fi
-
 uci commit
 
 exit 0
