@@ -82,12 +82,18 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         rm -rf package/luci-app-adguardhome/root/etc/AdGuardHome.tar.gz
     fi
 
-    if [ -d "package/luci-app-openclash" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/openclash package/luci-app-openclash/root/etc/config/openclash
-        # sed -i '/^config dns_servers/,$d' package/luci-app-openclash/root/etc/config/openclash
+    LUCI_APP_OPENCLASH_DIR=""
+    if [ -d "package/feeds/luci/luci-app-openclash" ]; then
+        LUCI_APP_OPENCLASH_DIR="package/feeds/luci/luci-app-openclash"
+    elif [ -d "package/luci-app-openclash" ]; then
+        LUCI_APP_OPENCLASH_DIR="package/luci-app-openclash"
+    fi
+    if [ -n "$LUCI_APP_OPENCLASH_DIR" ]; then
+        copy_s ../$APP_CONFIG_DIR/etc/config/openclash $LUCI_APP_OPENCLASH_DIR/root/etc/config/openclash
+        # sed -i '/^config dns_servers/,$d' $LUCI_APP_OPENCLASH_DIR/root/etc/config/openclash
 
         # config runtime config file
-        copy_s ../$APP_CONFIG_DIR/etc/openclash/config/OpenClash.yaml package/luci-app-openclash/root/etc/openclash/config/OpenClash.yaml
+        copy_s ../$APP_CONFIG_DIR/etc/openclash/config/OpenClash.yaml $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/config/OpenClash.yaml
 
         openclash_arch="${build_arch}"
         case "${build_arch}" in
@@ -100,29 +106,29 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         esac
 
         # download latest clash meta core
-        mkdir -p package/luci-app-openclash/root/etc/openclash/core
+        mkdir -p $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/core
         clash_meta_version=$(curl -kLs "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
         echo "clash_meta_version: ${clash_meta_version}"
         # mihomo-linux-amd64-compatible-v1.17.0.gz
-        dl_curl https://github.com/MetaCubeX/mihomo/releases/latest/download/mihomo-linux-${openclash_arch}-${clash_meta_version}.gz package/luci-app-openclash/root/etc/openclash/core/clash_meta.gz
+        dl_curl https://github.com/MetaCubeX/mihomo/releases/latest/download/mihomo-linux-${openclash_arch}-${clash_meta_version}.gz $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/core/clash_meta.gz
 
-        gzip -f -d package/luci-app-openclash/root/etc/openclash/core/clash_meta.gz
-        chmod 755 package/luci-app-openclash/root/etc/openclash/core/clash_meta
+        gzip -f -d $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/core/clash_meta.gz
+        chmod 755 $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/core/clash_meta
 
         # update geosite
-        rm -rf package/luci-app-openclash/root/etc/openclash/GeoSite.dat
-        dl_curl https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat package/luci-app-openclash/root/etc/openclash/GeoSite.dat
+        rm -rf $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/GeoSite.dat
+        dl_curl https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/GeoSite.dat
 
         # update mmdb
-        rm -rf package/luci-app-openclash/root/etc/openclash/Country.mmdb
-        dl_curl https://testingcf.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb package/luci-app-openclash/root/etc/openclash/Country.mmdb
+        rm -rf $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/Country.mmdb
+        dl_curl https://testingcf.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/Country.mmdb
 
         # download rule provider files
-        rm -rf package/luci-app-openclash/root/etc/openclash/rule_provider
-        dl_git_sub https://github.com/blackmatrix7/ios_rule_script package/luci-app-openclash/root/etc/openclash/rule_provider/rules rule/Clash master
-        mv -f package/luci-app-openclash/root/etc/openclash/rule_provider/rules/**/*.yaml package/luci-app-openclash/root/etc/openclash/rule_provider
-        rm -rf package/luci-app-openclash/root/etc/openclash/rule_provider/rules
-        dl_git_sub https://github.com/alecthw/chnlist package/luci-app-openclash/root/etc/openclash/rule_provider Providers/Custom release
+        rm -rf $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/rule_provider
+        dl_git_sub https://github.com/blackmatrix7/ios_rule_script $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/rule_provider/rules rule/Clash master
+        mv -f $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/rule_provider/rules/**/*.yaml $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/rule_provider
+        rm -rf $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/rule_provider/rules
+        dl_git_sub https://github.com/alecthw/chnlist $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/rule_provider Providers/Custom release
     fi
 
     if [ -d "package/feeds/luci/luci-app-turboacc" ]; then

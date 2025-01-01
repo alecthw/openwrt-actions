@@ -15,6 +15,7 @@ build_target=${target_array[2]}
 build_arch=${target_array[3]}
 echo "source=${build_source}, type=${build_type}, target=${build_target}, arch=${build_arch}"
 
+# Priority: packages > feeds
 do_common() {
     # Set banner
     echo " Built on $(date +%Y-%m-%d)" >>files/etc/banner

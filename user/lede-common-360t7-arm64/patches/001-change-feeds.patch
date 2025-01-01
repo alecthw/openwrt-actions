@@ -1,7 +1,7 @@
---- feeds.conf.default	2023-11-08 11:13:12.094497109 +0800
-+++ feeds.conf.default	2023-11-08 11:13:43.774534860 +0800
-@@ -8,3 +8,4 @@
- #src-git targets https://github.com/openwrt/targets.git
- #src-git oldpackages http://git.openwrt.org/packages.git
- #src-link custom /usr/src/openwrt/custom-feed
-+src-git helloworld https://github.com/fw876/helloworld.git;main
+--- feeds.conf.default	2025-01-01 11:12:15.720583745 +0000
++++ feeds.conf.default	2025-01-01 11:54:47.073624797 +0000
+@@ -1,3 +1,4 @@
++src-git helloworld https://github.com/fw876/helloworld.git
+ src-git packages https://github.com/coolsnowwolf/packages
+ #src-git luci https://github.com/coolsnowwolf/luci
+ src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05
