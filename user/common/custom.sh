@@ -15,7 +15,7 @@ build_target=${target_array[2]}
 build_arch=${target_array[3]}
 echo "source=${build_source}, type=${build_type}, target=${build_target}, arch=${build_arch}"
 
-# Priority: packages > feeds
+# Priority: package dir > feeds dir
 do_common() {
     # Set banner
     echo " Built on $(date +%Y-%m-%d)" >>files/etc/banner
@@ -26,23 +26,21 @@ do_common() {
     rm -rf package/OpenAppFilter
     dl_git https://github.com/destan19/OpenAppFilter package/OpenAppFilter
 
-    # replace smartdns
-    rm -rf feeds/packages/net/smartdns
-    dl_git_sub https://github.com/Lienol/openwrt-packages feeds/packages/net/smartdns net/smartdns master
+    # replace feeds/packages/net/smartdns
+    rm -rf package/smartdns
+    dl_git_sub https://github.com/Lienol/openwrt-packages package/smartdns net/smartdns master
 
-    # replace mosdns
-    rm -rf feeds/helloworld/mosdns
-    rm -rf feeds/packages/net/mosdns
-    dl_git_sub https://github.com/sbwml/luci-app-mosdns feeds/packages/net/mosdns mosdns v5
-    rm -rf feeds/packages/net/mosdns/patches
+    # replace feeds/helloworld/mosdns, feeds/packages/net/mosdns
+    rm -rf package/mosdns
+    dl_git_sub https://github.com/sbwml/luci-app-mosdns package/mosdns mosdns v5
+    rm -rf package/mosdns/patches
     # use fork repo before PR accepted
-    sed -i 's/^PKG_VERSION.*/PKG_VERSION:=44c8cc6/g' feeds/packages/net/mosdns/Makefile
-    sed -i 's#IrineSistiana/mosdns/tar#alecthw/mosdns/tar#g' feeds/packages/net/mosdns/Makefile
-    sed -i 's#v$(PKG_VERSION)#$(PKG_VERSION)#g' feeds/packages/net/mosdns/Makefile
-    sed -i 's/^PKG_HASH.*/PKG_HASH:=skip/g' feeds/packages/net/mosdns/Makefile
+    sed -i 's/^PKG_VERSION.*/PKG_VERSION:=44c8cc6/g' package/mosdns/Makefile
+    sed -i 's#IrineSistiana/mosdns/tar#alecthw/mosdns/tar#g' package/mosdns/Makefile
+    sed -i 's#v$(PKG_VERSION)#$(PKG_VERSION)#g' package/mosdns/Makefile
+    sed -i 's/^PKG_HASH.*/PKG_HASH:=skip/g' package/mosdns/Makefile
 
-    # add openclash, which is already included in lede, uss offical's replace
-    rm -rf feeds/luci/applications/luci-app-openclash
+    # add openclash | replace feeds/luci/applications/luci-app-openclash
     rm -rf package/luci-app-openclash
     dl_git_sub https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash master
     sed -i "/dashboard_password/d" package/luci-app-openclash/root/etc/uci-defaults/luci-openclash

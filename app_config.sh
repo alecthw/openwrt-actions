@@ -25,6 +25,7 @@ if [ -z "${APP_CONFIG_DIR}" ]; then
     APP_CONFIG_DIR="app_config"
 fi
 
+# Priority: package dir > feeds dir
 if [ -d "../$APP_CONFIG_DIR" ]; then
     copy_s ../$APP_CONFIG_DIR/etc/uci-defaults/zzzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
 
@@ -40,23 +41,29 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         copy_s ../$APP_CONFIG_DIR/etc/config/adbyby package/feeds/luci/luci-app-adbyby-plus/root/etc/config/adbyby
     fi
 
-    if [ -d "package/feeds/luci/luci-app-smartdns" ]; then
-        mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/config
-        mkdir -p package/feeds/luci/luci-app-smartdns/root/etc/smartdns
-        copy_s ../$APP_CONFIG_DIR/etc/config/smartdns package/feeds/luci/luci-app-smartdns/root/etc/config/smartdns
-        copy_s ../$APP_CONFIG_DIR/etc/smartdns/custom.conf package/feeds/luci/luci-app-smartdns/root/etc/smartdns/custom.conf
-        copy_s ../$APP_CONFIG_DIR/etc/smartdns/anti-ad.sh package/feeds/luci/luci-app-smartdns/root/etc/smartdns/anti-ad.sh
-        if [ -f "package/feeds/luci/luci-app-smartdns/root/etc/smartdns/anti-ad.sh" ]; then
-            dl_curl https://anti-ad.net/anti-ad-for-smartdns.conf package/feeds/luci/luci-app-smartdns/root/etc/smartdns/anti-ad-smartdns.conf
-            chmod 755 package/feeds/luci/luci-app-smartdns/root/etc/smartdns/anti-ad.sh
+    LUCI_APP_SMARTDNS_DIR=""
+    if [ -d "package/luci-app-smartdns" ]; then
+        LUCI_APP_SMARTDNS_DIR="package/luci-app-smartdns"
+    elif [ -d "package/feeds/luci/luci-app-smartdns" ]; then
+        LUCI_APP_SMARTDNS_DIR="package/feeds/luci/luci-app-smartdns"
+    fi
+    if [ -n "$LUCI_APP_SMARTDNS_DIR" ]; then
+        mkdir -p $LUCI_APP_SMARTDNS_DIR/root/etc/config
+        mkdir -p $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns
+        copy_s ../$APP_CONFIG_DIR/etc/config/smartdns $LUCI_APP_SMARTDNS_DIR/root/etc/config/smartdns
+        copy_s ../$APP_CONFIG_DIR/etc/smartdns/custom.conf $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/custom.conf
+        copy_s ../$APP_CONFIG_DIR/etc/smartdns/anti-ad.sh $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad.sh
+        if [ -f "$LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad.sh" ]; then
+            dl_curl https://anti-ad.net/anti-ad-for-smartdns.conf $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad-smartdns.conf
+            chmod 755 $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad.sh
         fi
     fi
 
     LUCI_APP_MOSDNS_DIR=""
-    if [ -d "package/feeds/luci/luci-app-mosdns" ]; then
-        LUCI_APP_MOSDNS_DIR="package/feeds/luci/luci-app-mosdns"
-    elif [ -d "package/luci-app-mosdns" ]; then
+    if [ -d "package/luci-app-mosdns" ]; then
         LUCI_APP_MOSDNS_DIR="package/luci-app-mosdns"
+    elif [ -d "package/feeds/luci/luci-app-mosdns" ]; then
+        LUCI_APP_MOSDNS_DIR="package/feeds/luci/luci-app-mosdns"
     fi
     if [ -n "$LUCI_APP_MOSDNS_DIR" ]; then
         copy_s ../$APP_CONFIG_DIR/etc/config/mosdns $LUCI_APP_MOSDNS_DIR/root/etc/config/mosdns
@@ -72,21 +79,27 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         dl_curl https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/rule/Country.mmdb
     fi
 
+    LUCI_APP_ADGUARDHOME_DIR=""
     if [ -d "package/luci-app-adguardhome" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/AdGuardHome package/luci-app-adguardhome/root/etc/config/AdGuardHome
-        copy_s ../$APP_CONFIG_DIR/etc/AdGuardHome package/luci-app-adguardhome/root/etc/AdGuardHome
+        LUCI_APP_ADGUARDHOME_DIR="package/luci-app-adguardhome"
+    elif [ -d "package/feeds/luci/luci-app-adguardhome" ]; then
+        LUCI_APP_ADGUARDHOME_DIR="package/feeds/luci/luci-app-adguardhome"
+    fi
+    if [ -n "$LUCI_APP_ADGUARDHOME_DIR" ]; then
+        copy_s ../$APP_CONFIG_DIR/etc/config/AdGuardHome $LUCI_APP_ADGUARDHOME_DIR/root/etc/config/AdGuardHome
+        copy_s ../$APP_CONFIG_DIR/etc/AdGuardHome $LUCI_APP_ADGUARDHOME_DIR/root/etc/AdGuardHome
 
         # download latest adguardhome core
-        dl_curl https://github.com/AdguardTeam/AdGuardHome/releases/latest/download/AdGuardHome_linux_${build_arch}.tar.gz package/luci-app-adguardhome/root/etc/AdGuardHome.tar.gz
-        tar xzf package/luci-app-adguardhome/root/etc/AdGuardHome.tar.gz -C package/luci-app-adguardhome/root/etc/
-        rm -rf package/luci-app-adguardhome/root/etc/AdGuardHome.tar.gz
+        dl_curl https://github.com/AdguardTeam/AdGuardHome/releases/latest/download/AdGuardHome_linux_${build_arch}.tar.gz $LUCI_APP_ADGUARDHOME_DIR/root/etc/AdGuardHome.tar.gz
+        tar xzf $LUCI_APP_ADGUARDHOME_DIR/root/etc/AdGuardHome.tar.gz -C $LUCI_APP_ADGUARDHOME_DIR/root/etc/
+        rm -rf $LUCI_APP_ADGUARDHOME_DIR/root/etc/AdGuardHome.tar.gz
     fi
 
     LUCI_APP_OPENCLASH_DIR=""
-    if [ -d "package/feeds/luci/luci-app-openclash" ]; then
-        LUCI_APP_OPENCLASH_DIR="package/feeds/luci/luci-app-openclash"
-    elif [ -d "package/luci-app-openclash" ]; then
+    if [ -d "package/luci-app-openclash" ]; then
         LUCI_APP_OPENCLASH_DIR="package/luci-app-openclash"
+    elif [ -d "package/feeds/luci/luci-app-openclash" ]; then
+        LUCI_APP_OPENCLASH_DIR="package/feeds/luci/luci-app-openclash"
     fi
     if [ -n "$LUCI_APP_OPENCLASH_DIR" ]; then
         copy_s ../$APP_CONFIG_DIR/etc/config/openclash $LUCI_APP_OPENCLASH_DIR/root/etc/config/openclash
