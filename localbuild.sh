@@ -1,12 +1,16 @@
 #!/bin/bash
 
-CUR_PATH=$(
+echo "Current dir: $(pwd), Script: $0"
+
+GITHUB_WORKSPACE=$(
     cd $(dirname $0)
     pwd
 )
-echo "Info: Current path is ${CUR_PATH}"
+echo "Info: Current path is ${GITHUB_WORKSPACE}"
 
-cd ${CUR_PATH}
+export GITHUB_WORKSPACE
+
+cd ${GITHUB_WORKSPACE}
 git pull
 
 error() {
@@ -36,7 +40,7 @@ init_code_dir() {
     echo "Info: Current target is ${target}"
 
     # export env
-    source ${CUR_PATH}/user/${target}/settings.ini
+    source ${GITHUB_WORKSPACE}/user/${target}/settings.ini
 
     # init code dir
     target_array=(${target//-/ })
@@ -48,7 +52,7 @@ init_code_dir() {
 }
 
 clean_package() {
-    if [ -d "${CUR_PATH}/${code_dir}/build_dir" ]; then
+    if [ -d "${GITHUB_WORKSPACE}/${code_dir}/build_dir" ]; then
         echo "Info: Clean package $1"
         make $1/clean
     fi
@@ -56,13 +60,13 @@ clean_package() {
 
 do_prepare() {
     # clone/update code
-    cd ${CUR_PATH}
+    cd ${GITHUB_WORKSPACE}
 
-    if [ ! -d "${CUR_PATH}/${code_dir}" ]; then
+    if [ ! -d "${GITHUB_WORKSPACE}/${code_dir}" ]; then
         echo "Info: Clone code ${REPO_URL} ${REPO_BRANCH}..."
         git clone --depth=1 --single-branch -b ${REPO_BRANCH} ${REPO_URL} ${code_dir}
     else
-        cd ${CUR_PATH}/${code_dir}
+        cd ${GITHUB_WORKSPACE}/${code_dir}
 
         # clean package build which has bee changed by script
         echo "Info: Clean build has custom config..."
@@ -86,7 +90,7 @@ do_prepare() {
     # --------------------- Apply private
     # apply private if exist
     echo "Info: Apply private..."
-    cd ${CUR_PATH}
+    cd ${GITHUB_WORKSPACE}
     if [ -d "../archive" ]; then
         rm -rf app_config
         cp -rf ../archive/app_config/base app_config
@@ -96,7 +100,7 @@ do_prepare() {
     # --------------------- Apply patches
     # apply patches
     echo "Info: Apply patches..."
-    cd ${CUR_PATH}
+    cd ${GITHUB_WORKSPACE}
     if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
         find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '${code_dir}' -p0 --forward"
     fi
@@ -106,13 +110,13 @@ do_prepare() {
 
     # --------------------- Update feeds
     echo "Info: Update feeds..."
-    cd ${CUR_PATH}/${code_dir}
+    cd ${GITHUB_WORKSPACE}/${code_dir}
     ./scripts/feeds update -a
 
     # --------------------- Copy custom files
     # apply files...
     echo "Info: Apply files..."
-    cd ${CUR_PATH}
+    cd ${GITHUB_WORKSPACE}
     mkdir -p ${code_dir}/files
     if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
         cp -af user/common/files/* ${code_dir}/files/
@@ -124,32 +128,32 @@ do_prepare() {
     # --------------------- Load custom script
     # apply custom.sh
     echo "Info: Apply custom.sh..."
-    cd ${CUR_PATH}/${code_dir}
-    if [ -f "../user/common/custom.sh" ]; then
-        /bin/bash "../user/common/custom.sh" ${target}
+    cd ${GITHUB_WORKSPACE}/${code_dir}
+    if [ -f "${GITHUB_WORKSPACE}/user/common/custom.sh" ]; then
+        /bin/bash "${GITHUB_WORKSPACE}/user/common/custom.sh" ${target}
     fi
-    if [ -f "../user/${target}/custom.sh" ]; then
-        /bin/bash "../user/${target}/custom.sh"
+    if [ -f "${GITHUB_WORKSPACE}/user/${target}/custom.sh" ]; then
+        /bin/bash "${GITHUB_WORKSPACE}/user/${target}/custom.sh"
     fi
 
     # --------------------- Install feeds
     echo "Info: Update feeds..."
-    cd ${CUR_PATH}/${code_dir}
+    cd ${GITHUB_WORKSPACE}/${code_dir}
     ./scripts/feeds install -a
 
     # --------------------- Load custom configuration
     echo "Apply app_config.sh"
-    cd ${CUR_PATH}/${code_dir}
-    if [ -f "../app_config.sh" ]; then
-        /bin/bash "../app_config.sh" ${target}
+    cd ${GITHUB_WORKSPACE}/${code_dir}
+    if [ -f "${GITHUB_WORKSPACE}/app_config.sh" ]; then
+        /bin/bash "${GITHUB_WORKSPACE}/app_config.sh" ${target}
     fi
 
     # --------------------- Copy build config
-    cd ${CUR_PATH}/${code_dir}
-    cp -af ../user/${target}/${CONFIG_FILE} .config
+    cd ${GITHUB_WORKSPACE}/${code_dir}
+    cp -af ${GITHUB_WORKSPACE}/user/${target}/${CONFIG_FILE} .config
     # apply private if exist
-    if [ -f "../app_config/${target}.diff" ]; then
-        cp ../app_config/${target}.diff .config
+    if [ -f "${GITHUB_WORKSPACE}/app_config/${target}.diff" ]; then
+        cp ${GITHUB_WORKSPACE}/app_config/${target}.diff .config
     fi
     echo "Info: Make defconfig..."
     make defconfig
@@ -157,11 +161,11 @@ do_prepare() {
 
 do_compile() {
     # make download
-    cd ${CUR_PATH}/${code_dir}
+    cd ${GITHUB_WORKSPACE}/${code_dir}
     make -j$(($(nproc) + 1)) download
 
     # make
-    cd ${CUR_PATH}/${code_dir}
+    cd ${GITHUB_WORKSPACE}/${code_dir}
     make -j$(($(nproc) + 1))
 }
 

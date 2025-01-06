@@ -3,12 +3,18 @@
 # Execute after install feeds as the last script
 # patch -> [update & install feeds] -> custom -> config
 
-ROOT_DIR=$(
-    cd $(dirname $0)
-    pwd
-)
+echo "Current dir: $(pwd), Script: $0"
 
-source ../lib.sh
+if [ -z "${GITHUB_WORKSPACE}" ]; then
+    echo "GITHUB_WORKSPACE not set"
+    GITHUB_WORKSPACE=$(
+        cd $(dirname $0)
+        pwd
+    )
+    export GITHUB_WORKSPACE
+fi
+
+source $GITHUB_WORKSPACE/lib.sh
 
 target=$1
 echo "Execute common app_config.sh ${target}"
@@ -26,19 +32,19 @@ if [ -z "${APP_CONFIG_DIR}" ]; then
 fi
 
 # Priority: package dir > feeds dir
-if [ -d "../$APP_CONFIG_DIR" ]; then
-    copy_s ../$APP_CONFIG_DIR/etc/uci-defaults/zzzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
+if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
+    copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/uci-defaults/zzzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
 
     if [ -d "package/feeds/packages/ddns-scripts" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/ddns package/feeds/packages/ddns-scripts/files/ddns.config
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/ddns package/feeds/packages/ddns-scripts/files/ddns.config
     fi
 
     if [ -d "package/feeds/packages/nginx-util" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/nginx package/feeds/packages/nginx-util/files/nginx.config
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/nginx package/feeds/packages/nginx-util/files/nginx.config
     fi
 
     if [ -d "package/feeds/luci/luci-app-adbyby-plus" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/adbyby package/feeds/luci/luci-app-adbyby-plus/root/etc/config/adbyby
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/adbyby package/feeds/luci/luci-app-adbyby-plus/root/etc/config/adbyby
     fi
 
     LUCI_APP_SMARTDNS_DIR=""
@@ -50,9 +56,9 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
     if [ -n "$LUCI_APP_SMARTDNS_DIR" ]; then
         mkdir -p $LUCI_APP_SMARTDNS_DIR/root/etc/config
         mkdir -p $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns
-        copy_s ../$APP_CONFIG_DIR/etc/config/smartdns $LUCI_APP_SMARTDNS_DIR/root/etc/config/smartdns
-        copy_s ../$APP_CONFIG_DIR/etc/smartdns/custom.conf $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/custom.conf
-        copy_s ../$APP_CONFIG_DIR/etc/smartdns/anti-ad.sh $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad.sh
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/smartdns $LUCI_APP_SMARTDNS_DIR/root/etc/config/smartdns
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/smartdns/custom.conf $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/custom.conf
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/smartdns/anti-ad.sh $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad.sh
         if [ -f "$LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad.sh" ]; then
             dl_curl https://anti-ad.net/anti-ad-for-smartdns.conf $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad-smartdns.conf
             chmod 755 $LUCI_APP_SMARTDNS_DIR/root/etc/smartdns/anti-ad.sh
@@ -66,11 +72,11 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         LUCI_APP_MOSDNS_DIR="package/feeds/luci/luci-app-mosdns"
     fi
     if [ -n "$LUCI_APP_MOSDNS_DIR" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/mosdns $LUCI_APP_MOSDNS_DIR/root/etc/config/mosdns
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/mosdns $LUCI_APP_MOSDNS_DIR/root/etc/config/mosdns
 
         # copy config
-        copy_s ../$APP_CONFIG_DIR/etc/mosdns/config_custom.yaml $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/config_custom.yaml
-        copy_s ../$APP_CONFIG_DIR/etc/mosdns/update_rules.sh $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/update_rules.sh
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/mosdns/config_custom.yaml $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/config_custom.yaml
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/mosdns/update_rules.sh $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/update_rules.sh
         chmod 755 $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/update_rules.sh
 
         # download rules
@@ -86,8 +92,8 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         LUCI_APP_ADGUARDHOME_DIR="package/feeds/luci/luci-app-adguardhome"
     fi
     if [ -n "$LUCI_APP_ADGUARDHOME_DIR" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/AdGuardHome $LUCI_APP_ADGUARDHOME_DIR/root/etc/config/AdGuardHome
-        copy_s ../$APP_CONFIG_DIR/etc/AdGuardHome $LUCI_APP_ADGUARDHOME_DIR/root/etc/AdGuardHome
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/AdGuardHome $LUCI_APP_ADGUARDHOME_DIR/root/etc/config/AdGuardHome
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/AdGuardHome $LUCI_APP_ADGUARDHOME_DIR/root/etc/AdGuardHome
 
         # download latest adguardhome core
         dl_curl https://github.com/AdguardTeam/AdGuardHome/releases/latest/download/AdGuardHome_linux_${build_arch}.tar.gz $LUCI_APP_ADGUARDHOME_DIR/root/etc/AdGuardHome.tar.gz
@@ -102,11 +108,11 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
         LUCI_APP_OPENCLASH_DIR="package/feeds/luci/luci-app-openclash"
     fi
     if [ -n "$LUCI_APP_OPENCLASH_DIR" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/openclash $LUCI_APP_OPENCLASH_DIR/root/etc/config/openclash
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/openclash $LUCI_APP_OPENCLASH_DIR/root/etc/config/openclash
         # sed -i '/^config dns_servers/,$d' $LUCI_APP_OPENCLASH_DIR/root/etc/config/openclash
 
         # config runtime config file
-        copy_s ../$APP_CONFIG_DIR/etc/openclash/config/OpenClash.yaml $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/config/OpenClash.yaml
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/openclash/config/OpenClash.yaml $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/config/OpenClash.yaml
 
         openclash_arch="${build_arch}"
         case "${build_arch}" in
@@ -145,25 +151,25 @@ if [ -d "../$APP_CONFIG_DIR" ]; then
     fi
 
     if [ -d "package/feeds/luci/luci-app-turboacc" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/turboacc package/feeds/luci/luci-app-turboacc/root/etc/config/turboacc
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/turboacc package/feeds/luci/luci-app-turboacc/root/etc/config/turboacc
     fi
 
     if [ -d "package/feeds/packages/n2n" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/n2n package/feeds/packages/n2n/files/n2n.config
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/n2n package/feeds/packages/n2n/files/n2n.config
     fi
 
     if [ -d "package/feeds/packages/udpxy" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/udpxy package/feeds/packages/udpxy/files/udpxy.conf
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/udpxy package/feeds/packages/udpxy/files/udpxy.conf
     fi
 
     if [ -d "package/feeds/luci/luci-app-vlmcsd" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/vlmcsd package/feeds/luci/luci-app-vlmcsd/root/etc/config/vlmcsd
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/vlmcsd package/feeds/luci/luci-app-vlmcsd/root/etc/config/vlmcsd
     fi
 
     if [ -d "package/feeds/packages/zerotier" ]; then
-        copy_s ../$APP_CONFIG_DIR/etc/config/zerotier package/feeds/packages/zerotier/files/etc/config/zerotier
-        if [ -f "../$APP_CONFIG_DIR/etc/config/zero.tar.gz" ]; then
-            tar xzf ../$APP_CONFIG_DIR/etc/config/zero.tar.gz -C package/feeds/packages/zerotier/files/etc/config/
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zerotier package/feeds/packages/zerotier/files/etc/config/zerotier
+        if [ -f "$GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zero.tar.gz" ]; then
+            tar xzf $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zero.tar.gz -C package/feeds/packages/zerotier/files/etc/config/
         fi
     fi
 fi

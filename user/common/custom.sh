@@ -3,7 +3,18 @@
 # Execute after install feeds
 # patch -> [update & install feeds] -> custom -> config
 
-source ../lib.sh
+echo "Current dir: $(pwd), Script: $0"
+
+if [ -z "${GITHUB_WORKSPACE}" ]; then
+    echo "GITHUB_WORKSPACE not set"
+    GITHUB_WORKSPACE=$(
+        cd $(dirname $0)/../..
+        pwd
+    )
+    export GITHUB_WORKSPACE
+fi
+
+source $GITHUB_WORKSPACE/lib.sh
 
 target=$1
 echo "Execute common custom.sh ${target}"
@@ -50,4 +61,4 @@ do_common() {
 do_common
 
 # excute custom for different source
-source "../user/common/${build_source}.sh"
+source "$GITHUB_WORKSPACE/user/common/${build_source}.sh"
