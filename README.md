@@ -23,10 +23,13 @@
 
 重点是 AdGuardHome 、 mosdns 和 openclash （或 ssrp ）的搭配，详细介绍见子目录下的 README。更多信息可以参考[这篇文章](https://alecthw.github.io/p/2023/11/fuck-gfw/)。
 
-- [lede-common-n1-arm64](user/lede-common-n1-arm64/README.md)
-- [lede-common-r2s-arm64](user/lede-common-r2s-arm64/README.md)
-- [lede-common-x86-amd64](user/lede-common-x86-amd64/README.md)
-- [lede-openclash-x86-amd64](user/lede-openclash-x86-amd64/README.md)
+| 说明 | 下载 |
+|---|---|
+| [lede-common-n1-arm64](user/lede-common-n1-arm64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-n1-arm64) |
+| [lede-common-r2s-arm64](user/lede-common-r2s-arm64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-r2s-arm64) |
+| [lede-common-x86-amd64](user/lede-common-x86-amd64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-x86-amd64) |
+| [lede-openclash-x86-amd64](user/lede-openclash-x86-amd64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-openclash-x86-amd64) |
+| [immortalwrt-openclash-x86-amd64](user/immortalwrt-openclash-x86-amd64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/immortalwrt-openclash-x86-amd64) |
 
 #### 特别说明
 
@@ -46,8 +49,10 @@ Openwrt、iKuai、RouterOS 都是支持不通告 IPv6 DNS 的。如果你的主�
 
 目前仅编译了我自己有的两款，需要其他固件提 [Issues](https://github.com/alecthw/openwrt-actions/issues)，或者 Fork 项目自行构建。
 
-- [lede-common-360t7-arm64](user/lede-common-360t7-arm64/README.md)
-- [lede-common-newifi_d2-mipsle_softfloat](user/lede-common-newifi_d2-mipsle_softfloat/README.md)
+| 说明 | 下载 |
+|---|---|
+| [lede-common-360t7-arm64](user/lede-common-360t7-arm64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-360t7-arm64) |
+| [lede-common-newifi_d2-mipsle_softfloat](user/lede-common-newifi_d2-mipsle_softfloat/README.md)) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-newifi_d2-mipsle_softfloat) |
 
 ## 命令行修改IP和掩码
 
