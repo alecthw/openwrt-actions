@@ -19,7 +19,7 @@ do_immortalwrt_common() {
 
     # replace feeds/luci/applications/luci-app-smartdns
     rm -rf package/luci-app-smartdns
-    dl_git https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns lede
+    dl_git https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 
     # add luci-app-tcpdump
     rm -rf package/luci-app-tcpdump
