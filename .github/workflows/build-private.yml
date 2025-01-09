@@ -212,7 +212,7 @@ jobs:
       - name: Modify hostname
         run: |
           cd openwrt
-          sed -i "s/hostname='OpenWrt'/hostname='OpenWrt-${{matrix.location}}'/g" package/base-files/files/bin/config_generate
+          sed -i "s/hostname='LEDE'/hostname='LEDE-${{matrix.location}}'/g" package/base-files/files/bin/config_generate
 
       - name: Copy build config
         id: config
