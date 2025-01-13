@@ -36,7 +36,7 @@ if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
     copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/uci-defaults/zzzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
 
     if [ -d "package/feeds/packages/ddns-scripts" ]; then
-        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/ddns package/feeds/packages/ddns-scripts/files/ddns.config
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/ddns package/feeds/packages/ddns-scripts/files/etc/config/ddns
     fi
 
     if [ -d "package/feeds/packages/nginx-util" ]; then
