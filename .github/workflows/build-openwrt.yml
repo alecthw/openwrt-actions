@@ -22,7 +22,7 @@ jobs:
 
     name: Build ${{matrix.target}}
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
 
@@ -86,6 +86,7 @@ jobs:
           sudo -E timedatectl set-timezone "Asia/Shanghai"
 
       - name: Create Swap
+        if: env.ACT != 'true'
         run: |
           sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=8192
           sudo chmod 600 /mnt/swapfile
@@ -94,6 +95,7 @@ jobs:
           free -h | grep -i swap
 
       - name: Create simulated physical disk
+        if: env.ACT != 'true'
         run: |
           mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
           root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
@@ -117,6 +119,7 @@ jobs:
           df -Th
 
       - name: Set git identity
+        if: env.ACT != 'true'
         run: |
           git config --global user.email "22856212+alecthw@users.noreply.github.com"
           git config --global user.name "alecthw"
@@ -134,10 +137,16 @@ jobs:
           echo "UPLOAD_TO_RELEASE=${UPLOAD_TO_RELEASE}"         >> $GITHUB_ENV
 
       - name: Clone source code
+        if: env.ACT != 'true'
         working-directory: /builder
         run: |
           git clone --depth 1 --single-branch -b ${{env.REPO_BRANCH}} ${{env.REPO_URL}} openwrt
           ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
+
+      - name: Clone source code for act build
+        if: env.ACT == 'true'
+        run: |
+          git clone --depth 1 --single-branch -b ${{env.REPO_BRANCH}} ${{env.REPO_URL}} openwrt
 
       - name: Apply patches
         run: |

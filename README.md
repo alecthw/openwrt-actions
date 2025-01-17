@@ -108,7 +108,7 @@ source .profile
 git clone https://github.com/alecthw/openwrt-actions.git
 cd openwrt-actions
 act \
-    -P ubuntu-latest=-self-hosted \
+    -P ubuntu-22.04=-self-hosted \
     -a alecthw \
     -W '.github/workflows/build-openwrt.yml' \
     --matrix target:lede-openclash-x86-amd64 \
