@@ -21,7 +21,7 @@ do_lede_common() {
 
     # replace feeds/luci/applications/luci-app-mosdns
     rm -rf package/luci-app-mosdns
-    dl_git_sub https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns luci-app-mosdns v5
+    dl_git_sub https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns luci-app-mosdns v5-lua
     # sed -i 's#PROG start#PROG start -d /etc/mosdns#g' package/luci-app-mosdns/root/etc/init.d/mosdns
 
     # replace feeds/luci/applications/luci-app-smartdns
