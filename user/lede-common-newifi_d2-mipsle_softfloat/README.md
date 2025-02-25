@@ -30,7 +30,6 @@
   - CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks_V2ray_Plugin
   - CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan
 - CONFIG_PACKAGE_luci-app-syncdial
-- CONFIG_PACKAGE_luci-app-tcpdump
 - CONFIG_PACKAGE_luci-app-turboacc
 - CONFIG_PACKAGE_luci-app-upnp
 - CONFIG_PACKAGE_luci-app-vlmcsd

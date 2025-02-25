@@ -33,13 +33,17 @@ do_common() {
     echo "" >>files/etc/banner
     mv -f files/etc/banner package/base-files/files/etc/banner
 
-    # add OpenAppFilter
-    rm -rf package/OpenAppFilter
-    dl_git https://github.com/destan19/OpenAppFilter package/OpenAppFilter
+    # add luci-theme-argon-jerrykuku
+    rm -rf package/luci-theme-argon-jerrykuku
+    dl_git https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon-jerrykuku
 
-    # replace feeds/packages/net/smartdns
-    rm -rf package/smartdns
-    dl_git_sub https://github.com/Lienol/openwrt-packages package/smartdns net/smartdns master
+    # replace feeds/luci/applications/luci-app-smartdns
+    rm -rf package/luci-app-smartdns
+    dl_git https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+
+    # add/replace feeds/luci/applications/luci-app-mosdns
+    rm -rf package/luci-app-mosdns
+    dl_git_sub https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns luci-app-mosdns v5
 
     # replace feeds/helloworld/mosdns, feeds/packages/net/mosdns
     rm -rf package/mosdns
@@ -55,6 +59,10 @@ do_common() {
     rm -rf package/luci-app-openclash
     dl_git_sub https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash master
     sed -i "/dashboard_password/d" package/luci-app-openclash/root/etc/uci-defaults/luci-openclash
+
+    # add OpenAppFilter
+    rm -rf package/OpenAppFilter
+    dl_git https://github.com/destan19/OpenAppFilter package/OpenAppFilter
 }
 
 # excute

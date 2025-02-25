@@ -64,7 +64,6 @@ mosdns 使用 [alecthw 修改版](https://github.com/alecthw/mosdns)，支持 MM
 - CONFIG_PACKAGE_luci-app-openclash
 - CONFIG_PACKAGE_luci-app-ramfree
 - CONFIG_PACKAGE_luci-app-ssr-plus
-- CONFIG_PACKAGE_luci-app-tcpdump
 - CONFIG_PACKAGE_luci-app-turboacc
 - CONFIG_PACKAGE_luci-app-udpxy
 - CONFIG_PACKAGE_luci-app-vlmcsd

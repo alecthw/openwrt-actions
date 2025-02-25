@@ -1,12 +1,11 @@
---- feeds.conf.default	2025-01-01 11:12:15.720583745 +0000
-+++ feeds.conf.default	2025-01-01 11:54:47.073624797 +0000
-@@ -1,6 +1,7 @@
-+src-git helloworld https://github.com/fw876/helloworld.git
- src-git packages https://github.com/coolsnowwolf/packages
--#src-git luci https://github.com/coolsnowwolf/luci
--src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05
-+src-git luci https://github.com/coolsnowwolf/luci
-+#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05
+--- feeds.conf.default	2025-02-22 02:51:04.938479222 +0000
++++ feeds.conf.default	2025-02-22 02:56:12.775476739 +0000
+@@ -3,7 +3,7 @@
+ src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05
  src-git routing https://github.com/coolsnowwolf/routing
  src-git telephony https://github.com/coolsnowwolf/telephony.git
- #src-git helloworld https://github.com/fw876/helloworld.git
+-#src-git helloworld https://github.com/fw876/helloworld.git
++src-git helloworld https://github.com/fw876/helloworld.git
+ #src-git oui https://github.com/zhaojh329/oui.git
+ #src-git video https://github.com/openwrt/video.git
+ #src-git targets https://github.com/openwrt/targets.git
