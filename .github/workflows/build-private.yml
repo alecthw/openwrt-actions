@@ -35,6 +35,7 @@ jobs:
           - ha
         target:
           - lede-openclash-x86-amd64
+          - immortalwrt-openclash-x86-amd64
 
     steps:
       - name: Checkout
@@ -222,6 +223,7 @@ jobs:
         run: |
           cd openwrt
           sed -i "s/hostname='LEDE'/hostname='LEDE-${{matrix.location}}'/g" package/base-files/files/bin/config_generate
+          sed -i "s/hostname='ImmortalWrt'/hostname='ImmortalWrt-${{matrix.location}}'/g" package/base-files/files/bin/config_generate
 
       - name: Copy build config
         id: config
