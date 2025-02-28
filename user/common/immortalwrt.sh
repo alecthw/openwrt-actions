@@ -18,6 +18,13 @@ do_immortalwrt_common() {
     # add luci-theme-design
     rm -rf package/luci-theme-design
     dl_git_sub https://github.com/coolsnowwolf/luci package/luci-theme-design themes/luci-theme-design openwrt-23.05
+
+    # replace luci-app-zerotier
+    rm -rf package/luci-app-zerotier
+    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-zerotier applications/luci-app-zerotier openwrt-23.05
+    # replace zerotier
+    rm -rf package/zerotier
+    dl_git_sub https://github.com/coolsnowwolf/packages package/zerotier net/zerotier openwrt-23.05
 }
 
 # excute

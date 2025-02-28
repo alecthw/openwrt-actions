@@ -35,16 +35,16 @@ fi
 if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
     copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/uci-defaults/zzzz-extra-settings package/base-files/files/etc/uci-defaults/zzzz-extra-settings
 
+    if [ -d "package/feeds/luci/luci-app-autoreboot" ]; then
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/autoreboot package/feeds/luci/luci-app-autoreboot/root/etc/config/autoreboot
+    fi
+
     if [ -d "package/feeds/packages/ddns-scripts" ]; then
         copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/ddns package/feeds/packages/ddns-scripts/files/etc/config/ddns
     fi
 
     if [ -d "package/feeds/packages/nginx-util" ]; then
         copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/nginx package/feeds/packages/nginx-util/files/nginx.config
-    fi
-
-    if [ -d "package/feeds/luci/luci-app-adbyby-plus" ]; then
-        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/adbyby package/feeds/luci/luci-app-adbyby-plus/root/etc/config/adbyby
     fi
 
     LUCI_APP_SMARTDNS_DIR=""
@@ -166,10 +166,16 @@ if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
         copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/vlmcsd package/feeds/luci/luci-app-vlmcsd/root/etc/config/vlmcsd
     fi
 
-    if [ -d "package/feeds/packages/zerotier" ]; then
-        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zerotier package/feeds/packages/zerotier/files/etc/config/zerotier
+    ZEROTIER_DIR=""
+    if [ -d "package/zerotier" ]; then
+        ZEROTIER_DIR="package/zerotier"
+    elif [ -d "package/feeds/packages/zerotier" ]; then
+        ZEROTIER_DIR="package/feeds/packages/zerotier"
+    fi
+    if [ -d "$ZEROTIER_DIR" ]; then
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zerotier $ZEROTIER_DIR/files/etc/config/zerotier
         if [ -f "$GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zero.tar.gz" ]; then
-            tar xzf $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zero.tar.gz -C package/feeds/packages/zerotier/files/etc/config/
+            tar xzf $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zero.tar.gz -C $ZEROTIER_DIR/files/etc/config/
         fi
     fi
 fi
