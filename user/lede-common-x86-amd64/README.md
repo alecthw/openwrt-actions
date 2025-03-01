@@ -43,10 +43,6 @@ mosdns 使用 [alecthw 修改版](https://github.com/alecthw/mosdns)，支持 MM
 
 由于 openclash 未启动，AdGuardHome 的上游主要服务器`失效`，备用服务器 mosdns `生效`。
 
-## 使用 LEDE 源码
-
-[coolsnowwolf's code](https://github.com/coolsnowwolf/lede)
-
 ### 主要插件应用
 
 详细参考 `[config.diff](config.diff)

@@ -172,7 +172,7 @@ if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
     elif [ -d "package/feeds/packages/zerotier" ]; then
         ZEROTIER_DIR="package/feeds/packages/zerotier"
     fi
-    if [ -d "$ZEROTIER_DIR" ]; then
+    if [ -n "$ZEROTIER_DIR" ]; then
         copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zerotier $ZEROTIER_DIR/files/etc/config/zerotier
         if [ -f "$GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zero.tar.gz" ]; then
             tar xzf $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/zero.tar.gz -C $ZEROTIER_DIR/files/etc/config/

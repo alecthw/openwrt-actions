@@ -22,9 +22,10 @@ do_immortalwrt_common() {
     # replace luci-app-zerotier
     rm -rf package/luci-app-zerotier
     dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-zerotier applications/luci-app-zerotier openwrt-23.05
+    sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#g' package/luci-app-zerotier/Makefile
     # replace zerotier
     rm -rf package/zerotier
-    dl_git_sub https://github.com/coolsnowwolf/packages package/zerotier net/zerotier openwrt-23.05
+    dl_git_sub https://github.com/coolsnowwolf/packages package/zerotier net/zerotier master
 }
 
 # excute

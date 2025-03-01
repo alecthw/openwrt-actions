@@ -40,6 +40,7 @@ do_common() {
     # replace feeds/luci/applications/luci-app-smartdns
     rm -rf package/luci-app-smartdns
     dl_git https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+    sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#g' package/luci-app-smartdns/Makefile
 
     # add/replace feeds/luci/applications/luci-app-mosdns
     rm -rf package/luci-app-mosdns
