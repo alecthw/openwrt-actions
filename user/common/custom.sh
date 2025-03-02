@@ -43,8 +43,8 @@ do_common() {
     sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#g' package/luci-app-smartdns/Makefile
 
     # add/replace feeds/luci/applications/luci-app-mosdns
-    rm -rf package/luci-app-mosdns
-    dl_git_sub https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns luci-app-mosdns v5
+    # rm -rf package/luci-app-mosdns
+    # dl_git_sub https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns luci-app-mosdns v5
 
     # replace feeds/helloworld/mosdns, feeds/packages/net/mosdns
     rm -rf package/mosdns
@@ -62,8 +62,8 @@ do_common() {
     sed -i "/dashboard_password/d" package/luci-app-openclash/root/etc/uci-defaults/luci-openclash
 
     # add OpenAppFilter
-    rm -rf package/OpenAppFilter
-    dl_git https://github.com/destan19/OpenAppFilter package/OpenAppFilter
+    # rm -rf package/OpenAppFilter
+    # dl_git https://github.com/destan19/OpenAppFilter package/OpenAppFilter
 }
 
 # excute
