@@ -91,7 +91,7 @@ sed -i 's/\"services\"/\"control\"/g' /usr/lib/lua/luci/controller/mia.lua
 
 # rules auto update for mosdns
 if [ -f "/etc/mosdns/update_rules.sh" ]; then
-    echo "0 6 * * * /etc/mosdns/update_rules.sh" >>/etc/crontabs/root
+    echo "30 6 * * * /etc/mosdns/update_rules.sh" >>/etc/crontabs/root
 fi
 
 uci commit
