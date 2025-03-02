@@ -38,13 +38,13 @@ do_common() {
     dl_git https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon-jerrykuku
 
     # replace feeds/luci/applications/luci-app-smartdns
-    rm -rf package/luci-app-smartdns
-    dl_git https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
-    sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#g' package/luci-app-smartdns/Makefile
+    # rm -rf package/luci-app-smartdns
+    # dl_git https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+    # sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#g' package/luci-app-smartdns/Makefile
 
     # add/replace feeds/luci/applications/luci-app-mosdns
-    # rm -rf package/luci-app-mosdns
-    # dl_git_sub https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns luci-app-mosdns v5
+    rm -rf package/luci-app-mosdns
+    dl_git_sub https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns luci-app-mosdns v5
 
     # replace feeds/helloworld/mosdns, feeds/packages/net/mosdns
     rm -rf package/mosdns
