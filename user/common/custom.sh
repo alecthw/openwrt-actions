@@ -51,7 +51,7 @@ do_common() {
     dl_git_sub https://github.com/sbwml/luci-app-mosdns package/mosdns mosdns v5
     rm -rf package/mosdns/patches
     # use fork repo before PR accepted
-    sed -i 's/^PKG_VERSION.*/PKG_VERSION:=4b38a72/g' package/mosdns/Makefile
+    sed -i 's/^PKG_VERSION.*/PKG_VERSION:=7d80823/g' package/mosdns/Makefile
     sed -i 's#IrineSistiana/mosdns/tar#alecthw/mosdns/tar#g' package/mosdns/Makefile
     sed -i 's#v$(PKG_VERSION)#$(PKG_VERSION)#g' package/mosdns/Makefile
     sed -i 's/^PKG_HASH.*/PKG_HASH:=skip/g' package/mosdns/Makefile
