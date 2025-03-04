@@ -1,4 +1,4 @@
-# Phicomm-N1 common 固件
+# Phicomm-N1 common 固件, lede 源码
 
 默认 IP: `192.168.11.4/24`
 

@@ -26,6 +26,11 @@ do_immortalwrt_common() {
     # replace zerotier
     rm -rf package/zerotier
     dl_git_sub https://github.com/coolsnowwolf/packages package/zerotier net/zerotier master
+
+    # add daed
+    rm -rf package/dae
+    dl_git https://github.com/QiuSimons/luci-app-daed package/dae
+    dl_git_sub https://github.com/immortalwrt/packages package/libcron libs/libcron master
 }
 
 # excute

@@ -1,4 +1,4 @@
-# x86-amd64 common 固件
+# x86-amd64 common 固件, lede 源码
 
 默认 IP: `192.168.11.4/24`
 

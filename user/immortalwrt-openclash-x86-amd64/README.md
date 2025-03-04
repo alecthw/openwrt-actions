@@ -1,4 +1,4 @@
-# x86-amd64 openclash 专属固件
+# x86-amd64 openclash 专属固件, immortalwrt 源码
 
 默认 IP: `192.168.11.4/24`
 
@@ -6,7 +6,7 @@
 
 ## 特性
 
-与 [common](../lede-common-x86-amd64/README.md) 版相比，删除了 ssrp，追求极简。
+与 [common](../immortalwrt-common-x86-amd64/README.md) 版相比，科学上网插件仅保留了 openclash，追求极简。
 
 DNS 流向
 
@@ -18,4 +18,4 @@ AdGuardHome[53, no cache] ────⟶ openclash[7874] ────⟶ mosdns
                                       备用
 ```
 
-其他部分参考 [lede-common-x86-amd64](../lede-common-x86-amd64/README.md)，基本一致。
+其他部分参考 [immortalwrt-common-x86-amd64](../immortalwrt-common-x86-amd64/README.md)，基本一致。

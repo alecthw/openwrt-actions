@@ -1,4 +1,4 @@
-# NanoPi-R2S common 固件
+# NanoPi-R2S common 固件, lede 源码
 
 默认 IP: `192.168.11.4/24`
 

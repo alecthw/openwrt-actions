@@ -1,4 +1,4 @@
-# Newifi-D2 common 固件
+# Newifi-D2 common 固件, lede 源码
 
 默认 IP: `192.168.1.1/24`
 
