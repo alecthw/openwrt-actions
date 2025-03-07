@@ -39,7 +39,7 @@ mosdns 使用 [alecthw 修改版](https://github.com/alecthw/mosdns)，支持 MM
 
 ### 配合 ssrp
 
-如果使用 ssrp，ssrp 设置`使用本机端口为 5335 的 DNS 服务`，
+如果使用 ssrp，ssrp 设置`使用本机端口为 5335 的 DNS 服务`。ssrp 使用 dnsmasq 分流，dnsmasq 默认端口被修改了，所以这里实际不生效，实际是经过 AdGuardHome → mosdns，在 mosdns 中分流。
 
 由于 openclash 未启动，AdGuardHome 的上游主要服务器`失效`，备用服务器 mosdns `生效`。
 

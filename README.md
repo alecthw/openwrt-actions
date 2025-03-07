@@ -8,6 +8,7 @@
 
 专注制作旁路由精简固件，稳定运行！
 
+旁路由固件默认 IP 地址：
 默认 IP: `192.168.11.4/24`
 默认 GW: `192.168.11.1`
 
@@ -17,11 +18,17 @@
 
 分为旁路由固件和硬件路由固件。需要其他类型的固件可以提 [Issues](https://github.com/alecthw/openwrt-actions/issues)。
 
-注意：旁路由固件默认未开启 DHCP！！！
+注意：旁路由固件默认未开启 DHCP！！！旁路由固件默认未开启 DHCP！！！旁路由固件默认未开启 DHCP！！！
+
+可以参考：[在后台使用命令行修改 IP 地址和掩码](#命令行修改-ip-和掩码)
 
 ### 旁路由固件
 
 重点是 AdGuardHome 、 mosdns 和 openclash （或 ssrp ）的搭配，详细介绍见子目录下的 README。更多信息可以参考[这篇文章](https://alecthw.github.io/p/2023/11/fuck-gfw/)。
+
+#### 基于 LEDE 构建
+
+- [LEDE 源码](https://github.com/coolsnowwolf/lede)
 
 | 说明 | 下载 |
 |---|---|
@@ -29,6 +36,14 @@
 | [lede-common-r2s-arm64](user/lede-common-r2s-arm64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-r2s-arm64) |
 | [lede-common-x86-amd64](user/lede-common-x86-amd64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-x86-amd64) |
 | [lede-openclash-x86-amd64](user/lede-openclash-x86-amd64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-openclash-x86-amd64) |
+
+#### 基于 ImmortalWrt 构建
+
+- [ImmortalWrt 源码](https://github.com/immortalwrt/immortalwrt)
+
+| 说明 | 下载 |
+|---|---|
+| [immortalwrt-common-x86-amd64](user/immortalwrt-common-x86-amd64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/immortalwrt-common-x86-amd64) |
 | [immortalwrt-openclash-x86-amd64](user/immortalwrt-openclash-x86-amd64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/immortalwrt-openclash-x86-amd64) |
 
 #### 特别说明
@@ -54,7 +69,7 @@ Openwrt、iKuai、RouterOS 都是支持不通告 IPv6 DNS 的。如果你的主�
 | [lede-common-360t7-arm64](user/lede-common-360t7-arm64/README.md) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-360t7-arm64) |
 | [lede-common-newifi_d2-mipsle_softfloat](user/lede-common-newifi_d2-mipsle_softfloat/README.md)) | [Release](https://github.com/alecthw/openwrt-actions/releases/tag/lede-common-newifi_d2-mipsle_softfloat) |
 
-## 命令行修改IP和掩码
+## 命令行修改 IP 和掩码
 
 注意，旁路由固件默认未开启 DHCP，旁路由固件默认未开启 DHCP，旁路由固件默认未开启 DHCP！
 
@@ -90,7 +105,7 @@ uci commit network
 ```bash
 sudo apt update -y
 sudo apt full-upgrade -y
-sudo apt install -y ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+sudo apt install -y ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev clang llvm npm
 ```
 
 ### 安装 act
