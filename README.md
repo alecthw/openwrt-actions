@@ -56,9 +56,13 @@
 
 ##### 2. IPv6
 
-主路由上请勿通告 IPv6 DNS 服务器（这里指 IPv6 地址的 DNS 服务器，如 2400:3200::1）。通过 IPv4 地址的 DNS 服务器解析域名，一样可以拿到 AAAA 记录，所以没必要开启 IPv6 地址的 DNS 服务器，开启反而会增加配置难度，影响 DNS 分流，并可能造成 DNS 泄露。
+主路由上**请勿通告 IPv6 DNS 服务器**（这里指 IPv6 地址的 DNS 服务器，如 2400:3200::1）。通过 IPv4 地址的 DNS 服务器解析域名，一样可以拿到 AAAA 记录，所以没必要开启 IPv6 地址的 DNS 服务器，开启反而会增加配置难度，影响 DNS 分流，并可能造成 DNS 泄露。
 
 Openwrt、iKuai、RouterOS 都是支持不通告 IPv6 DNS 的。如果你的主路由不支持，IPv6 DNS 可以填个无效地址，如 `::1`
+
+##### 3. 开启 openclash 后 DNS 异常问题
+
+参考：[Clash 订阅引起 DNS 问题的说明](user/lede-common-x86-amd64/README.md#clash-订阅引起-dns-问题的说明)
 
 ### 硬路由固件
 

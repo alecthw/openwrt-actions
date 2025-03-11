@@ -87,6 +87,7 @@ config openclash 'config'
 	option servers_update '0'
 	option auto_update '0'
 	option auto_update_time '0'
+	option config_path '/etc/openclash/config/APP_Rule_Manual.yaml'
 	option enable '0'
 
 config authentication

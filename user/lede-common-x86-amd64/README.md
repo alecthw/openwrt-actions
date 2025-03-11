@@ -10,7 +10,7 @@
 
 默认配置好了 AdGuardHome、mosdns 和 openclash（或 ssrp）的搭配运行配置。
 
-openclash 预置 `clash_meta` 内核。
+openclash 预置 `mihomo(原clash_meta)` 内核。
 
 - AdGuardHome 的监控和广告过滤能力
   - 由于开启了路由本地代理，可以开启 AdGuardHome 的`浏览安全`和`家长监控`
@@ -36,6 +36,24 @@ openclash 中`本地 DNS 劫持`设置`停用`，当 openclash 运行时，openc
 同时设置 openclash 复写设置中，启用自定义上游 DNS 服务器，并指定 mosdns 为唯一上游。
 
 mosdns 使用 [alecthw 修改版](https://github.com/alecthw/mosdns)，支持 MMDB GeoIP 匹配。
+
+#### Clash 订阅引起 DNS 问题的说明
+
+**这里非常重要，请认真看完。**
+
+目前很多机场提供的 Clash 订阅里，配置了复杂的 DNS 分流导致插件无法完全覆盖 DNS 配置，最终引起 DNS 分流异常引发上网异常。
+
+因此，固件预置了三份配置文件，建议**仅订阅节点**，不使用机场提供的配置。
+
+三分配置文件说明：
+
+- APP_Rule_Auto.yaml：大陆白名单模式（CN 走直连，最终未命中规则默认走代理），**包含细致的 APP 分流规则**，节点按照国家分组，国家分组内**需手动选择节点**
+- APP_Rule_Manual.yaml：大陆白名单模式（CN 走直连，最终未命中规则默认走代理），**包含细致的 APP 分流规则**，节点按照国家分组，国家分组内**根据延迟自动选择**
+- Only_CN_Rule_Auto.yaml：大陆白名单模式（CN 走直连，最终未命中规则默认走代理），**不含 APP 规则**，节点按照国家分组，国家分组内**根据延迟自动选择**
+
+如何仅订阅节点：
+
+- 在`配置管理`中，点击`切换`激活想使用的配置（默认 Only_CN_Rule_Auto.yaml），然后直接在下方修改左边的配置文件，找到 `proxy-providers`，将其中 `Subscribe` 下的 `url`，改成机场提供的 Clash 订阅地址，然后点击`保存配置`→`应用配置`。
 
 ### 配合 ssrp
 

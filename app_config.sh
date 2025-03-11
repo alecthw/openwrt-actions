@@ -112,7 +112,7 @@ if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
         # sed -i '/^config dns_servers/,$d' $LUCI_APP_OPENCLASH_DIR/root/etc/config/openclash
 
         # config runtime config file
-        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/openclash/config/OpenClash.yaml $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/config/OpenClash.yaml
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/openclash/config $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/config
 
         openclash_arch="${build_arch}"
         case "${build_arch}" in
