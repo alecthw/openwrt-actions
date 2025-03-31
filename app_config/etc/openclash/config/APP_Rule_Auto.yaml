@@ -192,8 +192,7 @@ dns:
     - +.plex.tv
     - +.sn.mynetname.net
     - +.jsdelivr.net
-    - "*.ghproxy.com"
-    - gh.goindex.space
+    - ghproxy.wegod.cc
   fake-ip-filter-mode: blacklist
   use-hosts: true
   respect-rules: false
@@ -232,7 +231,7 @@ dns:
 proxy-providers:
   Subscribe:
     type: http
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/alecthw/chnlist/main/config/Node/stash
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/alecthw/chnlist/main/config/Node/stash
     # filter: ^(?!.*(Direct|Ad-|返利|机场|每月|流量|到期|重置|官网|网址))
     exclude-filter: (?i)(Direct|Ad-|返利|机场|每月|流量|到期|重置|官网|网址)
     interval: 43200
@@ -245,7 +244,7 @@ proxy-providers:
 
 proxy-groups:
   - name: Proxy
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Rocket.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Rocket.png
     type: select
     proxies:
       - DIRECT
@@ -260,13 +259,13 @@ proxy-groups:
       - 🇺🇳 Special
       - 🛫 Airport
   - name: Domestic
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png
     type: select
     proxies:
       - DIRECT
       - Proxy
   - name: AdBlock
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Advertising.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Advertising.png
     type: select
     proxies:
       - REJECT
@@ -277,7 +276,7 @@ proxy-groups:
 
   # Apple service
   - name: Apple
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png
     type: select
     proxies:
       - Domestic
@@ -291,7 +290,7 @@ proxy-groups:
 
   # Media
   - name: TikTok
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok_2.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok_2.png
     type: select
     proxies:
       - 🇺🇸 US
@@ -302,7 +301,7 @@ proxy-groups:
       - Proxy
       - Domestic
   - name: DisneyPlus
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney%2B.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney%2B.png
     type: select
     proxies:
       - 🇸🇬 SG
@@ -312,7 +311,7 @@ proxy-groups:
       - 🇨🇳 TW
       - Proxy
   - name: Netflix
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
     type: select
     proxies:
       - 🇸🇬 SG
@@ -322,7 +321,7 @@ proxy-groups:
       - 🇨🇳 TW
       - Proxy
   - name: Spotify
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png
     type: select
     proxies:
       - 🇸🇬 SG
@@ -333,7 +332,7 @@ proxy-groups:
       - 🇮🇳 IN
       - Proxy
   - name: GlobalMedia
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ForeignMedia.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ForeignMedia.png
     type: select
     proxies:
       - 🇺🇸 US
@@ -345,7 +344,7 @@ proxy-groups:
 
   # Other
   - name: Telegram
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram_X.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram_X.png
     type: select
     proxies:
       - Proxy
@@ -355,7 +354,7 @@ proxy-groups:
       - 🇺🇸 US
       - 🇨🇳 TW
   - name: Speedtest
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
     type: select
     proxies:
       - Domestic
@@ -366,7 +365,7 @@ proxy-groups:
       - 🇺🇸 US
       - 🇨🇳 TW
   - name: PayPal
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/PayPal.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/PayPal.png
     type: select
     proxies:
       - 🇺🇸 US
@@ -377,7 +376,7 @@ proxy-groups:
       - Proxy
       - Domestic
   - name: OpenAI
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Bot.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Bot.png
     type: select
     proxies:
       - 🇺🇸 US
@@ -387,7 +386,7 @@ proxy-groups:
       - 🇨🇳 TW
       - 🇺🇳 Special
   - name: Steam
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Steam.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Steam.png
     type: select
     proxies:
       - Domestic
@@ -399,7 +398,7 @@ proxy-groups:
       - 🇨🇳 TW
       - 🇺🇳 Special
   - name: Epic
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Epic_Games.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Epic_Games.png
     type: select
     proxies:
       - Domestic
@@ -411,7 +410,7 @@ proxy-groups:
       - 🇨🇳 TW
       - 🇺🇳 Special
   - name: Ubisoft
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png
     type: select
     proxies:
       - Domestic
@@ -423,7 +422,7 @@ proxy-groups:
       - 🇨🇳 TW
       - 🇺🇳 Special
   - name: Nintendo
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Nintendo.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Nintendo.png
     type: select
     proxies:
       - Domestic
@@ -435,7 +434,7 @@ proxy-groups:
       - 🇨🇳 TW
       - 🇺🇳 Special
   - name: Xbox
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Xbox.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Xbox.png
     type: select
     proxies:
       - Domestic
@@ -448,7 +447,7 @@ proxy-groups:
       - 🇰🇷 KR
       - 🇺🇳 Special
   - name: Microsoft
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png
     type: select
     proxies:
       - Domestic
@@ -463,7 +462,7 @@ proxy-groups:
 
   # Final
   - name: Final
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
     type: select
     proxies:
       - Proxy
@@ -471,7 +470,7 @@ proxy-groups:
 
   # Area
   - name: 🇭🇰 HK
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
     type: url-test
     url: http://cp.cloudflare.com/generate_204
     interval: 300
@@ -479,7 +478,7 @@ proxy-groups:
     include-all-providers: true
     filter: (?i)(港|HK|Hong)
   - name: 🇸🇬 SG
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
     type: url-test
     url: http://cp.cloudflare.com/generate_204
     interval: 300
@@ -487,7 +486,7 @@ proxy-groups:
     include-all-providers: true
     filter: (?i)(新加坡|坡|狮城|SG|Singapore)
   - name: 🇯🇵 JP
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
     type: url-test
     url: http://cp.cloudflare.com/generate_204
     interval: 300
@@ -495,7 +494,7 @@ proxy-groups:
     include-all-providers: true
     filter: (?i)((\b日((?!用).)+)|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan)
   - name: 🇺🇸 US
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
     type: url-test
     url: http://cp.cloudflare.com/generate_204
     interval: 300
@@ -503,7 +502,7 @@ proxy-groups:
     include-all-providers: true
     filter: (?i)(\b美|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|\bUS|(United States))
   - name: 🇨🇳 TW
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
     type: url-test
     url: http://cp.cloudflare.com/generate_204
     interval: 300
@@ -511,7 +510,7 @@ proxy-groups:
     include-all-providers: true
     filter: (?i)(台|新北|彰化|TW|Tai)
   - name: 🇬🇧 UK
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_Kingdom.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_Kingdom.png
     type: url-test
     url: http://cp.cloudflare.com/generate_204
     interval: 300
@@ -519,7 +518,7 @@ proxy-groups:
     include-all-providers: true
     filter: (?i)(英国|UK|伦敦|(United Kingdom)|GBR)
   - name: 🇰🇷 KR
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Korea.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Korea.png
     type: url-test
     url: http://cp.cloudflare.com/generate_204
     interval: 300
@@ -527,7 +526,7 @@ proxy-groups:
     include-all-providers: true
     filter: (?i)(KR|Korea|KOR|首尔|韩|韓)
   - name: 🇮🇳 IN
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/India.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/India.png
     type: url-test
     url: http://cp.cloudflare.com/generate_204
     interval: 300
@@ -536,14 +535,14 @@ proxy-groups:
     filter: (?i)(印度|孟买|新德里|班加罗尔|India)
 
   - name: 🇺🇳 Special
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_Nations.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_Nations.png
     type: select
     include-all-providers: true
     filter: ^(?i)(?!.*(港|HK|Hong|新加坡|坡|狮城|SG|Singapore|(\b日((?!用).)+)|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|\b美|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|\bUS|(United States)|台|新北|彰化|TW|Tai|英国|UK|伦敦|(United Kingdom)|GBR|KR|Korea|KOR|首尔|韩|韓|印度|孟买|新德里|班加罗尔|India))
 
   # All
   - name: 🛫 Airport
-    icon: https://gh.goindex.space/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Airport.png
+    icon: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Airport.png
     type: select
     include-all-providers: true
 
@@ -617,7 +616,7 @@ rule-providers:
   Lan:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan_No_Resolve.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan_No_Resolve.yaml
     path: ./rule_provider/Lan_No_Resolve.yaml
     interval: 43200
 
@@ -625,25 +624,25 @@ rule-providers:
   CustomDirect:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/alecthw/chnlist/release/Providers/Custom/CustomDirect.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/alecthw/chnlist/release/Providers/Custom/CustomDirect.yaml
     path: ./rule_provider/CustomDirect.yaml
     interval: 43200
   CustomProxy:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/alecthw/chnlist/release/Providers/Custom/CustomProxy.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/alecthw/chnlist/release/Providers/Custom/CustomProxy.yaml
     path: ./rule_provider/CustomProxy.yaml
     interval: 43200
   Direct:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
     path: ./rule_provider/Direct.yaml
     interval: 43200
   CustomReject:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/alecthw/chnlist/release/Providers/Custom/CustomReject.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/alecthw/chnlist/release/Providers/Custom/CustomReject.yaml
     path: ./rule_provider/CustomReject.yaml
     interval: 43200
 
@@ -651,19 +650,19 @@ rule-providers:
   AdvertisingLite:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingLite/AdvertisingLite.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingLite/AdvertisingLite.yaml
     path: ./rule_provider/AdvertisingLite.yaml
     interval: 43200
   AdvertisingLite_Domain:
     type: http
     behavior: domain
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingLite/AdvertisingLite_Domain.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingLite/AdvertisingLite_Domain.yaml
     path: ./rule_provider/AdvertisingLite_Domain.yaml
     interval: 43200
   AdvertisingMiTV:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingMiTV/AdvertisingMiTV.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingMiTV/AdvertisingMiTV.yaml
     path: ./rule_provider/AdvertisingMiTV.yaml
     interval: 43200
 
@@ -671,13 +670,13 @@ rule-providers:
   Apple:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
     path: ./rule_provider/Apple.yaml
     interval: 43200
   Apple_Domain:
     type: http
     behavior: domain
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml
     path: ./rule_provider/Apple_Domain.yaml
     interval: 43200
 
@@ -685,19 +684,19 @@ rule-providers:
   Download:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
     path: ./rule_provider/Download.yaml
     interval: 43200
   GameDownloadCN:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN.yaml
     path: ./rule_provider/GameDownloadCN.yaml
     interval: 43200
   GameDownload:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownload/GameDownload.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownload/GameDownload.yaml
     path: ./rule_provider/GameDownload.yaml
     interval: 43200
 
@@ -705,67 +704,67 @@ rule-providers:
   Telegram:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
     path: ./rule_provider/Telegram.yaml
     interval: 43200
   Speedtest:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Speedtest/Speedtest.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Speedtest/Speedtest.yaml
     path: ./rule_provider/Speedtest.yaml
     interval: 43200
   PayPal:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal.yaml
     path: ./rule_provider/PayPal.yaml
     interval: 43200
   OpenAI:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
     path: ./rule_provider/OpenAI.yaml
     interval: 43200
   Steam:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
     path: ./rule_provider/Steam.yaml
     interval: 43200
   Epic:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml
     path: ./rule_provider/Epic.yaml
     interval: 43200
   UBI:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.yaml
     path: ./rule_provider/UBI.yaml
     interval: 43200
   Ubisoft:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Ubisoft/Ubisoft.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Ubisoft/Ubisoft.yaml
     path: ./rule_provider/Ubisoft.yaml
     interval: 43200
   Nintendo:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.yaml
     path: ./rule_provider/Nintendo.yaml
     interval: 43200
   Xbox:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox.yaml
     path: ./rule_provider/Xbox.yaml
     interval: 43200
   Microsoft:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
     path: ./rule_provider/Microsoft.yaml
     interval: 43200
 
@@ -773,7 +772,7 @@ rule-providers:
   ChinaMedia:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.yaml
     path: ./rule_provider/ChinaMedia.yaml
     interval: 43200
 
@@ -781,49 +780,49 @@ rule-providers:
   TikTok:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
     path: ./rule_provider/TikTok.yaml
     interval: 43200
   Disney:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml
     path: ./rule_provider/Disney.yaml
     interval: 43200
   Netflix:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml
     path: ./rule_provider/Netflix.yaml
     interval: 43200
   Spotify:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
     path: ./rule_provider/Spotify.yaml
     interval: 43200
   AmazonPrimeVideo:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AmazonPrimeVideo/AmazonPrimeVideo.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AmazonPrimeVideo/AmazonPrimeVideo.yaml
     path: ./rule_provider/AmazonPrimeVideo.yaml
     interval: 43200
   HBO:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HBO/HBO.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HBO/HBO.yaml
     path: ./rule_provider/HBO.yaml
     interval: 43200
   GlobalMedia:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.yaml
     path: ./rule_provider/GlobalMedia.yaml
     interval: 43200
   GlobalMedia_Domain:
     type: http
     behavior: domain
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Domain.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Domain.yaml
     path: ./rule_provider/GlobalMedia_Domain.yaml
     interval: 43200
 
@@ -831,7 +830,7 @@ rule-providers:
   ProxyLite:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
     path: ./rule_provider/ProxyLite.yaml
     interval: 43200
 
@@ -839,12 +838,12 @@ rule-providers:
   China:
     type: http
     behavior: classical
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.yaml
     path: ./rule_provider/China.yaml
     interval: 43200
   China_Domain:
     type: http
     behavior: domain
-    url: https://gh.goindex.space/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China_Domain.yaml
+    url: https://ghproxy.wegod.cc/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China_Domain.yaml
     path: ./rule_provider/China_Domain.yaml
     interval: 43200
