@@ -1,4 +1,4 @@
-# 白名单模式，优先 china
+# 白名单模式，优先 china，global 作 fallback
 # 白名单 或 境内查询结果 IP 非 geoip:CN 是走国外，同时国外查询屏蔽 AAAA 记录
 
 log:
@@ -12,12 +12,19 @@ plugins:
     args:
       file: "/etc/mosdns/rule/Country.mmdb"
 
-  # cn ip
+  # custom direct
   - tag: whitelist
     type: domain_set
     args:
       files:
         - "/etc/mosdns/rule/cn-white.txt"
+
+  # custom proxy
+  - tag: blacklist
+    type: domain_set
+    args:
+      files:
+        - "/etc/mosdns/rule/cn-black.txt"
 
   # 广告域名列表 geosite:category-ads-all
   - tag: geosite_ads
@@ -43,51 +50,67 @@ plugins:
       dump_interval: 1800
 
   # 查询境外DNS
-  - tag: forward_global
+  - tag: forward_global_dot
     type: forward
     args:
       concurrent: 3
       upstreams:
         - tag: Google_dot
-          addr: "tls://8.8.4.4"
-          enable_pipeline: true
-        - tag: Quad9_dot
-          addr: "tls://9.9.9.9"
+          addr: "tls://dns.google"
+          dial_addr: "8.8.4.4"
           enable_pipeline: true
         - tag: Cloudflare_dot
-          addr: "tls://1.0.0.1"
+          addr: "tls://one.one.one.one"
+          dial_addr: "1.0.0.1"
           enable_pipeline: true
         - tag: OpenDNS_dot
-          addr: "tls://208.67.222.222"
+          addr: "tls://dns.opendns.com"
+          dial_addr: "208.67.222.222"
+          enable_pipeline: true
+        - tag: AdGuardDNS_dot
+          addr: "tls://unfiltered.adguard-dns.com"
+          dial_addr: "94.140.14.140"
           enable_pipeline: true
 
   # 查询国内DNS
-  - tag: forward_china
+  - tag: forward_china_dot
     type: forward
     args:
       concurrent: 2
       upstreams:
-        - tag: Ali_dot
-          addr: "tls://223.5.5.5"
-          enable_pipeline: false
+        # - tag: Ali_dot
+        #   addr: "tls://dns.alidns.com"
+        #   dial_addr: "223.5.5.5"
+        #   enable_pipeline: false
+        - tag: OneDNS_dot
+          addr: "tls://dot-pure.onedns.net"
+          dial_addr: "54.223.159.81"
+          enable_pipeline: true
         - tag: DNSPod_dot
-          addr: "tls://120.53.53.53"
+          addr: "tls://dot.pub"
+          dial_addr: "120.53.53.53"
           enable_pipeline: true
 
-  # 境外解析，优先IPV4，不设置过滤，作为fallback
+  # 境外解析，优先IPv4，不设置过滤，作为fallback
   - tag: global_sequence
     type: sequence
     args:
       - exec: prefer_ipv4
-      - exec: $forward_global
+      - exec: $forward_global_dot
 
   # 国内解析
   - tag: china_sequence
     type: sequence
     args:
-      - exec: $forward_china
+      # 匹配代理名单，直接结束
+      - matches: qname $blacklist
+        exec: return
+      # 解析
+      - exec: $forward_china_dot
+      # 匹配到白名单，接受结果
       - matches: qname $whitelist
         exec: return
+      # 解析的结果不是 CN IP，丢弃
       - matches: "!resp_ip_mmdb $country CN"
         exec: drop_resp
 
@@ -103,7 +126,7 @@ plugins:
       #   exec: reject 3
 
   # 如果 primary 抛出错误，或返回但没有应答，或在 threshold 毫秒内无响应，则执行 secondary。
-  # 所以在 primary 中不能用 rejcet，reject 也是应答
+  # 所以在 primary 中不能用 rejcet，reject 也是应答, drop_resp 用于触发 fallback
   # Fallback
   - tag: fallback
     type: fallback
