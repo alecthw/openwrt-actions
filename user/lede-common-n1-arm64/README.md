@@ -18,4 +18,5 @@
 
 - [breakings openwrt](https://github.com/breakings/OpenWrt)
 - [Flippy's script](https://github.com/unifreq/openwrt_packit)
+- [amlogic-s9xxx-openwrt](https://github.com/ophub/amlogic-s9xxx-openwrt)
 - [晶晨宝盒](https://github.com/ophub/luci-app-amlogic)

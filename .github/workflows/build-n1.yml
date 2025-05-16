@@ -234,11 +234,11 @@ jobs:
           rm -rf $(ls . | grep -v "^bin$" | xargs) 2>/dev/null
           df -hT ${PWD}
 
-      - name: Package Armvirt as OpenWrt
+      - name: Package ARMSR as OpenWrt
         if: steps.compile.outputs.status == 'success' && !cancelled()
         uses: ophub/flippy-openwrt-actions@main
         env:
-          OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*-rootfs.tar.gz
+          OPENWRT_ARMSR: openwrt/bin/targets/*/*/*-rootfs.tar.gz
           PACKAGE_SOC: s905d
           WHOAMI: alecthw
           KERNEL_VERSION_NAME: 6.1.1

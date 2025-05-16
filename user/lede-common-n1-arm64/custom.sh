@@ -18,8 +18,8 @@ source $GITHUB_WORKSPACE/lib.sh
 
 echo "Execute custom custom.sh"
 
-# Add autocore support for armvirt
-sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
+# Add autocore support for armsr-armv8
+sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armsr/g' package/lean/autocore/Makefile
 
 # Add luci-app-amlogic
 dl_git_sub https://github.com/ophub/luci-app-amlogic package/luci-app-amlogic luci-app-amlogic main
