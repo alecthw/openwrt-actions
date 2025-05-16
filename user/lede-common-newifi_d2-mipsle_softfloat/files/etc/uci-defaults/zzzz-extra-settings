@@ -2,18 +2,21 @@
 
 # cumtos ntp
 uci delete system.ntp.server
-uci add_list system.ntp.server='ntp.aliyun.com'
-uci add_list system.ntp.server='time1.cloud.tencent.com'
-uci add_list system.ntp.server='time.ustc.edu.cn'
-uci add_list system.ntp.server='cn.pool.ntp.org'
+uci add_list system.ntp.server='ntp1.aliyun.com'
+uci add_list system.ntp.server='ntp.tencent.com'
+uci add_list system.ntp.server='ntp.ntsc.ac.cn'
+uci add_list system.ntp.server='time.apple.com'
 # uci set system.ntp.enable_server='1'
 uci commit system
 
 # set default theme
-uci set luci.main.mediaurlbase=/luci-static/argon
-# uci set luci.main.mediaurlbase=/luci-static/design
-# uci set luci.main.mediaurlbase=/luci-static/material
-uci commit luci
+theme=argon
+# theme=design
+# theme=material
+if [ -d "/www/luci-static/$theme" ]; then
+    uci set luci.main.mediaurlbase=/luci-static/$theme
+    uci commit luci
+fi
 
 # detect network version
 new_net=true
@@ -40,20 +43,6 @@ uci set network.lan6.reqprefix='auto'
 uci set network.lan6.peerdns='0'
 uci add_list firewall.@zone[0].network='lan6'
 
-# add n2n_v2 interface
-if [ -f "/etc/config/n2n_v2" ]; then
-    uci set network.n2n0=interface
-    if $new_net; then
-        uci set network.n2n0.device='n2n0'
-    else
-        uci set network.n2n0.ifname='n2n0'
-    fi
-    uci set network.n2n0.proto='none'
-    uci set network.n2n0.delegate='0'
-    uci set network.n2n0.auto='1'
-    uci add_list firewall.@zone[0].network='n2n0'
-fi
-
 # add zerotier interface
 if [ -f "/etc/config/zerotier" ]; then
     uci set network.zerotier=interface
@@ -78,7 +67,6 @@ uci commit uhttpd
 # remove feeds repository
 sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
 sed -i '/passwall/d' /etc/opkg/distfeeds.conf
-sed -i '/n2n/d' /etc/opkg/distfeeds.conf
 
 # move menu
 sed -i 's/\"services\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua

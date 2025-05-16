@@ -154,10 +154,6 @@ if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
         copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/turboacc package/feeds/luci/luci-app-turboacc/root/etc/config/turboacc
     fi
 
-    if [ -d "package/feeds/packages/n2n" ]; then
-        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/n2n package/feeds/packages/n2n/files/n2n.config
-    fi
-
     if [ -d "package/feeds/packages/udpxy" ]; then
         copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/udpxy package/feeds/packages/udpxy/files/udpxy.conf
     fi

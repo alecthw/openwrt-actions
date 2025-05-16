@@ -82,13 +82,13 @@ plugins:
         #   addr: "tls://dns.alidns.com"
         #   dial_addr: "223.5.5.5"
         #   enable_pipeline: false
-        - tag: OneDNS_dot
-          addr: "tls://dot-pure.onedns.net"
-          dial_addr: "54.223.159.81"
-          enable_pipeline: true
         - tag: DNSPod_dot
           addr: "tls://dot.pub"
           dial_addr: "120.53.53.53"
+          enable_pipeline: true
+        - tag: OneDNS_dot
+          addr: "tls://dot-pure.onedns.net"
+          dial_addr: "54.223.159.81"
           enable_pipeline: true
 
   # 境外解析，优先IPv4，不设置过滤，作为fallback
