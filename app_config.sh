@@ -82,6 +82,7 @@ if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
         # download rules
         dl_curl https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/rule/reject-list.txt
         dl_curl https://raw.githubusercontent.com/alecthw/chnlist/release/mosdns/whitelist.list $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/rule/cn-white.txt
+        dl_curl https://raw.githubusercontent.com/alecthw/chnlist/release/mosdns/blacklist.list $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/rule/cn-black.txt
         dl_curl https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb $LUCI_APP_MOSDNS_DIR/root/etc/mosdns/rule/Country.mmdb
     fi
 
