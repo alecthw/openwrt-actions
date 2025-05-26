@@ -125,6 +125,7 @@ jobs:
           echo "REPO_URL=${REPO_URL}"                           >> $GITHUB_ENV
           echo "REPO_BRANCH=${REPO_BRANCH}"                     >> $GITHUB_ENV
           echo "CONFIG_FILE=${CONFIG_FILE}"                     >> $GITHUB_ENV
+          echo "LOAD_CUSTOM_CONFIG=${LOAD_CUSTOM_CONFIG}"       >> $GITHUB_ENV
           echo "UPLOAD_PACKAGES_DIR=${UPLOAD_PACKAGES_DIR}"     >> $GITHUB_ENV
           echo "UPLOAD_TARGETS_DIR=${UPLOAD_TARGETS_DIR}"       >> $GITHUB_ENV
           echo "UPLOAD_FIRMWARE=${UPLOAD_FIRMWARE}"             >> $GITHUB_ENV
