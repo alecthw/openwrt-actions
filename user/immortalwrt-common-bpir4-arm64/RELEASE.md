@@ -18,3 +18,13 @@ If you need boot recovery system, please use the [ImmortalWrt Official Firmware]
 - Default Password: `no password`
 
 Other apps default password is usually `password`
+
+The SD-Card size should to be larger than 8GB. The `ROOTFS_PARTSIZE` is set to 7168 MiB.
+
+### Network Interface
+
+- **WAN:** eth2, lan0
+- **LAN:** eth1, lan0, lan1, lan2, lan3
+- **2.4G wireless:** ra0/ra1
+- **5G wifi6 wireless:** rai0
+- **6G wifi7 wireless:** rax0

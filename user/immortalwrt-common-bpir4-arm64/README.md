@@ -4,6 +4,8 @@
 
 密码: `没有密码`，其他涉及默认密码的都是 `password`
 
+SD-Card 大小需要大于 8GB，`ROOTFS_PARTSIZE` 设置的是 7168 MiB
+
 ## 特性
 
 常规主路由固件，**非旁路由配置**。
@@ -31,6 +33,14 @@
 - CONFIG_PACKAGE_luci-theme-argon-jerrykuku
 - CONFIG_PACKAGE_luci-theme-design
 
+## 默认的 Network Interface
+
+- **WAN:** eth2, lan0
+- **LAN:** eth1, lan0, lan1, lan2, lan3
+- **2.4G wireless:** ra0/ra1
+- **5G wifi6 wireless:** rai0
+- **6G wifi7 wireless:** rax0
+
 ## 8GB 内存版本需更新 bl2
 
 [下载地址](https://github.com/frank-w/u-boot/releases)
@@ -47,6 +57,24 @@ bpi-r4_spim-nand_8GB_bl2.img
 
 ```bash
 dd if=bpi-r4_sdmmc_8GB_bl2.img of=/dev/mmcblk0p1
+```
+
+### Nand 更新 bl2
+
+**以下仅为记录，尝试数次均未成功，报错 `System halt!`，有知道怎么刷的大佬求指点。**
+
+```bash
+# 查看分区与mtd编号
+cat /proc/mtd
+
+# 加载内核模块
+insmod mtd-rw i_want_a_brick=1
+
+# 方法一：通过 nandwrite
+nandwrite -p /dev/mtd0 bpi-r4_spim-nand_8GB_bl2.img
+
+# 方法二： 通过 mtd
+mtd write bpi-r4_spim-nand_8GB_bl2.img bl2
 ```
 
 ### EMMC 更新 bl2
