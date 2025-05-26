@@ -1,0 +1,177 @@
+name: build-filogic_880
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: 0 22 * * 4
+  # push:
+  #   branches:
+  #     - master
+  #   paths:
+  #     - "start"
+  # release:
+  #   types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    permissions:
+      contents: write # for release creation
+
+    runs-on: ubuntu-22.04
+
+    if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check server configuration
+        run: |
+          echo -e "--------------------------CPU Info--------------------------"
+          echo "CPU Physical Num: $(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
+          echo -e "CPU Core Num: $(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
+          echo "--------------------------Memory Info--------------------------"
+          echo "Installed Memory Details:"
+          sudo lshw -short -C memory | grep GiB
+          echo -e "\n"
+          echo "---------------------------Disk Info---------------------------"
+          echo -e  "Disk Num: $(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
+          echo "Disk Details:"
+          df -Th
+
+      - name: Set Date
+        run: |
+          date=$(date +%Y-%m-%d)
+          echo "DATE=${date}" >> $GITHUB_ENV
+
+      # r2s require python3-pyelftools
+      - name: Initialize environment
+        if: env.ACT != 'true'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E swapoff -a
+          sudo -E rm -f /swapfile /mnt/swapfile
+          sudo -E docker image prune -a -f
+          sudo -E systemctl stop docker
+          sudo -E snap set system refresh.retain=2
+          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+          sudo -E sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+          sudo -E apt-mark hold grub-efi-amd64-signed
+          sudo -E apt update
+          sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
+          sudo -E apt -y full-upgrade
+          sudo -E apt -y install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          sudo -E apt -y install clang llvm npm
+          sudo -E systemctl daemon-reload
+          sudo -E apt -y autoremove --purge
+          sudo -E apt -y clean
+          sudo -E apt -y autoclean
+          sudo -E timedatectl set-timezone "Asia/Shanghai"
+
+      - name: Create Swap
+        if: env.ACT != 'true'
+        run: |
+          sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=8192
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile
+          sudo swapon /mnt/swapfile
+          free -h | grep -i swap
+
+      - name: Create simulated physical disk
+        if: env.ACT != 'true'
+        run: |
+          mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
+          root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
+          sudo truncate -s "${mnt_size}"G /mnt/mnt.img
+          sudo truncate -s "${root_size}"G /root.img
+          sudo losetup /dev/loop6 /mnt/mnt.img
+          sudo losetup /dev/loop7 /root.img
+          sudo pvcreate /dev/loop6
+          sudo pvcreate /dev/loop7
+          sudo vgcreate github /dev/loop6 /dev/loop7
+          sudo lvcreate -n runner -l 100%FREE github
+          sudo mkfs.xfs /dev/github/runner
+          sudo mkdir -p /builder
+          sudo mount /dev/github/runner /builder
+          sudo chown -R runner.runner /builder
+
+      - name: Check disk info after initialization
+        run: |
+          echo -e  "Disk Num: $(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
+          echo "Disk Details:"
+          df -Th
+
+      - name: Set git identity
+        if: env.ACT != 'true'
+        run: |
+          git config --global user.email "22856212+alecthw@users.noreply.github.com"
+          git config --global user.name "alecthw"
+
+      - name: Clone source code
+        if: env.ACT != 'true'
+        working-directory: /builder
+        run: |
+          git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git openwrt
+          cd openwrt
+          git checkout 3a481ae21bdc504f7f0325151ee0cb4f25dfd2cd
+          cd ..
+          ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
+
+          git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds
+          cd mtk-openwrt-feeds
+          git checkout c8e3540e54b5b07b7afb4a5bd09d6f8db8c8a496
+          cd ..
+          ln -sf /builder/mtk-openwrt-feeds $GITHUB_WORKSPACE/mtk-openwrt-feeds
+
+      - name: Clone source code for act build
+        if: env.ACT == 'true'
+        run: |
+          git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git openwrt
+          cd openwrt
+          git checkout 3a481ae21bdc504f7f0325151ee0cb4f25dfd2cd
+          cd ..
+
+          git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds
+          cd mtk-openwrt-feeds
+          git checkout c8e3540e54b5b07b7afb4a5bd09d6f8db8c8a496
+          cd ..
+
+      - name: Change Feeds Revision
+        run: |
+          cat > mtk-openwrt-feeds/autobuild/unified/feed_revision << EOF
+          packages e4be6dba98298957ef82ae70b4478818a351535e
+          luci 9453d7db801bf4ea2555aa3e7c99e58b93c93c1b
+          routing f2ee837d3714f86e9d636302e9f69612c71029cb
+          EOF
+
+      - name: Build
+        id: compile
+        run: |
+          cd openwrt
+          bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-mt7988_rfb-mt7996 log_file=make
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Upload Firmware to release
+        if: env.ACT != 'true'
+        uses: ncipollo/release-action@v1
+        with:
+          name: R${{env.DATE}} for filogic_880
+          allowUpdates: true
+          removeArtifacts: true
+          tag: mediatek-filogic_880
+          commit: master
+          token: ${{secrets.PERSONAL_TOKEN}}
+          artifacts: ./openwrt/autobuild_release/filogic-mac80211-mt7988_rfb-mt7996/*
+          body: |
+            Build by Mediatek Official autobuild framework
+
+            Refer to: <https://gerrit.mediatek.inc/plugins/gitiles/openwrt/feeds/mtk_openwrt_feeds/+/refs/heads/master/autobuild/unified/Readme.md>
+
+            - Default IP: `192.168.11.1/24`
+            - Default Password: `no password`
+
+            Other apps default password is usually `password`
