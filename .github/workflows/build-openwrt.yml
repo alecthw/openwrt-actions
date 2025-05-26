@@ -38,6 +38,7 @@ jobs:
           - lede-common-newifi_d2-mipsle_softfloat
           - immortalwrt-common-x86-amd64
           - immortalwrt-openclash-x86-amd64
+          - immortalwrt-common-bpir4-arm64
 
     steps:
       - name: Checkout
