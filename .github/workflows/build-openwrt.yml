@@ -201,6 +201,7 @@ jobs:
         run: cd openwrt && ./scripts/feeds install -a
 
       - name: Load custom configuration
+        if: env.LOAD_CUSTOM_CONFIG == 'true'
         run: |
           echo "Apply app_config.sh"
           cd openwrt

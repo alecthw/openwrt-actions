@@ -142,10 +142,13 @@ do_prepare() {
     ./scripts/feeds install -a
 
     # --------------------- Load custom configuration
-    echo "Apply app_config.sh"
-    cd ${GITHUB_WORKSPACE}/${code_dir}
-    if [ -f "${GITHUB_WORKSPACE}/app_config.sh" ]; then
-        /bin/bash "${GITHUB_WORKSPACE}/app_config.sh" ${target}
+    echo "Info: Load custom configuration(LOAD_CUSTOM_CONFIG=${LOAD_CUSTOM_CONFIG})..."
+    if [ "${LOAD_CUSTOM_CONFIG}" = "true" ]; then
+        echo "Apply app_config.sh"
+        cd ${GITHUB_WORKSPACE}/${code_dir}
+        if [ -f "${GITHUB_WORKSPACE}/app_config.sh" ]; then
+            /bin/bash "${GITHUB_WORKSPACE}/app_config.sh" ${target}
+        fi
     fi
 
     # --------------------- Copy build config

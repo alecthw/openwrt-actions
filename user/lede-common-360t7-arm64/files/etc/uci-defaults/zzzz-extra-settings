@@ -30,19 +30,6 @@ uci set network.lan.ipaddr='192.168.1.1'
 uci set network.lan.netmask='255.255.255.0'
 uci set network.lan.dns='223.5.5.5 114.114.114.114'
 
-# lan6
-uci set network.lan6=interface
-if $new_net; then
-    uci set network.lan6.device='@lan'
-else
-    uci set network.lan6.ifname='@lan'
-fi
-uci set network.lan6.proto='dhcpv6'
-uci set network.lan6.reqaddress='try'
-uci set network.lan6.reqprefix='auto'
-uci set network.lan6.peerdns='0'
-uci add_list firewall.@zone[0].network='lan6'
-
 # add zerotier interface
 if [ -f "/etc/config/zerotier" ]; then
     uci set network.zerotier=interface
