@@ -20,9 +20,18 @@ jobs:
     permissions:
       contents: write # for release creation
 
+    name: Build ${{matrix.target}}
+
     runs-on: ubuntu-22.04
 
     if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
+
+    strategy:
+      fail-fast: false
+      # max-parallel: 2
+      matrix:
+        target:
+          - official-common-filogic880-arm64
 
     steps:
       - name: Checkout
@@ -111,6 +120,19 @@ jobs:
           git config --global user.email "22856212+alecthw@users.noreply.github.com"
           git config --global user.name "alecthw"
 
+      - name: Load Settings.ini
+        run: |
+          source "${GITHUB_WORKSPACE}/user/${{matrix.target}}/settings.ini"
+          echo "REPO_URL=${REPO_URL}"                           >> $GITHUB_ENV
+          echo "REPO_BRANCH=${REPO_BRANCH}"                     >> $GITHUB_ENV
+          echo "CONFIG_FILE=${CONFIG_FILE}"                     >> $GITHUB_ENV
+          echo "LOAD_CUSTOM_CONFIG=${LOAD_CUSTOM_CONFIG}"       >> $GITHUB_ENV
+          echo "UPLOAD_PACKAGES_DIR=${UPLOAD_PACKAGES_DIR}"     >> $GITHUB_ENV
+          echo "UPLOAD_TARGETS_DIR=${UPLOAD_TARGETS_DIR}"       >> $GITHUB_ENV
+          echo "UPLOAD_FIRMWARE=${UPLOAD_FIRMWARE}"             >> $GITHUB_ENV
+          echo "UPLOAD_TO_ARTIFACTS=${UPLOAD_TO_ARTIFACTS}"     >> $GITHUB_ENV
+          echo "UPLOAD_TO_RELEASE=${UPLOAD_TO_RELEASE}"         >> $GITHUB_ENV
+
       - name: Clone source code
         if: env.ACT != 'true'
         working-directory: /builder
@@ -148,30 +170,78 @@ jobs:
           routing f2ee837d3714f86e9d636302e9f69612c71029cb
           EOF
 
+      - name: Add custom config
+        run: |
+          cat $GITHUB_WORKSPACE/user/${{matrix.target}}/config-add-mtk-build.diff >> mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/mt7988_rfb/24.10/defconfig
+          cat mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/mt7988_rfb/24.10/defconfig
+
+      - name: Copy custom files
+        run: |
+          echo "Apply files..."
+          mkdir -p openwrt/files
+          if [ -d "user/common/files" ]; then
+          (
+            cp -rf user/common/files/* openwrt/files/
+          )
+          fi
+          if [ -d "user/${{matrix.target}}/files" ]; then
+          (
+            cp -rf user/${{matrix.target}}/files/* openwrt/files/
+          )
+          fi
+
+      - name: Load custom script
+        run: |
+          echo "Apply custom.sh"
+          cd openwrt
+          if [ -f "$GITHUB_WORKSPACE/user/common/custom.sh" ]; then
+          (
+            /bin/bash "$GITHUB_WORKSPACE/user/common/custom.sh" ${{matrix.target}}
+          )
+          fi
+          if [ -f "$GITHUB_WORKSPACE/user/${{matrix.target}}/custom.sh" ]; then
+          (
+            /bin/bash "$GITHUB_WORKSPACE/user/${{matrix.target}}/custom.sh"
+          )
+          fi
+
       - name: Build
         id: compile
         run: |
           cd openwrt
-          bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-mt7988_rfb-mt7996 log_file=make
+          bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-mt7988_rfb-mt7996
           echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Upload packages directory
+        if: env.ACT != 'true' && env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        uses: actions/upload-artifact@main
+        with:
+          name: OpenWrt_packages_${{matrix.target}}
+          path: openwrt/bin/packages
+
+      - name: Upload targets directory
+        if: env.ACT != 'true' && env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        uses: actions/upload-artifact@main
+        with:
+          name: OpenWrt_targets_${{matrix.target}}
+          path: openwrt/bin/targets
+
+      - name: Upload Firmware to artifact
+        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        uses: actions/upload-artifact@main
+        with:
+          name: OpenWrt_firmware_${{matrix.target}}
+          path: ./openwrt/autobuild_release/filogic-mac80211-mt7988_rfb-mt7996/
 
       - name: Upload Firmware to release
         if: env.ACT != 'true'
         uses: ncipollo/release-action@v1
         with:
-          name: R${{env.DATE}} for filogic_880
+          name: R${{env.DATE}} for mediatek-filogic_880
           allowUpdates: true
           removeArtifacts: true
           tag: mediatek-filogic_880
           commit: master
           token: ${{secrets.PERSONAL_TOKEN}}
           artifacts: ./openwrt/autobuild_release/filogic-mac80211-mt7988_rfb-mt7996/*
-          body: |
-            Build by Mediatek Official autobuild framework
-
-            Refer to: <https://gerrit.mediatek.inc/plugins/gitiles/openwrt/feeds/mtk_openwrt_feeds/+/refs/heads/master/autobuild/unified/Readme.md>
-
-            - Default IP: `192.168.1.1/24`
-            - Default Password: `no password`
-
-            Other apps default password is usually `password`
+          bodyFile: ./user/${{matrix.target}}/RELEASE -mtk-build.md

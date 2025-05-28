@@ -1,10 +1,10 @@
-# BPI-R4 common 固件, lede 源码
+# MediaTek Filogic 880 common 固件, immortalwrt 源码
+
+当前主要针对设备是 `BananaPi BPI-R4`
 
 默认 IP: `192.168.1.1/24`
 
 密码: `没有密码`，其他涉及默认密码的都是 `password`
-
-SD-Card 大小需要大于 8GB，`ROOTFS_PARTSIZE` 设置的是 7168 MiB
 
 ## 特性
 
@@ -125,3 +125,7 @@ mtd verify bpi-r4_spim-nand_8GB_bl2.img bl2
 
 - [Banana Pi BPI-R4 OpenWRT Auto Build](https://github.com/chenglong-do/bpi-r4-openwrt-main)
 - [padavanonly firmware for mt798x](https://github.com/padavanonly/immortalwrt-mt798x-24.10)
+
+## 其他记录
+
+通过 `SD-Card -> Nand -> EMMC` 刷入大存储固件 EMMC 后，如果 rootfs 分区大小未生效，在 `备份升级` 界面再刷写一次固件即可。

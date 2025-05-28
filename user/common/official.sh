@@ -8,7 +8,7 @@ do_official_common() {
     echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_release
 
     # replace include/target.mk
-    dl_curl https://raw.githubusercontent.com/immortalwrt/immortalwrt/refs/heads/master/include/target.mk include/target.mk
+    dl_curl https://raw.githubusercontent.com/immortalwrt/immortalwrt/refs/heads/openwrt-24.10/include/target.mk include/target.mk
 
     # add v2dat for luci-app-mosdns
     rm -rf package/v2dat
@@ -26,7 +26,7 @@ do_official_common() {
     rm -rf package/luci-app-zerotier
     dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-zerotier applications/luci-app-zerotier openwrt-23.05
     sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#g' package/luci-app-zerotier/Makefile
- 
+
     # add emortal packages
     rm -rf package/emortal
     dl_git_sub https://github.com/immortalwrt/immortalwrt package/emortal package/emortal openwrt-24.10

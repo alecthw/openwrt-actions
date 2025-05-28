@@ -1,0 +1,42 @@
+--- target/linux/mediatek/image/filogic.mk	2025-05-28 11:21:04.538925272 +0000
++++ target/linux/mediatek/image/filogic.mk	2025-05-28 11:21:39.514417822 +0000
+@@ -369,9 +369,6 @@
+   ARTIFACT/sdcard.img.gz	:= mt798x-gpt sdmmc |\
+ 				   pad-to 17k | mt7986-bl2 sdmmc-ddr4 |\
+ 				   pad-to 6656k | mt7986-bl31-uboot bananapi_bpi-r3-sdmmc |\
+-				$(if $(CONFIG_TARGET_ROOTFS_INITRAMFS),\
+-				   pad-to 12M | append-image-stage initramfs-recovery.itb | check-size 44m |\
+-				) \
+ 				   pad-to 44M | mt7986-bl2 spim-nand-ubi-ddr4 |\
+ 				   pad-to 45M | mt7986-bl31-uboot bananapi_bpi-r3-snand |\
+ 				   pad-to 49M | mt7986-bl2 nor-ddr4 |\
+@@ -465,9 +462,6 @@
+   ARTIFACT/sdcard.img.gz	:= mt798x-gpt sdmmc |\
+ 				   pad-to 17k | mt7988-bl2 sdmmc-comb |\
+ 				   pad-to 6656k | mt7988-bl31-uboot $$(DEVICE_NAME)-sdmmc |\
+-				$(if $(CONFIG_TARGET_ROOTFS_INITRAMFS),\
+-				   pad-to 12M | append-image-stage initramfs-recovery.itb | check-size 44m |\
+-				) \
+ 				   pad-to 44M | mt7988-bl2 spim-nand-ubi-comb |\
+ 				   pad-to 45M | mt7988-bl31-uboot $$(DEVICE_NAME)-snand |\
+ 				   pad-to 51M | mt7988-bl2 emmc-comb |\
+@@ -1312,9 +1306,6 @@
+   ARTIFACT/sdcard.img.gz	:= mt798x-gpt sdmmc |\
+ 				   pad-to 17k | mt7981-bl2 sdmmc-ddr3 |\
+ 				   pad-to 6656k | mt7981-bl31-uboot rfb-sd |\
+-				$(if $(CONFIG_TARGET_ROOTFS_INITRAMFS),\
+-				   pad-to 12M | append-image-stage initramfs.itb | check-size 44m |\
+-				) \
+ 				   pad-to 44M | mt7981-bl2 spim-nand-ddr3 |\
+ 				   pad-to 45M | mt7981-bl31-uboot rfb-spim-nand |\
+ 				   pad-to 49M | mt7981-bl2 nor-ddr3 |\
+@@ -1414,9 +1405,6 @@
+   ARTIFACT/sdcard.img.gz	:= mt798x-gpt sdmmc |\
+ 				   pad-to 17k | mt7988-bl2 sdmmc-comb |\
+ 				   pad-to 6656k | mt7988-bl31-uboot rfb-sd |\
+-				$(if $(CONFIG_TARGET_ROOTFS_INITRAMFS),\
+-				   pad-to 12M | append-image-stage initramfs.itb | check-size 44m |\
+-				) \
+ 				   pad-to 44M | mt7988-bl2 spim-nand-comb |\
+ 				   pad-to 45M | mt7988-bl31-uboot rfb-snand |\
+ 				   pad-to 51M | mt7988-bl2 nor-comb |\
