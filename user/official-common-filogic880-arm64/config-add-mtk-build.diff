@@ -1,3 +1,8 @@
+# busybox
+CONFIG_BUSYBOX_CUSTOM=y
+CONFIG_BUSYBOX_CONFIG_NANDWRITE=y
+CONFIG_BUSYBOX_CONFIG_NANDDUMP=y
+
 # 额外包
 CONFIG_PACKAGE_autocore=y
 CONFIG_PACKAGE_automount=y
@@ -29,4 +34,5 @@ CONFIG_PACKAGE_luci-theme-material=y
 # 其他
 CONFIG_PACKAGE_openssh-sftp-server=y
 CONFIG_PACKAGE_fdisk=y
+CONFIG_PACKAGE_ddns-scripts-cloudflare=y
 CONFIG_PACKAGE_ddns-scripts_aliyun=y

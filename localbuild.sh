@@ -137,7 +137,7 @@ do_prepare() {
     fi
 
     # --------------------- Install feeds
-    echo "Info: Update feeds..."
+    echo "Info: Install feeds..."
     cd ${GITHUB_WORKSPACE}/${code_dir}
     ./scripts/feeds install -a
 

@@ -1,6 +1,6 @@
 # MediaTek Filogic 880 common 固件, openwrt 官方源码
 
-这个 Target 当前仅用于 `Mediatek Official autobuild framework` 构建，使用的官方源码是 `mtk_openwrt_feeds` 中指定的 commit 版本，并非最新源码。
+这个 Target 当前仅用于 `Mediatek Official autobuild framework` 构建，使用的官方源码是 `mtk_openwrt_feeds` 中指定的 commit 版本，并非最新源码，所有没有定期构建，当上游更新时会同步更新并构建。
 
 参考：<https://gerrit.mediatek.inc/plugins/gitiles/openwrt/feeds/mtk_openwrt_feeds/+/refs/heads/master/autobuild/unified/Readme.md>
 
