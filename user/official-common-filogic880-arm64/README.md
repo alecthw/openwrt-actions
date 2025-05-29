@@ -6,7 +6,19 @@
 
 ## 记录
 
-mtk 脚本里创建 `.config` 的方式
+### 构建
+
+```bash
+cd openwrt-actions
+act \
+    -P ubuntu-22.04=-self-hosted \
+    -a alecthw \
+    -W '.github/workflows/build-filogic_880.yml' \
+    --matrix target:official-common-filogic880-arm64 \
+    workflow_dispatch
+```
+
+### mtk 脚本里创建 `.config` 的方式
 
 ``` bash
 STAGING_DIR_HOST=/home/runner/work/openwrt-actions/openwrt-actions/openwrt/staging_dir/host /home/runner/work/openwrt-actions/openwrt-actions/openwrt/scripts/config/aconf -m -o /home/runner/work/openwrt-actions/openwrt-actions/openwrt/.config -k /home/runner/work/openwrt-actions/openwrt-actions/openwrt/Config.in /builder/mtk-openwrt-feeds/autobuild/unified/filogic/24.10/defconfig /builder/mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/defconfig /builder/mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/mt7988_rfb/24.10/defconfig /builder/mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/mt7988_rfb/mt7996/24.10/defconfig

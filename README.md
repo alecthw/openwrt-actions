@@ -115,7 +115,7 @@ sudo apt install -y ack antlr3 aria2 asciidoc autoconf automake autopoint binuti
 ### 安装 act
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash -s -- -b /usr/local/bin
 ```
 
 或参考官方文档：[act install](https://nektosact.com/installation/index.html)
@@ -123,7 +123,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/ac
 ### 构建
 
 ```bash
-source .profile
 git clone https://github.com/alecthw/openwrt-actions.git
 cd openwrt-actions
 act \
@@ -131,7 +130,7 @@ act \
     -a alecthw \
     -W '.github/workflows/build-openwrt.yml' \
     --matrix target:lede-openclash-x86-amd64 \
-    schedule
+    workflow_dispatch
 ```
 
 matrix `target` 是 user 目录下下除 common 以外的文件夹名。
