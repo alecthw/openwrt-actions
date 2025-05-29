@@ -75,6 +75,7 @@ jobs:
           sudo -E apt -y full-upgrade
           sudo -E apt -y install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
           sudo -E apt -y install clang llvm npm
+          sudo -E apt -y install clang g++ libncurses-dev python3-distutils python3-setuptools file
           sudo -E systemctl daemon-reload
           sudo -E apt -y autoremove --purge
           sudo -E apt -y clean
@@ -123,10 +124,6 @@ jobs:
       - name: Load Settings.ini
         run: |
           source "${GITHUB_WORKSPACE}/user/${{matrix.target}}/settings.ini"
-          echo "REPO_URL=${REPO_URL}"                           >> $GITHUB_ENV
-          echo "REPO_BRANCH=${REPO_BRANCH}"                     >> $GITHUB_ENV
-          echo "CONFIG_FILE=${CONFIG_FILE}"                     >> $GITHUB_ENV
-          echo "LOAD_CUSTOM_CONFIG=${LOAD_CUSTOM_CONFIG}"       >> $GITHUB_ENV
           echo "UPLOAD_PACKAGES_DIR=${UPLOAD_PACKAGES_DIR}"     >> $GITHUB_ENV
           echo "UPLOAD_TARGETS_DIR=${UPLOAD_TARGETS_DIR}"       >> $GITHUB_ENV
           echo "UPLOAD_FIRMWARE=${UPLOAD_FIRMWARE}"             >> $GITHUB_ENV
@@ -169,6 +166,7 @@ jobs:
           luci 9453d7db801bf4ea2555aa3e7c99e58b93c93c1b
           routing f2ee837d3714f86e9d636302e9f69612c71029cb
           EOF
+          cat mtk-openwrt-feeds/autobuild/unified/feed_revision
 
       - name: Add custom config
         run: |
@@ -205,36 +203,49 @@ jobs:
           )
           fi
 
-      - name: Build
-        id: compile
+      - name: MTK Prepare
+        id: mtk-prepare
         run: |
           cd openwrt
-          bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-mt7988_rfb-mt7996
+          bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-mt7988_rfb-mt7996 prepare
+          cat .config
+
+      - name: MTK Build
+        id: mtk-build
+        run: |
+          cd openwrt
+          bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-mt7988_rfb-mt7996 build
+
+      - name: Build Release
+        id: mtk-release
+        run: |
+          cd openwrt
+          bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-mt7988_rfb-mt7996 release
           echo "status=success" >> $GITHUB_OUTPUT
 
       - name: Upload packages directory
-        if: env.ACT != 'true' && env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.mtk-release.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_packages_${{matrix.target}}
           path: openwrt/bin/packages
 
       - name: Upload targets directory
-        if: env.ACT != 'true' && env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.mtk-release.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_targets_${{matrix.target}}
           path: openwrt/bin/targets
 
       - name: Upload Firmware to artifact
-        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.mtk-release.outputs.status == 'success'
         uses: actions/upload-artifact@main
         with:
           name: OpenWrt_firmware_${{matrix.target}}
           path: ./openwrt/autobuild_release/filogic-mac80211-mt7988_rfb-mt7996/
 
       - name: Upload Firmware to release
-        if: env.ACT != 'true'
+        if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.mtk-release.outputs.status == 'success'
         uses: ncipollo/release-action@v1
         with:
           name: R${{env.DATE}} for mediatek-filogic_880
@@ -244,4 +255,4 @@ jobs:
           commit: master
           token: ${{secrets.PERSONAL_TOKEN}}
           artifacts: ./openwrt/autobuild_release/filogic-mac80211-mt7988_rfb-mt7996/*
-          bodyFile: ./user/${{matrix.target}}/RELEASE -mtk-build.md
+          bodyFile: ./user/${{matrix.target}}/RELEASE-mtk-build.md
