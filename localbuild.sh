@@ -153,7 +153,7 @@ do_prepare() {
 
     # --------------------- Copy build config
     cd ${GITHUB_WORKSPACE}/${code_dir}
-    cp -af ${GITHUB_WORKSPACE}/user/${target}/${CONFIG_FILE} .config
+    cp -af ${GITHUB_WORKSPACE}/user/${target}/${DEFCONFIG_FILE} .config
     # apply private if exist
     if [ -f "${GITHUB_WORKSPACE}/app_config/${target}.diff" ]; then
         cp ${GITHUB_WORKSPACE}/app_config/${target}.diff .config
