@@ -126,6 +126,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/ac
 git clone https://github.com/alecthw/openwrt-actions.git
 cd openwrt-actions
 act \
+    -r
     -P ubuntu-22.04=-self-hosted \
     -a alecthw \
     -W '.github/workflows/build-openwrt.yml' \

@@ -11,6 +11,7 @@
 ```bash
 cd openwrt-actions
 act \
+    -r
     -P ubuntu-22.04=-self-hosted \
     -a alecthw \
     -W '.github/workflows/build-filogic_880.yml' \
