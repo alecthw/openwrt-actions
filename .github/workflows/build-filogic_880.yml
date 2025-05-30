@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       use_release:
-        description: 'True to print to STDOUT'
+        description: 'Use MTK Release Version'
         required: true
         default: true
         type: boolean
