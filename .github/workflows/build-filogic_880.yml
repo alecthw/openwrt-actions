@@ -2,11 +2,12 @@ name: build-filogic_880
 
 on:
   workflow_dispatch:
-    use_release:
-      description: 'True to print to STDOUT'
-      required: true
-      default: true
-      type: boolean
+    inputs:
+      use_release:
+        description: 'True to print to STDOUT'
+        required: true
+        default: true
+        type: boolean
   # schedule:
   #   - cron: 0 22 * * 4
   # push:
