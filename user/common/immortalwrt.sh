@@ -13,15 +13,15 @@ do_immortalwrt_common() {
 
     # add luci-app-adguardhome
     rm -rf package/luci-app-adguardhome
-    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-adguardhome applications/luci-app-adguardhome openwrt-23.05
+    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-adguardhome applications/luci-app-adguardhome openwrt-24.10
 
     # add luci-theme-design
     rm -rf package/luci-theme-design
-    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-theme-design themes/luci-theme-design openwrt-23.05
+    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-theme-design themes/luci-theme-design openwrt-24.10
 
     # replace luci-app-zerotier
     rm -rf package/luci-app-zerotier
-    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-zerotier applications/luci-app-zerotier openwrt-23.05
+    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-zerotier applications/luci-app-zerotier openwrt-24.10
     sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#g' package/luci-app-zerotier/Makefile
     # replace zerotier
     rm -rf package/zerotier
