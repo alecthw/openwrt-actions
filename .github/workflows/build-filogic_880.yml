@@ -2,6 +2,11 @@ name: build-filogic_880
 
 on:
   workflow_dispatch:
+    use_release:
+      description: 'True to print to STDOUT'
+      required: true
+      default: true
+      type: boolean
   # schedule:
   #   - cron: 0 22 * * 4
   # push:
@@ -134,32 +139,36 @@ jobs:
         if: env.ACT != 'true'
         working-directory: /builder
         run: |
-          git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git openwrt
-          cd openwrt
-          git checkout 3a481ae21bdc504f7f0325151ee0cb4f25dfd2cd
-          cd ..
+          git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git
           ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
 
           git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds
-          cd mtk-openwrt-feeds
-          git checkout c8e3540e54b5b07b7afb4a5bd09d6f8db8c8a496
-          cd ..
           ln -sf /builder/mtk-openwrt-feeds $GITHUB_WORKSPACE/mtk-openwrt-feeds
 
       - name: Clone source code for act build
         if: env.ACT == 'true'
         run: |
-          git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git openwrt
+          git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git
+          git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds
+
+      - name: Set Release Tag
+        if: ${{ inputs.use_release }} 
+        run: |
+          echo "RELEASE_TAG=_release" >> $GITHUB_ENV
+
+      - name: Change branch to release
+        if: ${{ inputs.use_release }} 
+        run: |
           cd openwrt
           git checkout 3a481ae21bdc504f7f0325151ee0cb4f25dfd2cd
           cd ..
 
-          git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds
           cd mtk-openwrt-feeds
           git checkout c8e3540e54b5b07b7afb4a5bd09d6f8db8c8a496
           cd ..
 
-      - name: Change Feeds Revision
+      - name: Change Feeds Revision to release
+        if: ${{ inputs.use_release }} 
         run: |
           cat > mtk-openwrt-feeds/autobuild/unified/feed_revision << EOF
           packages e4be6dba98298957ef82ae70b4478818a351535e
@@ -248,10 +257,10 @@ jobs:
         if: env.ACT != 'true' && env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_RELEASE == 'true' && !cancelled() && steps.mtk-release.outputs.status == 'success'
         uses: ncipollo/release-action@v1
         with:
-          name: R${{env.DATE}} for mediatek-filogic_880
+          name: R${{env.DATE}} for mediatek-filogic_880${{env.RELEASE_TAG}}
           allowUpdates: true
           removeArtifacts: true
-          tag: mediatek-filogic_880
+          tag: mediatek-filogic_880${{env.RELEASE_TAG}}
           commit: master
           token: ${{secrets.PERSONAL_TOKEN}}
           artifacts: ./openwrt/autobuild_release/filogic-mac80211-mt7988_rfb-mt7996/*
