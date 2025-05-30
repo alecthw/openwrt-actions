@@ -129,3 +129,13 @@ mtd verify bpi-r4_spim-nand_8GB_bl2.img bl2
 ## 其他记录
 
 通过 `SD-Card -> Nand -> EMMC` 刷入大存储固件 EMMC 后，如果 rootfs 分区大小未生效，在 `备份升级` 界面再刷写一次固件即可。
+
+```bash
+act \
+    -r
+    -P ubuntu-22.04=-self-hosted \
+    -a alecthw \
+    -W '.github/workflows/build-openwrt.yml' \
+    --matrix target:immortalwrt-common-filogic880-arm64 \
+    workflow_dispatch
+```
