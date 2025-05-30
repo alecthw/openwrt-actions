@@ -54,6 +54,7 @@ uci commit uhttpd
 # remove feeds repository
 sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
 sed -i '/passwall/d' /etc/opkg/distfeeds.conf
+sed -i '/mtk_openwrt_feed/d' /etc/opkg/distfeeds.conf
 
 # move menu
 sed -i 's/\"services\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua

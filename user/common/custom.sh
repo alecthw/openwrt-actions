@@ -64,6 +64,12 @@ do_common() {
     # add OpenAppFilter
     # rm -rf package/OpenAppFilter
     # dl_git https://github.com/destan19/OpenAppFilter package/OpenAppFilter
+
+    # add luci-app-fancontrol
+    rm -rf package/luci-app-fancontrol
+    dl_git_sub https://github.com/rockjake/luci-app-fancontrol package/luci-app-fancontrol luci-app-fancontrol
+    rm -rf package/fancontrol
+    dl_git_sub https://github.com/rockjake/luci-app-fancontrol package/fancontrol fancontrol
 }
 
 # excute
