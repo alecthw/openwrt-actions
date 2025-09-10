@@ -51,8 +51,8 @@ CONFIG_PACKAGE_luci-theme-argon-jerrykuku=y
 CONFIG_PACKAGE_luci-theme-material=y
 
 # 其他
+CONFIG_PACKAGE_ddns-scripts-aliyun=y
 CONFIG_PACKAGE_ddns-scripts-cloudflare=y
-CONFIG_PACKAGE_ddns-scripts_aliyun=y
 CONFIG_PACKAGE_openssh-sftp-server=y
 CONFIG_PACKAGE_fdisk=y
 CONFIG_PACKAGE_open-vm-tools=y
