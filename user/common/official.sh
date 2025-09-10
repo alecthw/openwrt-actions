@@ -16,7 +16,7 @@ do_official_common() {
 
     # add luci-app-adguardhome
     rm -rf package/luci-app-adguardhome
-    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-adguardhome applications/luci-app-adguardhome openwrt-24.10
+    dl_git_sub https://github.com/coolsnowwolf/luci package/luci-app-adguardhome applications/luci-app-adguardhome openwrt-23.05
 
     # add luci-theme-design
     rm -rf package/luci-theme-design
@@ -52,7 +52,7 @@ do_official_common() {
 
     # add ddns-scripts_aliyun
     rm -rf package/ddns-scripts_aliyun
-    dl_git_sub https://github.com/immortalwrt/packages package/ddns-scripts_aliyun net/ddns-scripts_aliyun openwrt-24.10
+    dl_git_sub https://github.com/coolsnowwolf/lede package/ddns-scripts_aliyun package/lean/ddns-scripts_aliyun
 }
 
 # excute
