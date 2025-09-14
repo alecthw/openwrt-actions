@@ -131,6 +131,18 @@ mtd verify bpi-r4_spim-nand_8GB_bl2.img bl2
 
 通过 `SD-Card -> Nand -> EMMC` 刷入大存储（大 rootfs）固件 EMMC 后，如果 rootfs 分区大小未生效，在 `备份升级` 界面再使用 `*sysupgrade.itb` 刷写一次固件即可。PS：我也不知道为什么，但是这样成功了~~
 
+### 串口线
+
+- 黑色：G
+- 绿色：RX
+- 白色：TX
+
+### CPU 风扇控制
+
+温度传感器文件：`/sys/class/thermal/thermal_zone0/temp`
+
+风扇转速控制文件：`/sys/class/hwmon/hwmon1/pwm1`
+
 ### 使用 `act` 进行本地构建
 
 ```bash
