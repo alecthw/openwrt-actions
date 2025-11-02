@@ -14,7 +14,7 @@ CONFIG_TARGET_IMAGES_GZIP=y
 
 # 设置分区大小
 CONFIG_TARGET_KERNEL_PARTSIZE=32
-CONFIG_TARGET_ROOTFS_PARTSIZE=16384
+CONFIG_TARGET_ROOTFS_PARTSIZE=760
 
 # 额外包
 CONFIG_PACKAGE_autocore-arm=y
@@ -39,7 +39,6 @@ CONFIG_PACKAGE_luci-app-mosdns=y
 # CONFIG_PACKAGE_luci-app-nlbwmon is not set
 CONFIG_PACKAGE_luci-app-openclash=y
 CONFIG_PACKAGE_luci-app-ramfree=y
-CONFIG_PACKAGE_luci-app-snmpd=y
 CONFIG_PACKAGE_luci-app-turboacc=y
 # CONFIG_PACKAGE_luci-app-upnp is not set
 CONFIG_PACKAGE_luci-app-vlmcsd=y
@@ -55,3 +54,5 @@ CONFIG_PACKAGE_luci-theme-material=y
 # 其他
 CONFIG_PACKAGE_openssh-sftp-server=y
 CONFIG_PACKAGE_fdisk=y
+CONFIG_PACKAGE_resize2fs=y
+CONFIG_PACKAGE_losetup=y

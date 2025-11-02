@@ -136,6 +136,16 @@ act \
 
 matrix `target` 是 user 目录下下除 common 以外的文件夹名。
 
+## ext4 扩容（如 SD-Card 空间未使用）
+
+需要 `fdisk resize2fs losetup`，`r2s, zero3, filogic` 固件已预置。
+
+### 查看分区，记录数据分区起始扇区
+
+```bash
+fdisk -l
+```
+
 ## 转换工具下载
 
 - StarWind V2V Converter: [Download link](https://www.starwindsoftware.com/tmplink/starwindconverter.exe)
