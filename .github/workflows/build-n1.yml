@@ -231,6 +231,7 @@ jobs:
       - name: Clean up server space
         if: steps.compile.outputs.status == 'success' && !cancelled()
         run: |
+          ls -l openwrt/bin/targets/*/*
           cd openwrt/
           cp -f .config $GITHUB_WORKSPACE/config
           rm -rf $(ls . | grep -v "^bin$" | xargs) 2>/dev/null
