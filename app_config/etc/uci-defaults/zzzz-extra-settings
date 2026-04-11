@@ -34,7 +34,9 @@ uci delete network.lan.ip6assign
 uci set network.lan.ipaddr='192.168.11.4'
 uci set network.lan.netmask='255.255.255.0'
 uci set network.lan.gateway='192.168.11.1'
-uci set network.lan.dns='223.5.5.5 114.114.114.114'
+uci -q delete network.lan.dns
+uci add_list network.lan.dns='223.5.5.5'
+uci add_list network.lan.dns='114.114.114.114'
 
 # lan6
 uci set network.lan6=interface
@@ -91,6 +93,7 @@ uci commit uhttpd
 # remove feeds repository
 sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
 sed -i '/passwall/d' /etc/opkg/distfeeds.conf
+sed -i '/nikki/d' /etc/opkg/distfeeds.conf
 
 # move menu
 sed -i 's/\"services\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua

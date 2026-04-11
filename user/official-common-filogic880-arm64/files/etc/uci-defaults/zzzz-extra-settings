@@ -28,7 +28,9 @@ fi
 uci delete network.lan.ip6assign
 uci set network.lan.ipaddr='192.168.1.1'
 uci set network.lan.netmask='255.255.255.0'
-uci set network.lan.dns='223.5.5.5 114.114.114.114'
+uci -q delete network.lan.dns
+uci add_list network.lan.dns='223.5.5.5'
+uci add_list network.lan.dns='114.114.114.114'
 
 # add zerotier interface
 if [ -f "/etc/config/zerotier" ]; then
@@ -54,6 +56,7 @@ uci commit uhttpd
 # remove feeds repository
 sed -i '/helloworld/d' /etc/opkg/distfeeds.conf
 sed -i '/passwall/d' /etc/opkg/distfeeds.conf
+sed -i '/nikki/d' /etc/opkg/distfeeds.conf
 sed -i '/mtk_openwrt_feed/d' /etc/opkg/distfeeds.conf
 
 # move menu
