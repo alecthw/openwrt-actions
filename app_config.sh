@@ -159,9 +159,13 @@ if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
         copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/udpxy package/feeds/packages/udpxy/files/udpxy.conf
     fi
 
-    if [ -d "package/feeds/luci/luci-app-vlmcsd" ]; then
+    if [ -f "package/feeds/luci/luci-app-vlmcsd/root/etc/config/vlmcsd" ]; then
         copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/vlmcsd package/feeds/luci/luci-app-vlmcsd/root/etc/config/vlmcsd
     fi
+    if [ -f "package/feeds/packages/vlmcsd/files/vlmcsd.conf" ]; then
+        copy_s $GITHUB_WORKSPACE/$APP_CONFIG_DIR/etc/config/vlmcsd package/feeds/packages/vlmcsd/files/vlmcsd.conf
+    fi
+
 
     ZEROTIER_DIR=""
     if [ -d "package/zerotier" ]; then
