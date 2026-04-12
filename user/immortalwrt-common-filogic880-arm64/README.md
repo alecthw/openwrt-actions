@@ -143,6 +143,20 @@ mtd verify bpi-r4_spim-nand_8GB_bl2.img bl2
 
 风扇转速控制文件：`/sys/class/hwmon/hwmon1/pwm1`
 
+``` bash
+# 查看当前温度传感器值
+cat /sys/class/thermal/thermal_zone0/temp
+
+# 设置风扇满速运行
+echo 255 > /sys/class/hwmon/hwmon1/pwm1
+
+# 设置风扇半速运行
+echo 128 > /sys/class/hwmon/hwmon1/pwm1
+
+# 停止风扇
+echo 0 > /sys/class/hwmon/hwmon1/pwm1
+```
+
 ### 使用 `act` 进行本地构建
 
 ```bash
