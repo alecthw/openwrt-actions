@@ -1,7 +1,7 @@
---- feeds.conf.default	2025-09-05 03:03:20.115015683 +0000
-+++ feeds.conf.default	2025-09-05 03:03:29.027015369 +0000
-@@ -4,7 +4,7 @@
- #src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-24.10
+--- feeds.conf.default	2026-04-26 00:19:47.290497304 +0800
++++ feeds.conf.default	2026-04-26 00:29:09.037812108 +0800
+@@ -5,7 +5,7 @@
+ src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-25.12
  src-git routing https://github.com/coolsnowwolf/routing
  src-git telephony https://github.com/coolsnowwolf/telephony.git
 -#src-git helloworld https://github.com/fw876/helloworld.git
