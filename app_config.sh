@@ -139,6 +139,10 @@ if [ -d "$GITHUB_WORKSPACE/$APP_CONFIG_DIR" ]; then
         rm -rf $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/GeoSite.dat
         dl_curl https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/GeoSite.dat
 
+        # update geoip
+        rm -rf $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/GeoIP.dat
+        dl_curl https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/GeoIP.dat
+
         # update mmdb
         rm -rf $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/Country.mmdb
         dl_curl https://testingcf.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb $LUCI_APP_OPENCLASH_DIR/root/etc/openclash/Country.mmdb
