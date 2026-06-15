@@ -30,12 +30,17 @@ jobs:
       fail-fast: false
       # max-parallel: 2
       matrix:
-        location:
-          - ysh
-          - ha
-        target:
-          - lede-openclash-x86-amd64
-          - immortalwrt-openclash-x86-amd64
+        include:
+          - location: ysh
+            target: lede-openclash-x86-amd64
+          # - location: ysh
+          #   target: immortalwrt-openclash-x86-amd64
+          - location: ha
+            target: lede-openclash-x86-amd64
+          # - location: ha
+          #   target: immortalwrt-openclash-x86-amd64
+          - location: sh
+            target: lede-openclash-zero3-arm64
 
     steps:
       - name: Checkout
