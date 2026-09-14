@@ -49,6 +49,7 @@ do_common() {
     # replace feeds/helloworld/mosdns, feeds/packages/net/mosdns
     rm -rf package/mosdns
     dl_git_sub https://github.com/sbwml/luci-app-mosdns package/mosdns mosdns v5
+    dl_git_sub https://github.com/sbwml/luci-app-mosdns package/geo2txt geo2txt v5
     rm -rf package/mosdns/patches
     # use fork repo before PR accepted
     # sed -i 's/^PKG_VERSION.*/PKG_VERSION:=7d80823/g' package/mosdns/Makefile
